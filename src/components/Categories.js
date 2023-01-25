@@ -3,7 +3,7 @@ import React from "react";
 // import furniture from "../assets/images/furniture.png";
 import watches from "../assets/images/watches.png";
 import electronics from "../assets/images/electronics.png";
-import { Link, animateScroll as scroll } from "react-scroll";
+import { Link } from "react-scroll";
 
 const Categories = () => {
   return (
@@ -19,7 +19,7 @@ const Categories = () => {
         </div>
         <div className="space-y-2 text-center cursor-pointer">
           <div className="w-24 h-16 flex items-center justify-center rounded-md">
-            <Link to="women" smooth="true" offset={25} duration={500}>
+            <Link to="women" smooth="true" offset={16} duration={500}>
               <img src={watches} alt="mobile" />
             </Link>
           </div>
@@ -27,7 +27,7 @@ const Categories = () => {
         </div>
         <div className="space-y-2 text-center cursor-pointer">
           <div className="w-24 h-16 flex items-center justify-center rounded-md">
-            <Link to="jewelery" smooth="true" offset={35} duration={500}>
+            <Link to="jewelery" smooth="true" offset={18} duration={500}>
               <img src={electronics} alt="mobile" />
             </Link>
           </div>
@@ -35,7 +35,7 @@ const Categories = () => {
         </div>
         <div className="space-y-2 text-center cursor-pointer">
           <div className="w-24 h-16 flex items-center justify-center rounded-md">
-            <Link to="electronics" smooth="true" offset={45} duration={500}>
+            <Link to="electronics" smooth="true" offset={19} duration={500}>
               <img src={watches} alt="mobile" />
             </Link>
           </div>

@@ -3,6 +3,7 @@ import { IoMdArrowForward } from "react-icons/io";
 
 import { ProductContext } from "../store/ProductContext";
 import Product from "../components/Product";
+import Categories from "../components/Categories";
 
 const Home = () => {
   const { products } = useContext(ProductContext);
@@ -25,6 +26,7 @@ const Home = () => {
 
   return (
     <div>
+      <Categories />
       <section id="men" className="py-16">
         <div className="container mx-auto">
           <div className="flex justify-between items-center">
