@@ -7,7 +7,7 @@ import electronics from "../assets/images/electronics.png";
 const Categories = () => {
   return (
     <div className="w-11/12 mt-20 ">
-      <div className="flex justify-around items-center	">
+      <div className=" container flex justify-around items-center	">
         <div className="space-y-2 text-center cursor-pointer">
           <div className="w-12 h-16 flex items-center justify-center rounded-md">
             <img src={mobile} alt="mobile" />
