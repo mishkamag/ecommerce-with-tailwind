@@ -24,8 +24,8 @@ const Home = () => {
   );
 
   return (
-    <div className="py-16">
-      <section>
+    <div>
+      <section id="men" className="py-16">
         <div className="container mx-auto">
           <div className="flex justify-between items-center">
             <h1 className="text-[#008ECC] mb-4 pb-2  uppercase text-2xl font-bold border-b border-black">
@@ -41,7 +41,7 @@ const Home = () => {
         </div>
       </section>
 
-      <section className="py-16">
+      <section id="women" className="py-16">
         <div className="container mx-auto">
           <div className="flex justify-between items-center">
             <h1 className="text-[#008ECC] mb-4 pb-2  uppercase text-2xl font-bold border-b border-black  ">
@@ -57,7 +57,7 @@ const Home = () => {
         </div>
       </section>
 
-      <section className="py-16">
+      <section id="jewelery" className="py-16">
         <div className="container mx-auto">
           <div className="flex justify-between items-center">
             <h1 className="text-[#008ECC] mb-4 pb-2  uppercase text-2xl font-bold border-b border-black  ">
@@ -73,7 +73,7 @@ const Home = () => {
         </div>
       </section>
 
-      <section className="py-16">
+      <section id="electronics" className="py-16">
         <div className="container mx-auto">
           <div className="flex justify-between items-center">
             <h1 className="text-[#008ECC] mb-4 pb-2  uppercase text-2xl font-bold border-b border-black  ">
