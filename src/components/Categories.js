@@ -9,8 +9,8 @@ const Categories = () => {
     <div className="w-11/12 mt-20 ">
       <div className="flex justify-around items-center	">
         <div className="space-y-2 text-center cursor-pointer">
-          <div className="w-24 h-16 flex items-center justify-center rounded-md">
-            <img className="w-12 h-auto" src={mobile} alt="mobile" />
+          <div className="w-12 h-16 flex items-center justify-center rounded-md">
+            <img src={mobile} alt="mobile" />
           </div>
           <h1 className="font-semibold">Mobiles</h1>
         </div>
