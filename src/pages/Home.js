@@ -26,10 +26,10 @@ const Home = () => {
       <section>
         <div className="container mx-auto">
           <div className="flex justify-between items-center">
-            <h1 className="pb-4 uppercase text-2xl font-bold uderline-t">
+            <h1 className="text-[#008ECC] mb-4 pb-2  uppercase text-2xl font-bold border-b border-black">
               Men category
             </h1>
-            <IoMdArrowForward className="text-2xl" />
+            <IoMdArrowForward className="text-2xl text-[#008ECC]" />
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-[30px]  ">
             {menProducts.map((product) => {
@@ -42,10 +42,10 @@ const Home = () => {
       <section className="py-16">
         <div className="container mx-auto">
           <div className="flex justify-between items-center">
-            <h1 className="pb-4 uppercase text-2xl font-bold uderline-t">
+            <h1 className="text-[#008ECC] mb-4 pb-2  uppercase text-2xl font-bold border-b border-black  ">
               Women category
             </h1>
-            <IoMdArrowForward className="text-2xl" />
+            <IoMdArrowForward className="text-2xl text-[#008ECC]" />
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-[30px]  ">
             {womenProducts.map((product) => {

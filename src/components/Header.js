@@ -9,7 +9,7 @@ const Header = () => {
   const { itemAmount } = useContext(CartContext);
 
   return (
-    <header className="bg-[#008ECC] fixed w-full z-10 ">
+    <header className="bg-[#008ECC] fixed w-full z-10 py-1 ">
       <div className="container mx-auto flex items-center justify-between h-[6vh] ">
         <Link to={"/"}>LOGO</Link>
         <div className="flex justify-center items-center gap-[25px] ">
