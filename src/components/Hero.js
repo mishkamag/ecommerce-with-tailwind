@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import img1 from "../assets/sliderImg/img1.png";
 import img2 from "../assets/sliderImg/img2.png";
 import img3 from "../assets/sliderImg/img3.png";
@@ -10,6 +10,17 @@ let count = 0;
 
 const Hero = () => {
   const [imageIndex, setImageIndex] = useState(0);
+  const sliderRef = useRef();
+
+  const startSlider = () => {
+    setInterval(() => {
+      handleOnNext();
+    }, 3000);
+  };
+
+  useEffect(() => {
+    startSlider();
+  }, []);
 
   const handleOnNext = () => {
     count = (count + 1) % sliderImages.length;
@@ -21,8 +32,10 @@ const Hero = () => {
     count = (imageIndex + productsLength - 1) % productsLength;
     setImageIndex(count);
   };
+
+  console.log(sliderRef);
   return (
-    <div className="w-full select-none relative pt-10 flex">
+    <div ref={sliderRef} className="w-full select-none relative pt-10 flex">
       <img src={sliderImages[imageIndex]} alt="" />
       <div className="absolute w-full top-1/2 transform -translate-y-1/2 px-3 flex justify-between items-center">
         <button onClick={handleOnPrev}>Previus</button>
