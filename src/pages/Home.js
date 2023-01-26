@@ -27,6 +27,7 @@ const Home = () => {
   return (
     <div>
       <Categories />
+
       <section id="men" className="py-16">
         <div className="container mx-auto">
           <div className="flex justify-between items-center">
