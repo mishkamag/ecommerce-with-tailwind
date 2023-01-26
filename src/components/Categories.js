@@ -2,7 +2,7 @@ import React from "react";
 // import mobile from "../assets/images/mobile.png";
 // import furniture from "../assets/images/furniture.png";
 // import watches from "../assets/images/watches.png";
-import electronics from "../assets/images/electronics.png";
+import electronics from "../assets/categoryImg/electronics.png";
 import { Link } from "react-scroll";
 
 const Categories = () => {

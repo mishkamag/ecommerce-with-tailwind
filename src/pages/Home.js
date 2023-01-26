@@ -4,6 +4,7 @@ import { IoMdArrowForward } from "react-icons/io";
 import { ProductContext } from "../store/ProductContext";
 import Product from "../components/Product";
 import Categories from "../components/Categories";
+import Hero from "../components/Hero";
 
 const Home = () => {
   const { products } = useContext(ProductContext);
@@ -27,6 +28,8 @@ const Home = () => {
   return (
     <div>
       <Categories />
+
+      <Hero />
 
       <section id="men" className="py-16">
         <div className="container mx-auto">
