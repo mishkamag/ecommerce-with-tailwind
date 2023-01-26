@@ -6,19 +6,23 @@ import img4 from "../assets/sliderImg/img4.png";
 import img5 from "../assets/sliderImg/img5.png";
 
 const sliderImages = [img1, img2, img3, img4, img5];
+let count = 0;
 
 const Hero = () => {
   const [imageIndex, setImageIndex] = useState(0);
 
   const handleOnNext = () => {
-    setImageIndex(imageIndex + 1);
+    count = (count + 1) % sliderImages.length;
+    setImageIndex(count);
   };
 
   const handleOnPrev = () => {
-    setImageIndex(imageIndex - 1);
+    const productsLength = sliderImages.length;
+    count = (imageIndex + productsLength - 1) % productsLength;
+    setImageIndex(count);
   };
   return (
-    <div className="max-w-screen select-none relative pt-10">
+    <div className="w-full select-none relative pt-10 flex">
       <img src={sliderImages[imageIndex]} alt="" />
       <div className="absolute w-full top-1/2 transform -translate-y-1/2 px-3 flex justify-between items-center">
         <button onClick={handleOnPrev}>Previus</button>

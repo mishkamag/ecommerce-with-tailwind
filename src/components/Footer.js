@@ -68,7 +68,7 @@ const Footer = () => {
         </div>
       </div>
 
-      <div className="flex justify-center items-center  text-xl">
+      <div className="container flex justify-center items-center  text-xl">
         <p className="py-4">2023 created by: S.Lomtadze and M.Maglaperidze</p>
       </div>
     </div>
