@@ -17,7 +17,7 @@ const Hero = () => {
   const startSlider = () => {
     setInterval(() => {
       handleOnNext();
-    }, 4000);
+    }, 5000);
   };
 
   const removeAnimation = () => {
