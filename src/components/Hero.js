@@ -18,22 +18,28 @@ const Hero = () => {
     }, 3000);
   };
 
+  const removeAnimation = () => {
+    sliderRef.current.classList.remove("fade-anim");
+  };
+
   useEffect(() => {
-    startSlider();
+    sliderRef.current.addEventListener("animationend", removeAnimation);
+    // startSlider();
   }, []);
 
   const handleOnNext = () => {
     count = (count + 1) % sliderImages.length;
     setImageIndex(count);
+    sliderRef.current.classList.add("fade-anim");
   };
 
   const handleOnPrev = () => {
     const productsLength = sliderImages.length;
     count = (imageIndex + productsLength - 1) % productsLength;
     setImageIndex(count);
+    sliderRef.current.classList.add("fade-anim");
   };
 
-  console.log(sliderRef);
   return (
     <div ref={sliderRef} className="w-full select-none relative pt-10 flex">
       <img src={sliderImages[imageIndex]} alt="" />
