@@ -4,6 +4,8 @@ import img2 from "../assets/sliderImg/img2.png";
 import img3 from "../assets/sliderImg/img3.png";
 import img4 from "../assets/sliderImg/img4.png";
 import img5 from "../assets/sliderImg/img5.png";
+import { FaArrowCircleLeft } from "react-icons/fa";
+import { BsArrowRightCircleFill } from "react-icons/bs";
 
 const sliderImages = [img1, img2, img3, img4, img5];
 let count = 0;
@@ -15,7 +17,7 @@ const Hero = () => {
   const startSlider = () => {
     setInterval(() => {
       handleOnNext();
-    }, 3000);
+    }, 4000);
   };
 
   const removeAnimation = () => {
@@ -24,7 +26,7 @@ const Hero = () => {
 
   useEffect(() => {
     sliderRef.current.addEventListener("animationend", removeAnimation);
-    // startSlider();
+    startSlider();
   }, []);
 
   const handleOnNext = () => {
@@ -43,9 +45,13 @@ const Hero = () => {
   return (
     <div ref={sliderRef} className="w-full select-none relative pt-10 flex">
       <img src={sliderImages[imageIndex]} alt="" />
-      <div className="absolute w-full top-1/2 transform -translate-y-1/2 px-3 flex justify-between items-center">
-        <button onClick={handleOnPrev}>Previus</button>
-        <button onClick={handleOnNext}>Next</button>
+      <div className="absolute w-full top-1/2 transform -translate-y-1/2 px-3 flex justify-between  text-2xl text-gray-500 hover:text-gray-800  hover:scale-100">
+        <button onClick={handleOnPrev}>
+          <FaArrowCircleLeft />
+        </button>
+        <button onClick={handleOnNext}>
+          <BsArrowRightCircleFill />
+        </button>
       </div>
     </div>
   );
