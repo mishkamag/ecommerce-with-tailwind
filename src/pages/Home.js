@@ -5,7 +5,6 @@ import { ProductContext } from "../store/ProductContext";
 import Product from "../components/Product";
 import Categories from "../components/Categories";
 import Hero from "../components/Hero";
-import { Link } from "react-router-dom";
 
 const Home = () => {
   const { products } = useContext(ProductContext);
@@ -38,9 +37,9 @@ const Home = () => {
     (item) => item.category === "jewelery"
   );
 
-  const electronicsProducts = products
-    .filter((item) => item.category === "electronics")
-    .slice(0, 5);
+  const electronicsProducts = products.filter(
+    (item) => item.category === "electronics"
+  );
 
   return (
     <div>
@@ -102,9 +101,7 @@ const Home = () => {
             <h1 className="text-[#008ECC] mb-4 pb-2  uppercase text-2xl font-bold border-b border-black  ">
               Electronics category
             </h1>
-            <Link to="category">
-              <IoMdArrowForward className="text-2xl text-[#008ECC]" />
-            </Link>
+            <IoMdArrowForward className="text-2xl text-[#008ECC]" />
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-[30px]  ">
             {electronicsProducts.slice(0, cardsToShow).map((product) => {
