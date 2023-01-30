@@ -45,11 +45,17 @@ const Hero = () => {
   return (
     <div ref={sliderRef} className="w-full select-none relative pt-10 flex">
       <img src={sliderImages[imageIndex]} alt="" />
-      <div className="absolute w-full top-1/2 transform -translate-y-1/2 px-3 flex justify-between  text-2xl text-gray-500 hover:text-gray-800  hover:scale-100">
-        <button onClick={handleOnPrev}>
+      <div className="absolute w-full top-1/2 transform -translate-y-1/2 px-3 flex justify-between  text-2xl text-gray-500 ">
+        <button
+          className="hover:text-gray-800  hover:scale-100"
+          onClick={handleOnPrev}
+        >
           <FaArrowCircleLeft />
         </button>
-        <button onClick={handleOnNext}>
+        <button
+          className="hover:text-gray-800  hover:scale-100"
+          onClick={handleOnNext}
+        >
           <BsArrowRightCircleFill />
         </button>
       </div>
