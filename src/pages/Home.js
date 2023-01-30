@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { IoMdArrowForward } from "react-icons/io";
-
+import useWindowResize from "../hooks/useWindowResize";
 import { ProductContext } from "../store/ProductContext";
 import Product from "../components/Product";
 import Categories from "../components/Categories";
@@ -10,13 +10,29 @@ import { Link } from "react-router-dom";
 const Home = () => {
   const { products } = useContext(ProductContext);
 
+  const size = useWindowResize();
+  let cardsToShow = 1;
+
+  if (size.width >= 576) {
+    cardsToShow = 1;
+  }
+  if (size.width >= 768) {
+    cardsToShow = 2;
+  }
+  if (size.width >= 992) {
+    cardsToShow = 3;
+  }
+  if (size.width >= 1200) {
+    cardsToShow = 5;
+  }
+
   const menProducts = products.filter(
     (item) => item.category === "men's clothing"
   );
 
-  const womenProducts = products
-    .filter((item) => item.category === "women's clothing")
-    .slice(0, 5);
+  const womenProducts = products.filter(
+    (item) => item.category === "women's clothing"
+  );
 
   const jeweleryProducts = products.filter(
     (item) => item.category === "jewelery"
@@ -41,7 +57,7 @@ const Home = () => {
             <IoMdArrowForward className="text-2xl text-[#008ECC]" />
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-[30px]  ">
-            {menProducts.map((product) => {
+            {menProducts.slice(0, cardsToShow).map((product) => {
               return <Product product={product} key={product.id} />;
             })}
           </div>
@@ -57,7 +73,7 @@ const Home = () => {
             <IoMdArrowForward className="text-2xl text-[#008ECC]" />
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-[30px]  ">
-            {womenProducts.map((product) => {
+            {womenProducts.slice(0, cardsToShow).map((product) => {
               return <Product product={product} key={product.id} />;
             })}
           </div>
@@ -73,7 +89,7 @@ const Home = () => {
             <IoMdArrowForward className="text-2xl text-[#008ECC]" />
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-[30px]  ">
-            {jeweleryProducts.map((product) => {
+            {jeweleryProducts.slice(0, cardsToShow).map((product) => {
               return <Product product={product} key={product.id} />;
             })}
           </div>
@@ -91,7 +107,7 @@ const Home = () => {
             </Link>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-[30px]  ">
-            {electronicsProducts.map((product) => {
+            {electronicsProducts.slice(0, cardsToShow).map((product) => {
               return <Product product={product} key={product.id} />;
             })}
           </div>
