@@ -15,8 +15,9 @@ const Categories = () => {
               <img src={electronics} alt="mobile" />
             </Link>
           </div>
-          <h1 className="font-semibold pt">Men</h1>
+          <h1 className="font-semibold">Men</h1>
         </div>
+
         <div className="space-y-2 text-center cursor-pointer">
           <div className="w-24 h-16 flex items-center justify-center rounded-md pb-3">
             <Link to="women" smooth="true" offset={16} duration={500}>
@@ -25,6 +26,7 @@ const Categories = () => {
           </div>
           <h1 className="font-semibold">Women</h1>
         </div>
+
         <div className="space-y-2 text-center cursor-pointer">
           <div className="w-24 h-16 flex items-center justify-center rounded-md pb-3">
             <Link to="jewelery" smooth="true" offset={18} duration={500}>

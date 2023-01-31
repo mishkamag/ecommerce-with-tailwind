@@ -7,7 +7,7 @@ import Categories from "../components/Categories";
 import Hero from "../components/Hero";
 
 const Home = () => {
-  const { products } = useContext(ProductContext);
+  const { products, categoryFilter } = useContext(ProductContext);
 
   const size = useWindowResize();
   let cardsToShow = 1;
@@ -25,21 +25,10 @@ const Home = () => {
     cardsToShow = 5;
   }
 
-  const menProducts = products.filter(
-    (item) => item.category === "men's clothing"
-  );
-
-  const womenProducts = products.filter(
-    (item) => item.category === "women's clothing"
-  );
-
-  const jeweleryProducts = products.filter(
-    (item) => item.category === "jewelery"
-  );
-
-  const electronicsProducts = products.filter(
-    (item) => item.category === "electronics"
-  );
+  const menProducts = categoryFilter("men's clothing");
+  const womenProducts = categoryFilter("women's clothing");
+  const jeweleryProducts = categoryFilter("jewelery");
+  const electronicsProducts = categoryFilter("electronics");
 
   return (
     <div>

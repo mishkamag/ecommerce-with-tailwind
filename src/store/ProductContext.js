@@ -19,8 +19,12 @@ const ProductProvider = (props) => {
     fetchData();
   }, []);
 
+  const categoryFilter = (category) => {
+    return products.filter((item) => item.category === category);
+  };
+
   return (
-    <ProductContext.Provider value={{ products }}>
+    <ProductContext.Provider value={{ products, categoryFilter }}>
       {props.children}
     </ProductContext.Provider>
   );
