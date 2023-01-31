@@ -15,7 +15,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/product/:id" element={<ProductDetails />} />
-          <Route path="/category" element={<CategoryDetails />} />
+          <Route path="/category/:category" element={<CategoryDetails />} />
         </Routes>
 
         <SideBar />

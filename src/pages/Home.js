@@ -22,21 +22,25 @@ const Home = () => {
         title={"Men category"}
         categoryProducts={menProducts}
         id={"men"}
+        category={"men's clothing"}
       />
       <HomeSections
         title={"Women category"}
         categoryProducts={womenProducts}
         id={"women"}
+        category={"women's clothing"}
       />
       <HomeSections
         title={"Jewelery category"}
         categoryProducts={jeweleryProducts}
         id={"jewelery"}
+        category={"jewelery"}
       />
       <HomeSections
         title={"Electronics category"}
         categoryProducts={electronicsProducts}
         id={"electronics"}
+        category={"electronics"}
       />
     </div>
   );
