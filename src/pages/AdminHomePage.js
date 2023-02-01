@@ -34,33 +34,6 @@ const AdminHomePage = () => {
             Fetch Products
           </button>
         </div>
-        <table className="w-full">
-          <thead>
-            <tr>
-              <th className="px-4 py-2">Name</th>
-              <th className="px-4 py-2">Price</th>
-              <th className="px-4 py-2">Stock</th>
-              <th className="px-4 py-2">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {products.map((product, index) => (
-              <tr key={index}>
-                <td className="px-4 py-2">{product.name}</td>
-                <td className="px-4 py-2">{product.price}</td>
-                <td className="px-4 py-2">{product.stock}</td>
-                <td className="px-4 py-2">
-                  <button className="bg-blue-500 text-white p-2 rounded">
-                    Edit
-                  </button>
-                  <button className="bg-red-500 text-white p-2 rounded ml-2">
-                    Delete
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
       </div>
     </div>
   );
