@@ -18,9 +18,11 @@ const AdminHomePage = () => {
     // Fetch products from Firestore and set the products state
   };
   return (
-    <div className="flex justify-center items-center py-28 bg-slate-600">
+    <div className="flex justify-center items-center py-8 bg-slate-600">
       <div className="container mx-auto">
-        <h1 className="text-2xl font-bold mb-4">Admin Panel</h1>
+        <span className="text-2xl text-white/80 hover:text-white font-bold mb-4 cursor-pointer duration-150">
+          Admin Panel
+        </span>
         <div className="flex justify-between mb-4">
           <input
             type="text"
