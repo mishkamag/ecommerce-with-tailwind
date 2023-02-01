@@ -5,21 +5,75 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import SideBar from "./components/Sidebar";
 import CategoryDetails from "./pages/CategoryDetails";
+import { AuthContextProvider } from "./store/AuthContext";
+import AdminAuth from "./pages/AdminAuth";
+import ProtectedRoute from "./components/ProtectedRoute";
+import AdminHomePage from "./pages/AdminHomePage";
+
+const AppLayout = ({ children }) => (
+  <div className="overflow-hidden">
+    <Header />
+    {children}
+    <SideBar />
+    <Footer />
+  </div>
+);
+
+const AdminLayout = ({ children }) => (
+  <div className="overflow-hidden">{children}</div>
+);
 
 function App() {
   return (
     <div className="overflow-hidden">
       <Router>
-        <Header />
+        <AuthContextProvider>
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <AppLayout>
+                  <Home />
+                </AppLayout>
+              }
+            />
+            <Route
+              path="/product/:id"
+              element={
+                <AppLayout>
+                  <ProductDetails />
+                </AppLayout>
+              }
+            />
+            <Route
+              path="/category"
+              element={
+                <AppLayout>
+                  <CategoryDetails />
+                </AppLayout>
+              }
+            />
 
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/product/:id" element={<ProductDetails />} />
-          <Route path="/category/:category" element={<CategoryDetails />} />
-        </Routes>
-
-        <SideBar />
-        <Footer />
+            <Route
+              path="/admin/authentication"
+              element={
+                <AdminLayout>
+                  <AdminAuth />
+                </AdminLayout>
+              }
+            />
+            <Route
+              path="/admin/home"
+              element={
+                <ProtectedRoute>
+                  <AdminLayout>
+                    <AdminHomePage />
+                  </AdminLayout>
+                </ProtectedRoute>
+              }
+            />
+          </Routes>
+        </AuthContextProvider>
       </Router>
     </div>
   );
