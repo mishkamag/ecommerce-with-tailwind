@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { SidebarContext } from "../store/SidebarContext";
 import { BsCart3 } from "react-icons/bs";
 import { CartContext } from "../store/CartContext";
@@ -7,18 +7,34 @@ import { Link } from "react-router-dom";
 const Header = () => {
   const { isOpen, setIsOpen } = useContext(SidebarContext);
   const { itemAmount } = useContext(CartContext);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const inputHandler = (e) => {
+    setSearchTerm(e.target.value);
+    if (searchTerm.length > 0) {
+      setIsModalOpen(true);
+    }
+  };
 
   return (
     <header className="bg-[#008ECC] fixed w-full z-10 py-1 ">
       <div className="container mx-auto flex items-center justify-between h-[6vh] ">
         <Link to={"/"}>LOGO</Link>
         <div className="flex justify-center items-center gap-[25px] ">
-          <div>
+          <div className="relative">
             <input
               type="search"
               className="form-input py-2 px-3  block w-[300px] leading-5 rounded-full transition duration-150 ease-in-out bg-white border border-gray-300 placeholder-gray-500  focus:outline-none focus:shadow-outline-blue focus:border-blue-300 placeholder-opacity-25"
               placeholder="Search..."
+              onChange={inputHandler}
+              value={searchTerm}
             />
+            {isModalOpen && (
+              <div className="absolute bg-red-600 w-[300px]">
+                Here will be matched items
+              </div>
+            )}
           </div>
           <div
             onClick={() => {
