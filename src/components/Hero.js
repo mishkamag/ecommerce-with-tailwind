@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import img1 from "../assets/sliderImg/img1.png";
 import img2 from "../assets/sliderImg/img2.png";
 import img3 from "../assets/sliderImg/img3.png";
@@ -7,60 +7,74 @@ import img5 from "../assets/sliderImg/img5.png";
 import { FaArrowCircleLeft } from "react-icons/fa";
 import { BsArrowRightCircleFill } from "react-icons/bs";
 
-const sliderImages = [img1, img2, img3, img4, img5];
+const featuredProducts = [img1, img2, img3, img4, img5];
+
 let count = 0;
-
+let slideInterval;
 const Hero = () => {
-  const [imageIndex, setImageIndex] = useState(0);
-  const sliderRef = useRef();
+  const [currentIndex, setCurrentIndex] = useState(0);
 
-  const startSlider = () => {
-    setInterval(() => {
-      handleOnNext();
-    }, 5000);
-  };
+  const slideRef = useRef();
 
   const removeAnimation = () => {
-    sliderRef.current.classList.remove("fade-anim");
+    slideRef.current.classList.remove("fade-anim");
   };
 
   useEffect(() => {
-    sliderRef.current.addEventListener("animationend", removeAnimation);
+    slideRef.current.addEventListener("animationend", removeAnimation);
+    slideRef.current.addEventListener("mouseenter", pauseSlider);
+    slideRef.current.addEventListener("mouseleave", startSlider);
+
     startSlider();
+    return () => {
+      pauseSlider();
+    };
+    // eslint-disable-next-line
   }, []);
 
-  const handleOnNext = () => {
-    count = (count + 1) % sliderImages.length;
-    setImageIndex(count);
-    sliderRef.current.classList.add("fade-anim");
+  const startSlider = () => {
+    slideInterval = setInterval(() => {
+      handleOnNextClick();
+    }, 5000);
   };
 
-  const handleOnPrev = () => {
-    const productsLength = sliderImages.length;
-    count = (imageIndex + productsLength - 1) % productsLength;
-    setImageIndex(count);
-    sliderRef.current.classList.add("fade-anim");
+  const pauseSlider = () => {
+    clearInterval(slideInterval);
+  };
+
+  const handleOnNextClick = () => {
+    count = (count + 1) % featuredProducts.length;
+    setCurrentIndex(count);
+    slideRef.current.classList.add("fade-anim");
+  };
+  const handleOnPrevClick = () => {
+    const productsLength = featuredProducts.length;
+    count = (currentIndex + productsLength - 1) % productsLength;
+    setCurrentIndex(count);
+    slideRef.current.classList.add("fade-anim");
   };
 
   return (
-    <div ref={sliderRef} className="w-full select-none relative pt-10 flex">
-      <img src={sliderImages[imageIndex]} alt="" />
-      <div className="absolute w-full top-1/2 transform -translate-y-1/2 px-3 flex justify-between  text-2xl text-gray-500 ">
+    <div ref={slideRef} className="w-full select-none relative pt-4">
+      <div className="aspect-w-16 aspect-h-9">
+        <img src={featuredProducts[currentIndex]} alt="" />
+      </div>
+
+      <div className="absolute w-full top-1/2 transform -translate-y-1/2 px-3 flex justify-between items-center">
         <button
-          className="hover:text-gray-800  hover:scale-100"
-          onClick={handleOnPrev}
+          className="bg-black text-white p-1 rounded-full bg-opacity-50 cursor-pointer hover:bg-opacity-100 transition"
+          onClick={handleOnPrevClick}
         >
-          <FaArrowCircleLeft />
+          <FaArrowCircleLeft size={30} />
         </button>
         <button
-          className="hover:text-gray-800  hover:scale-100"
-          onClick={handleOnNext}
+          className="bg-black text-white p-1 rounded-full bg-opacity-50 cursor-pointer hover:bg-opacity-100 transition"
+          onClick={handleOnNextClick}
         >
-          <BsArrowRightCircleFill />
+          <BsArrowRightCircleFill size={30} />
         </button>
       </div>
     </div>
   );
 };
-
 export default Hero;

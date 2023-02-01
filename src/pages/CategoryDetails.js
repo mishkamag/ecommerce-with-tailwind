@@ -11,12 +11,12 @@ const CategoryDetails = () => {
     return item.category === category;
   });
 
-  console.log(product);
-  console.log(product.category);
+  // console.log(product);
+  // console.log(products.category);
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-[30px]  ">
       {products
-        .filter((item) => item.category)
+        .filter((product) => product.category)
         .map((product) => {
           return <Product product={product} key={product.id} />;
         })}
