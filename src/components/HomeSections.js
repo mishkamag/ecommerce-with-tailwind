@@ -30,7 +30,7 @@ const HomeSections = (props) => {
               {title}
             </h1>
             <Link to={`/category/${category}`}>
-              <IoMdArrowForward className="text-2xl text-[#008ECC]" />
+              <IoMdArrowForward className="text-2xl text-[#008ECC] hover:scale-110" />
             </Link>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-[30px]  ">
