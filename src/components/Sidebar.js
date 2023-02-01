@@ -33,7 +33,8 @@ const SideBar = () => {
       <div className=" bg-gray-200  w-full flex justify-center items-center py-4">
         <div>
           <div className="font-semibold">
-            <span className="mr-2">Total:</span>${totalPrice}
+            <span className="mr-2">Total:</span>$
+            {parseFloat(totalPrice).toFixed(2)}
           </div>
         </div>
       </div>

@@ -9,7 +9,7 @@ import {
   FaMailBulk,
   FaPhoneSquareAlt,
 } from "react-icons/fa";
-import GoogleMap from "./GoogleMap";
+// import GoogleMap from "./GoogleMap";
 
 const Footer = () => {
   return (
@@ -69,9 +69,10 @@ const Footer = () => {
         </div>
         <div>
           <h6 className="font-bold py-4 text-xl">მისამართი</h6>
-          <div>
+          {/* <div>
             <GoogleMap />
-          </div>
+          </div> */}
+          {/* IT HAS BUG */}
         </div>
       </div>
 

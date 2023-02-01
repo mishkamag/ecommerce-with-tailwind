@@ -16,7 +16,7 @@ const Header = () => {
           <div>
             <input
               type="search"
-              className="form-input py-2 px-3 block w-full leading-5 rounded-full transition duration-150 ease-in-out bg-white border border-gray-300 placeholder-gray-500  focus:outline-none focus:shadow-outline-blue focus:border-blue-300 placeholder-opacity-25"
+              className="form-input py-2 px-3  block w-[300px] leading-5 rounded-full transition duration-150 ease-in-out bg-white border border-gray-300 placeholder-gray-500  focus:outline-none focus:shadow-outline-blue focus:border-blue-300 placeholder-opacity-25"
               placeholder="Search..."
             />
           </div>
