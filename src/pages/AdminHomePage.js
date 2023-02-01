@@ -1,9 +1,20 @@
 import React, { useContext } from "react";
 import { ProductContext } from "../store/ProductContext";
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "../firebase.config";
 
 const AdminHomePage = () => {
   const { products } = useContext(ProductContext);
-  const handleFetchProducts = () => {
+  const handleFetchProducts = async () => {
+    const docRef = doc(db, "products", "men");
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+      console.log("Document data:", docSnap.data());
+    } else {
+      // doc.data() will be undefined in this case
+      console.log("No such document!");
+    }
     // Fetch products from Firestore and set the products state
   };
   return (
