@@ -19,7 +19,7 @@ const AdminAuth = () => {
   };
 
   return (
-    <div className="mt-[6vh] w-screen flex justify-center items-center py-28 bg-slate-600">
+    <div className="h-screen w-screen flex justify-center items-center py-28 bg-slate-600">
       <div className="bg-neutral-100 py-4 px-8 w-96 relative">
         <h1 className="text-center text-2xl uppercase font-semibold mb-6">
           Sign In
@@ -31,29 +31,14 @@ const AdminAuth = () => {
         ) : null}
         <Formik initialValues={initialValues} onSubmit={userLoginHandler}>
           <Form className="py-2 grid grid-rows-3 gap-4">
-            {/* <Field
+            <Field
               className="py-2 px-4 border-2 outline-none"
               type="email"
               id="email"
               name="email"
               placeholder="Email"
-              
-            /> */}
-            <Field name="email">
-              {(props) => {
-                const { field } = props;
+            />
 
-                return (
-                  <input
-                    className="py-2 px-4 border-2 outline-none"
-                    type="email"
-                    id="email"
-                    placeholder="Email"
-                    {...field}
-                  />
-                );
-              }}
-            </Field>
             <Field
               className="py-2 px-4 border-2 outline-none"
               type="password"
@@ -63,7 +48,6 @@ const AdminAuth = () => {
             />
             <button
               type="submit"
-              onClick={userLoginHandler}
               className="bg-neutral-200 font-bold text-gray-600 hover:bg-[#008ECC] duration-100"
             >
               Log In

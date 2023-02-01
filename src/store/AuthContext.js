@@ -17,17 +17,19 @@ export const AuthContextProvider = (props) => {
   const [user, setUser] = useState(null);
 
   const loginHandler = async (email, password, navigate, setError) => {
-    await signInWithEmailAndPassword(auth, email, password)
-      .then(() => {
-        if (email === "admin@test.com") {
-          navigate("../admin");
-        } else {
-          navigate("../user");
-        }
-      })
-      .catch((error) => {
-        setError(true);
-      });
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+
+      if (email === "admin@test.com") {
+        setError(false);
+        navigate("../admin/home");
+      } else {
+        navigate("../user");
+      }
+    } catch (error) {
+      console.log(error);
+      setError(true);
+    }
   };
 
   const logoutHandler = () => {
