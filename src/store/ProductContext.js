@@ -11,7 +11,6 @@ const ProductProvider = (props) => {
       try {
         const response = await axios.get("https://fakestoreapi.com/products");
         const data = response.data;
-        console.log(data);
         setProducts(data);
       } catch (error) {
         console.error(error);

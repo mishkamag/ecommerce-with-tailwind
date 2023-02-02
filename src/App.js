@@ -46,7 +46,7 @@ function App() {
               }
             />
             <Route
-              path="/category"
+              path="/category/:category"
               element={
                 <AppLayout>
                   <CategoryDetails />
