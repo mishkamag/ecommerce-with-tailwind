@@ -59,9 +59,9 @@ const CartItem = ({ item }) => {
             <div className="flex-1 flex justify-end items-center ">
               $ {price}
             </div>
-            <div className="flex-1 flex justify-end items-center font-medium ">{`$ ${
+            <div className="flex-1 flex justify-end items-center font-medium ">{`$ ${(
               price * amount
-            }`}</div>
+            ).toFixed(2)}`}</div>
           </div>
         </div>
       </div>
