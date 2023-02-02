@@ -33,7 +33,7 @@ const Header = () => {
               value={searchTerm}
             />
             {isModalOpen && (
-              <div className="absolute bg-red-600 w-[300px]">
+              <div className="absolute bg-blue-500 rounded-md w-[300px]">
                 <FilteredProducts searchTerm={searchTerm} />
               </div>
             )}

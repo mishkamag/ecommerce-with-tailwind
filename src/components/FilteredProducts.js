@@ -2,9 +2,8 @@ import React, { useContext } from "react";
 import { ProductContext } from "../store/ProductContext";
 import MiniProduct from "./MiniProduct";
 
-const FilteredProducts = (props) => {
+const FilteredProducts = ({ searchTerm }) => {
   const { products } = useContext(ProductContext);
-  const { searchTerm } = props;
 
   return (
     <div>
