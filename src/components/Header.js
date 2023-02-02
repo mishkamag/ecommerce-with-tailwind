@@ -1,15 +1,23 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { SidebarContext } from "../store/SidebarContext";
 import { BsCart3 } from "react-icons/bs";
 import { CartContext } from "../store/CartContext";
 import { Link } from "react-router-dom";
-import { SearchContext } from "../store/SearchContext";
+import FilteredProducts from "./FilteredProducts";
 
 const Header = () => {
   const { isOpen, setIsOpen } = useContext(SidebarContext);
   const { itemAmount } = useContext(CartContext);
 
-  const { searchTerm, isModalOpen, inputHandler } = useContext(SearchContext);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const inputHandler = (e) => {
+    setSearchTerm(e.target.value);
+    if (searchTerm.length === 0) {
+      setIsModalOpen(true);
+    }
+  };
 
   return (
     <header className="bg-[#008ECC] fixed w-full z-10 py-1 ">
@@ -26,7 +34,7 @@ const Header = () => {
             />
             {isModalOpen && (
               <div className="absolute bg-red-600 w-[300px]">
-                Here will be matched items
+                <FilteredProducts searchTerm={searchTerm} />
               </div>
             )}
           </div>
