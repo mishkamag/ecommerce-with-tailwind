@@ -1,10 +1,13 @@
+import { useContext } from "react";
 import { IoMdArrowForward } from "react-icons/io";
 import { Link } from "react-router-dom";
 import useWindowResize from "../hooks/useWindowResize";
+import { SearchContext } from "../store/SearchContext";
 import Product from "./Product";
 
 const HomeSections = (props) => {
   const { category, categoryProducts, id, title } = props;
+  const { searchTerm } = useContext(SearchContext);
 
   const size = useWindowResize();
   let cardsToShow = 1;
@@ -34,9 +37,20 @@ const HomeSections = (props) => {
             </Link>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-[30px]  ">
-            {categoryProducts.slice(0, cardsToShow).map((product) => {
-              return <Product product={product} key={product.id} />;
-            })}
+            {categoryProducts
+              .slice(0, cardsToShow)
+              .filter((product) => {
+                if (searchTerm === "") {
+                  return product;
+                } else if (
+                  product.title.toLowerCase().includes(searchTerm.toLowerCase())
+                ) {
+                  return product;
+                }
+              })
+              .map((product) => {
+                return <Product product={product} key={product.id} />;
+              })}
           </div>
         </div>
       </section>

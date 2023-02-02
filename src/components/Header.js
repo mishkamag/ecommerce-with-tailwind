@@ -1,21 +1,15 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { SidebarContext } from "../store/SidebarContext";
 import { BsCart3 } from "react-icons/bs";
 import { CartContext } from "../store/CartContext";
 import { Link } from "react-router-dom";
+import { SearchContext } from "../store/SearchContext";
 
 const Header = () => {
   const { isOpen, setIsOpen } = useContext(SidebarContext);
   const { itemAmount } = useContext(CartContext);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const inputHandler = (e) => {
-    setSearchTerm(e.target.value);
-    if (searchTerm.length > 0) {
-      setIsModalOpen(true);
-    }
-  };
+  const { searchTerm, isModalOpen, inputHandler } = useContext(SearchContext);
 
   return (
     <header className="bg-[#008ECC] fixed w-full z-10 py-1 ">
