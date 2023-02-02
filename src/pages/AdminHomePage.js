@@ -3,9 +3,11 @@ import { ProductContext } from "../store/ProductContext";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../firebase.config";
 import SideBar from "../components/AdminDashboard/SideBar/SideBar";
+import MainBox from "../components/AdminDashboard/MainBody/MainBox";
 
 const AdminHomePage = () => {
   const { products } = useContext(ProductContext);
+  console.log(products);
   const handleFetchProducts = async () => {
     const docRef = doc(db, "products", "men");
     const docSnap = await getDoc(docRef);
@@ -19,32 +21,9 @@ const AdminHomePage = () => {
     // Fetch products from Firestore and set the products state
   };
   return (
-    <div className="flex h-screen w-screen bg-[#F9FAFB]">
+    <div className="flex h-screen w-screen bg-[#e2e5e9]">
       <SideBar />
-      <div>
-        <div>
-          <div></div>
-          <div></div>
-        </div>
-      </div>
-      {/* <div className="container mx-auto">
-        <span className="text-2xl text-white/80 hover:text-white font-bold mb-4 cursor-pointer duration-150">
-          Admin Panel
-        </span>
-        <div className="flex justify-between mb-4">
-          <input
-            type="text"
-            className="border p-2 rounded w-1/2"
-            placeholder="Search products"
-          />
-          <button
-            className="bg-blue-500 text-white p-2 rounded"
-            onClick={handleFetchProducts}
-          >
-            Fetch Products
-          </button>
-        </div>
-      </div> */}
+      <MainBox products={products} />
     </div>
   );
 };
