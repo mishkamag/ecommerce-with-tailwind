@@ -14,7 +14,7 @@ const Header = () => {
 
   const inputHandler = (e) => {
     setSearchTerm(e.target.value);
-    if (searchTerm.length === 0) {
+    if (searchTerm.length > 0) {
       setIsModalOpen(true);
     }
   };

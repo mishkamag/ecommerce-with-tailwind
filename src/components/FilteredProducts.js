@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { ProductContext } from "../store/ProductContext";
-import Product from "./Product";
+import MiniProduct from "./MiniProduct";
 
 const FilteredProducts = (props) => {
   const { products } = useContext(ProductContext);
@@ -19,7 +19,7 @@ const FilteredProducts = (props) => {
           }
         })
         .map((product) => {
-          return <Product product={product} key={product.id} />;
+          return <MiniProduct product={product} key={product.id} />;
         })}
     </div>
   );
