@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { ProductContext } from "../store/ProductContext";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../firebase.config";
+import SideBar from "../components/AdminDashboard/SideBar/SideBar";
 
 const AdminHomePage = () => {
   const { products } = useContext(ProductContext);
@@ -18,8 +19,15 @@ const AdminHomePage = () => {
     // Fetch products from Firestore and set the products state
   };
   return (
-    <div className="flex justify-center items-center py-8 bg-slate-600">
-      <div className="container mx-auto">
+    <div className="flex h-screen w-screen bg-[#F9FAFB]">
+      <SideBar />
+      <div>
+        <div>
+          <div></div>
+          <div></div>
+        </div>
+      </div>
+      {/* <div className="container mx-auto">
         <span className="text-2xl text-white/80 hover:text-white font-bold mb-4 cursor-pointer duration-150">
           Admin Panel
         </span>
@@ -36,7 +44,7 @@ const AdminHomePage = () => {
             Fetch Products
           </button>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };
