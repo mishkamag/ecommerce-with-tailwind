@@ -10,13 +10,9 @@ const Header = () => {
   const { itemAmount } = useContext(CartContext);
 
   const [searchTerm, setSearchTerm] = useState("");
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const inputHandler = (e) => {
     setSearchTerm(e.target.value);
-    if (searchTerm.length > 0) {
-      setIsModalOpen(true);
-    }
   };
 
   return (
@@ -32,9 +28,12 @@ const Header = () => {
               onChange={inputHandler}
               value={searchTerm}
             />
-            {isModalOpen && (
+            {searchTerm && (
               <div className="absolute bg-blue-500 rounded-md w-[300px]">
-                <FilteredProducts searchTerm={searchTerm} />
+                <FilteredProducts
+                  searchTerm={searchTerm}
+                  setSearchTerm={setSearchTerm}
+                />
               </div>
             )}
           </div>
