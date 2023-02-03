@@ -7,15 +7,18 @@ const MiniProduct = ({ product, setSearchTerm }) => {
   return (
     <div>
       <button
+        className="w-full  border-b"
         type="button"
         onClick={() => {
           setSearchTerm("");
         }}
       >
         <Link to={`/product/${id}`}>
-          <div className="w-full flex justify-between">
-            <span>{title}</span>
-            <img className="w-[30px] h-auto" src={image} alt="" />
+          <div className="flex justify-between items-center py-2 hover:underline">
+            <div className="w-[80%]">{title}</div>
+            <div>
+              <img className="w-[50px] h-auto" src={image} alt="" />
+            </div>
           </div>
         </Link>
       </button>
