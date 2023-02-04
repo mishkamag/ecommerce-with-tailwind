@@ -56,3 +56,10 @@ const fetchHandler = () => {
   /* const products = getAllProducts();
     console.log(products); */
 };
+
+export const filterPdoructsBySearchValue = (searchValue, products) => {
+  const updatedProducts = products.filter((product) => {
+    return product.title.toLowerCase().includes(searchValue.toLowerCase());
+  });
+  return updatedProducts;
+};

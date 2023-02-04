@@ -16,7 +16,7 @@ import { MdOutlineLocalOffer } from "react-icons/md";
 import { db } from "../../../firebase.config";
 import { ProductContext } from "../../../store/ProductContext";
 import BarItem from "./BarItem";
-import { getAllProducts } from "../../../Helpers/firestore";
+import { getAllProducts } from "../../../Helpers/functions";
 
 const SideBar = ({ setmainBoxSrc }) => {
   const submitHandler = (value) => {

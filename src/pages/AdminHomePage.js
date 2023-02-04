@@ -12,7 +12,7 @@ const AdminHomePage = () => {
 
   const body = () => {
     if (mainBoxSrc.toLowerCase() === "products") {
-      return <Products />;
+      return <Products products={allProducts} />;
     } else if (mainBoxSrc.toLowerCase() === "promotions") {
       return <Promotions />;
     } else if (mainBoxSrc.toLowerCase() === "settings") {
