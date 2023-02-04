@@ -1,15 +1,13 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { SidebarContext } from "../store/SidebarContext";
 import { IoMdArrowForward } from "react-icons/io";
 import { CartContext } from "../store/CartContext";
 import CartItem from "./CartItem";
 import { Link } from "react-router-dom";
-import Invoice from "./Invoice";
 
 const SideBar = () => {
   const { isOpen, handleClose } = useContext(SidebarContext);
   const { cart, totalPrice } = useContext(CartContext);
-  const [isInvoiceOpen, setIsInvoiceOpen] = useState(false);
 
   return (
     <div
