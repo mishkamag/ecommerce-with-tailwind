@@ -1,13 +1,15 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { SidebarContext } from "../store/SidebarContext";
 import { IoMdArrowForward } from "react-icons/io";
 import { CartContext } from "../store/CartContext";
 import CartItem from "./CartItem";
 import { Link } from "react-router-dom";
+import Invoice from "./Invoice";
 
 const SideBar = () => {
   const { isOpen, handleClose } = useContext(SidebarContext);
   const { cart, totalPrice } = useContext(CartContext);
+  const [isInvoiceOpen, setIsInvoiceOpen] = useState(false);
 
   return (
     <div
@@ -38,8 +40,9 @@ const SideBar = () => {
           </div>
         </div>
       </div>
+
       <Link
-        to={"//"}
+        to="/invoice"
         className="bg-[#008ECC] flex p-4 justify-center items-center w-full font-medium mt-4 text-white"
       >
         Checkout

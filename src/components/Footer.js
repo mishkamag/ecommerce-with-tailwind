@@ -14,7 +14,7 @@ import {
 const Footer = () => {
   return (
     <div className="w-full mt-2 bg-gray-100 text-black">
-      <div className="container  mx-auto grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 border-b-2 border-gray-600 py-8 ">
+      <div className="container  mx-auto grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 border-b-2 border-gray-600 py-8  ">
         <div>
           <h6 className="font-bold py-4 text-xl">ჩვენ შესახებ</h6>
           <ul>
