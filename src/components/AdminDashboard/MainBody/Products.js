@@ -27,7 +27,7 @@ const Products = ({ products }) => {
           onChange={inputChangeHandler}
         />
       </div>
-      <ProductsList list={list ? list : products} />
+      <ProductsList list={list.length > 0 ? list : products} />
     </>
   );
 };

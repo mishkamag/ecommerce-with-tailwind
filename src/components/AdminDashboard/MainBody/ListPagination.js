@@ -1,6 +1,9 @@
 import React from "react";
 
 const ListPagination = ({ numberOfItems }) => {
+  console.log(numberOfItems.length);
+
+  /* მაქვს ბაგი, გვერდი რო იტვირთება მაშინ დატა არაა მოსული და შესაბამისად არ რენდერდება პროდუქტები და ლენგსაც ვერ ვიღებ მაგიტო, ანდეფაინდს ვერ ზომავს */
   return (
     <div className="h-12 flex items-center rounded-b-xl text-xs border-2 border-red-600">
       <div className="h-full w-full flex justify-between items-center px-2">
