@@ -4,14 +4,13 @@ import ListItems from "./ListItems";
 import ListPagination from "./ListPagination";
 
 const ProductsList = ({ list }) => {
-  console.log(list);
   return (
     <div className="h-[90%] rounded-b-xl">
       <div className="h-full w-full px-4 ">
         <ListHeader />
-        <div className="h-[93%] w-full rounded-b-xl grid grid-rows-12">
+        <div className="h-[93%] w-full rounded-b-xl grid grid-rows-11">
           <ListItems list={list} />
-          <ListPagination />
+          <ListPagination numberOfItems={list} />
         </div>
       </div>
     </div>
