@@ -6,7 +6,7 @@ import uniqid from "uniqid";
 const ListItems = ({ list }) => {
   return (
     <div className="row-span-10">
-      <div className="h-full w-full grid grid-rows-10">
+      <div className="h-full w-full grid grid-rows-10 gap-1">
         {list?.slice(0, 10).map((item) => (
           <Item product={item} key={uniqid()} />
         ))}
