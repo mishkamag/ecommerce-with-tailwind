@@ -1,14 +1,16 @@
 import React from "react";
 import ListHeader from "./ListHeader";
+import ListItems from "./ListItems";
+import ListPagination from "./ListPagination";
 
 const ProductsList = () => {
   return (
     <div className="h-[90%] rounded-b-xl">
-      <ListHeader />
-      <div className="h-[93%] w-full rounded-b-xl grid grid-rows-12">
-        <div className="row-span-10">123</div>
-        <div className="row-span-2 flex items-center bg-red-300">
-          <h1>123</h1>
+      <div className="h-full w-full px-4 ">
+        <ListHeader />
+        <div className="h-[93%] w-full rounded-b-xl grid grid-rows-12">
+          <ListItems products={[]} />
+          <ListPagination />
         </div>
       </div>
     </div>

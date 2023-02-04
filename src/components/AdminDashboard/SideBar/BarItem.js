@@ -2,8 +2,7 @@ import React from "react";
 
 const BarItem = ({ icon, title, onSubmit }) => {
   const onClickHandler = (e) => {
-    console.log(e.target.innerText);
-    onSubmit();
+    onSubmit(e.target.innerText);
   };
 
   return (

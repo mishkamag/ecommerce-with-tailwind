@@ -1,29 +1,47 @@
-import React, { useContext } from "react";
-import { ProductContext } from "../store/ProductContext";
-import { doc, getDoc } from "firebase/firestore";
+import React, { useEffect, useState } from "react";
+import { collection, getDocs } from "firebase/firestore";
 import { db } from "../firebase.config";
 import SideBar from "../components/AdminDashboard/SideBar/SideBar";
-import MainBox from "../components/AdminDashboard/MainBody/MainBox";
+import Promotions from "../components/AdminDashboard/MainBody/Promotions";
+import Settings from "../components/AdminDashboard/MainBody/Settings";
+import Products from "../components/AdminDashboard/MainBody/Products";
 
 const AdminHomePage = () => {
-  const { products } = useContext(ProductContext);
-  console.log(products);
-  const handleFetchProducts = async () => {
-    const docRef = doc(db, "products", "men");
-    const docSnap = await getDoc(docRef);
+  const [allProducts, setAllProducts] = useState([]);
+  const [mainBoxSrc, setmainBoxSrc] = useState("products");
 
-    if (docSnap.exists()) {
-      console.log("Document data:", docSnap.data());
-    } else {
-      // doc.data() will be undefined in this case
-      console.log("No such document!");
+  const body = () => {
+    if (mainBoxSrc.toLowerCase() === "products") {
+      return <Products />;
+    } else if (mainBoxSrc.toLowerCase() === "promotions") {
+      return <Promotions />;
+    } else if (mainBoxSrc.toLowerCase() === "settings") {
+      return <Settings />;
     }
-    // Fetch products from Firestore and set the products state
   };
+
+  const getAllProducts = async () => {
+    try {
+      const querySnapshot = await getDocs(collection(db, "ecommerce"));
+      const products = [];
+      querySnapshot.forEach((doc) => {
+        products.push(...doc.data().data);
+      });
+      setAllProducts(products);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getAllProducts();
+  }, []);
   return (
     <div className="flex h-screen w-screen bg-[#e2e5e9]">
-      <SideBar />
-      <MainBox products={products} />
+      <SideBar setmainBoxSrc={setmainBoxSrc} />
+      <div className="h-5/6 w-9/12 mx-auto my-auto bg-white rounded-xl">
+        {body()}
+      </div>
     </div>
   );
 };

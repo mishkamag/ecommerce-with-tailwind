@@ -55,6 +55,15 @@ function App() {
             />
 
             <Route
+              path="/admin/authentication"
+              element={
+                <AdminLayout>
+                  <AdminAuth />
+                </AdminLayout>
+              }
+            />
+
+            <Route
               path="/admin/home"
               element={
                 <ProtectedRoute>
