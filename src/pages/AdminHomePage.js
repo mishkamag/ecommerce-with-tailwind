@@ -5,14 +5,16 @@ import SideBar from "../components/AdminDashboard/SideBar/SideBar";
 import Promotions from "../components/AdminDashboard/MainBody/Promotions";
 import Settings from "../components/AdminDashboard/MainBody/Settings";
 import Products from "../components/AdminDashboard/MainBody/Products";
+import Spinner from "../components/UI components/Spinner";
 
 const AdminHomePage = () => {
   const [allProducts, setAllProducts] = useState([]);
   const [mainBoxSrc, setmainBoxSrc] = useState("products");
+  const [isLoading, setIsLoading] = useState(false);
 
   const body = () => {
     if (mainBoxSrc.toLowerCase() === "products") {
-      return <Products products={allProducts} />;
+      return <Products products={allProducts} isLoading={isLoading} />;
     } else if (mainBoxSrc.toLowerCase() === "promotions") {
       return <Promotions />;
     } else if (mainBoxSrc.toLowerCase() === "settings") {
@@ -21,6 +23,7 @@ const AdminHomePage = () => {
   };
 
   const getAllProducts = async () => {
+    setIsLoading(true);
     try {
       const querySnapshot = await getDocs(collection(db, "ecommerce"));
       const products = [];
@@ -28,6 +31,7 @@ const AdminHomePage = () => {
         products.push(...doc.data().data);
       });
       setAllProducts(products);
+      setIsLoading(false);
     } catch (error) {
       console.log(error);
     }

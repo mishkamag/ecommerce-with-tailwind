@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import ProductsList from "./ProductsList";
 import { filterPdoructsBySearchValue } from "../../../Helpers/functions";
+import Spinner from "../../UI components/Spinner";
 
-const Products = ({ products }) => {
+const Products = ({ products, isLoading }) => {
   const [searchInputValue, setSearchInputValue] = useState("");
   const [list, setList] = useState([]);
 
@@ -27,7 +28,14 @@ const Products = ({ products }) => {
           onChange={inputChangeHandler}
         />
       </div>
-      <ProductsList list={list.length > 0 ? list : products} />
+
+      {isLoading ? (
+        <div className="h-[90%] w-full flex justify-center items-center border-2 border-red-600">
+          <Spinner />
+        </div>
+      ) : (
+        <ProductsList list={list.length > 0 ? list : products} />
+      )}
     </>
   );
 };

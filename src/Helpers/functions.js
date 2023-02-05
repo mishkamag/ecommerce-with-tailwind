@@ -78,3 +78,8 @@ export const modifyString = (string, limit = 18) => {
     return string;
   }
 };
+export const pagination = (currentPage) => {
+  let firstElement;
+  if (currentPage === 1) {
+  }
+};
