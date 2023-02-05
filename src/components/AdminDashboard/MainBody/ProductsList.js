@@ -13,7 +13,7 @@ const ProductsList = ({ list }) => {
         <div className="h-[93%] w-full rounded-b-xl grid grid-rows-11">
           <ListItems list={list} currentPage={currentPage} />
           <ListPagination
-            numberOfItems={list}
+            numberOfItems={list.length}
             currentPage={currentPage}
             setCurrentPage={setCurrentPage}
           />
