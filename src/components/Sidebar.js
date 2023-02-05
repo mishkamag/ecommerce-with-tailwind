@@ -39,12 +39,14 @@ const SideBar = () => {
         </div>
       </div>
 
-      <Link
-        to="/invoice"
-        className="bg-[#008ECC] flex p-4 justify-center items-center w-full font-medium mt-4 text-white"
-      >
-        Checkout
-      </Link>
+      {cart.length > 0 && (
+        <Link
+          to="/invoice"
+          className="bg-[#008ECC] flex p-4 justify-center items-center w-full font-medium mt-4 text-white"
+        >
+          Checkout
+        </Link>
+      )}
     </div>
   );
 };
