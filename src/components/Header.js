@@ -29,8 +29,11 @@ const Header = () => {
               value={searchTerm}
             />
             {searchTerm && (
-              <div className="absolute bg-blue-500 rounded-md w-[300px]">
-                <FilteredProducts searchTerm={searchTerm} />
+              <div className="mt-2 w-full absolute bg-white shadow-2xl  rounded-md  max-h-[450px] lg:max-h-[480px] overflow-y-auto overflow-x-hidden ">
+                <FilteredProducts
+                  searchTerm={searchTerm}
+                  setSearchTerm={setSearchTerm}
+                />
               </div>
             )}
           </div>

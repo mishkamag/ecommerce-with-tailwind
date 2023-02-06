@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { ProductContext } from "../store/ProductContext";
 import MiniProduct from "./MiniProduct";
 
-const FilteredProducts = ({ searchTerm }) => {
+const FilteredProducts = ({ searchTerm, setSearchTerm }) => {
   const { products } = useContext(ProductContext);
 
   return (
@@ -18,7 +18,13 @@ const FilteredProducts = ({ searchTerm }) => {
           }
         })
         .map((product) => {
-          return <MiniProduct product={product} key={product.id} />;
+          return (
+            <MiniProduct
+              product={product}
+              key={product.id}
+              setSearchTerm={setSearchTerm}
+            />
+          );
         })}
     </div>
   );

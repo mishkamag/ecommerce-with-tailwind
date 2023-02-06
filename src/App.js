@@ -9,6 +9,7 @@ import { AuthContextProvider } from "./store/AuthContext";
 import AdminAuth from "./pages/AdminAuth";
 import ProtectedRoute from "./components/ProtectedRoute";
 import AdminHomePage from "./pages/AdminHomePage";
+import Invoice from "./components/Invoice";
 
 const AppLayout = ({ children }) => (
   <div className="overflow-hidden">
@@ -37,6 +38,8 @@ function App() {
                 </AppLayout>
               }
             />
+
+            <Route path="/invoice" element={<Invoice />} />
             <Route
               path="/product/:id"
               element={
