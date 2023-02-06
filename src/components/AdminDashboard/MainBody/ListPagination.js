@@ -44,11 +44,6 @@ const ListPagination = ({ numberOfItems, currentPage, setCurrentPage }) => {
             currentPage * 10 > numberOfItems ? numberOfItems : currentPage * 10
           } > of ${numberOfItems} results`}</p>
         </div>
-
-        <span className="text-xl bg-blue-700 h-4 w-4 p-1 rounded-full">
-          {"+"}
-        </span>
-
         <div className="w-1/5 flex justify-between">
           <div className="w-1/2">
             <p>{`${currentPage} of ${totalPages} pages`}</p>

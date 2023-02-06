@@ -17,6 +17,7 @@ import { db } from "../../../firebase.config";
 import { ProductContext } from "../../../store/ProductContext";
 import BarItem from "./BarItem";
 import { getAllProducts } from "../../../Helpers/functions";
+import AddNewItem from "./AddNewItem";
 
 const SideBar = ({ setmainBoxSrc }) => {
   const submitHandler = (value) => {
@@ -34,6 +35,7 @@ const SideBar = ({ setmainBoxSrc }) => {
         </h3>
       </div>
       <div className="w-[80%] mx-auto flex flex-col justify-center py-8">
+        <AddNewItem setmainBoxSrc={setmainBoxSrc} />
         <BarItem
           icon={<MdContentPaste />}
           title="Products"
