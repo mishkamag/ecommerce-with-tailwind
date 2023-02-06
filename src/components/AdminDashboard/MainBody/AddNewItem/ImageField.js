@@ -1,7 +1,20 @@
 import { ErrorMessage, Field } from "formik";
 import React from "react";
 
-const FieldComponent = ({ label, type, asProps, name, placeholder }) => {
+const ImageField = ({
+  label,
+  type,
+  name,
+  placeholder,
+  onChange,
+  setFieldValue,
+}) => {
+  const changeHandler = (e) => {
+    onChange(e);
+    /* console.log(name, e.currentTarget.files[0].name); */
+    /* setFieldValue(name, e.currentTarget.files[0]); */
+  };
+
   return (
     <div className="relative mb-5">
       <label className="block font-bold mb-2 text-gray-700" htmlFor={name}>
@@ -13,8 +26,7 @@ const FieldComponent = ({ label, type, asProps, name, placeholder }) => {
         id={name}
         name={name}
         placeholder={placeholder}
-        as={asProps ? asProps : null}
-        rows={asProps ? "5" : null}
+        onChange={changeHandler}
       />
       <ErrorMessage
         component="div"
@@ -25,4 +37,4 @@ const FieldComponent = ({ label, type, asProps, name, placeholder }) => {
   );
 };
 
-export default FieldComponent;
+export default ImageField;
