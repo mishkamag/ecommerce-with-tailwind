@@ -12,7 +12,7 @@ const Item = ({ product }) => {
   };
 
   return (
-    <div className="relative w-full h-full grid grid-cols-5 text-sm text-[#111827] border-2 cursor-pointer rounded-sm bg-slate-50 border-slate-200 mt-2 hover:text-base duration-150">
+    <div className="relative w-full h-full grid grid-cols-5 text-sm text-[#111827] border-2 cursor-pointer rounded-sm bg-slate-50 hover:bg-green-200 border-slate-200 mt-2 duration-150">
       <div className="flex items-center">
         <div style={backgroundIMG} className="w-7 h-7 mr-4" />
         <span>{modifyString(product.title)}</span>
