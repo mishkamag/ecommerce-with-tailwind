@@ -65,6 +65,7 @@ function App() {
                 </AdminLayout>
               }
             />
+
             <Route
               path="/admin/home"
               element={
