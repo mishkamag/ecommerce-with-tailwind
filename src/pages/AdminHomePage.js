@@ -5,7 +5,8 @@ import SideBar from "../components/AdminDashboard/SideBar/SideBar";
 import Promotions from "../components/AdminDashboard/MainBody/Promotions";
 import Settings from "../components/AdminDashboard/MainBody/Settings";
 import Products from "../components/AdminDashboard/MainBody/Products";
-import Spinner from "../components/UI components/Spinner";
+
+import AddItem from "../components/AdminDashboard/MainBody/AddNewItem/AddItem";
 
 const AdminHomePage = () => {
   const [allProducts, setAllProducts] = useState([]);
@@ -19,6 +20,8 @@ const AdminHomePage = () => {
       return <Promotions />;
     } else if (mainBoxSrc.toLowerCase() === "settings") {
       return <Settings />;
+    } else if (mainBoxSrc.toLowerCase() === "newitem") {
+      return <AddItem />;
     }
   };
 
