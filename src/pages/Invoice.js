@@ -1,10 +1,8 @@
-import React, { useContext } from "react";
+import React, { useContext, useRef, useState } from "react";
 import { CartContext } from "../store/CartContext";
 
 const Invoice = () => {
   const { cart, totalPrice } = useContext(CartContext);
-
-  console.log(cart);
 
   return (
     <div className="container">
@@ -45,11 +43,22 @@ const Invoice = () => {
                 ).toFixed(2)}`}</td>
               </tr>
             ))}
-            <h1 className="text-red-700 uppercase text-xl">
+            {/* <p className="text-red-700 uppercase text-xl">
               {totalPrice.toFixed(2)}
-            </h1>
+            </p> */}
           </tbody>
         </table>
+        <div className="mt-4">
+          <input
+            type="email"
+            placeholder="Email"
+            className="appearance-none border rounded p-2 w-64 mr-2"
+          />
+
+          <button className="bg-indigo-500 hover:bg-indigo-700 text-white font-medium py-2 px-4 rounded ml-2">
+            Send
+          </button>
+        </div>
       </div>
     </div>
   );
