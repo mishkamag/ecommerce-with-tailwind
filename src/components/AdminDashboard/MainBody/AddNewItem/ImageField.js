@@ -23,7 +23,8 @@ const ImageField = ({
         placeholder={placeholder}
         value={values.image}
         onChange={(e) => {
-          setSelectedImage(URL.createObjectURL(e.currentTarget.files[0]));
+          /* setSelectedImage(URL.createObjectURL(e.currentTarget.files[0])); */
+          setSelectedImage(e.currentTarget.files[0]);
           handleChange(e);
         }}
       />
