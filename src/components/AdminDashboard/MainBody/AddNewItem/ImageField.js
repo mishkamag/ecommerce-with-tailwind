@@ -6,15 +6,10 @@ const ImageField = ({
   type,
   name,
   placeholder,
-  onChange,
-  setFieldValue,
+  handleChange,
+  values,
+  setSelectedImage,
 }) => {
-  const changeHandler = (e) => {
-    onChange(e);
-    /* console.log(name, e.currentTarget.files[0].name); */
-    /* setFieldValue(name, e.currentTarget.files[0]); */
-  };
-
   return (
     <div className="relative mb-5">
       <label className="block font-bold mb-2 text-gray-700" htmlFor={name}>
@@ -26,7 +21,11 @@ const ImageField = ({
         id={name}
         name={name}
         placeholder={placeholder}
-        onChange={changeHandler}
+        value={values.image}
+        onChange={(e) => {
+          setSelectedImage(URL.createObjectURL(e.currentTarget.files[0]));
+          handleChange(e);
+        }}
       />
       <ErrorMessage
         component="div"

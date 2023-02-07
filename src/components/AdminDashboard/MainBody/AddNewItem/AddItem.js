@@ -23,11 +23,6 @@ const validationSchema = Yup.object().shape({
 const AddItem = () => {
   const [selectedImage, setSelectedImage] = useState(null);
 
-  const imageUploadHandler = (e) => {
-    setSelectedImage(URL.createObjectURL(e.currentTarget.files[0]));
-    console.log(e.currentTarget.files[0]);
-  };
-
   return (
     <div className="h-full w-full">
       <div className="h-[10%] flex justify-center items-center w-full bg-green-200 rounded-t-lg">
@@ -37,16 +32,13 @@ const AddItem = () => {
         initialValues={initialValues}
         validationSchema={validationSchema}
         onSubmit={(values, { setSubmitting }) => {
-          setTimeout(() => {
-            alert(JSON.stringify(values, null, 2));
-            console.log(values);
-            setSubmitting(false);
-          }, 400);
+          console.log(values);
+          setSubmitting(false);
         }}
         validateOnBlur={false}
         validateOnChange={false}
       >
-        {({ isSubmitting, setFieldValue }) => (
+        {({ isSubmitting, handleChange, values }) => (
           <Form className="h-[90%] w-full flex flex-col justify-between items-center py-4 bg-gray-50">
             <div className="h-[70%] w-full flex justify-around">
               <div className="w-1/3 h-full">
@@ -55,13 +47,15 @@ const AddItem = () => {
                   type="file"
                   name="image"
                   placeholder="Upload an image"
-                  onChange={imageUploadHandler}
-                  setFieldValue={setFieldValue}
+                  values={values}
+                  handleChange={handleChange}
+                  setSelectedImage={setSelectedImage}
                 />
                 {selectedImage ? (
                   <img
                     src={selectedImage}
                     className="object-fill w-full h-auto mt-8"
+                    alt="noimage"
                   />
                 ) : (
                   <div className="h-4/5 w-full mt-8 flex justify-center items-center border-2 border-dashed text-6xl text-blue-500">
