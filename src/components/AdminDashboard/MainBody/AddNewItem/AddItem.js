@@ -4,6 +4,8 @@ import * as Yup from "yup";
 import FieldComponent from "./FieldComponent";
 import { BsImages } from "react-icons/bs";
 import ImageField from "./ImageField";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { storage } from "../../../../firebase.config";
 
 const initialValues = {
   title: "",
@@ -19,7 +21,7 @@ const validationSchema = Yup.object().shape({
   description: Yup.string().required("Description is required"),
   image: Yup.mixed().required("Image is required"),
 });
-
+//მაქვს ატვირთვის პრობლემა, სურათი იტვირთება ცუდად//
 const AddItem = () => {
   const [selectedImage, setSelectedImage] = useState(null);
 
@@ -32,7 +34,18 @@ const AddItem = () => {
         initialValues={initialValues}
         validationSchema={validationSchema}
         onSubmit={(values, { setSubmitting }) => {
-          console.log(values);
+          console.log(selectedImage);
+          const storageRef = ref(storage, `images/${values.image}`);
+          uploadBytes(storageRef, selectedImage).then((snapshot) => {
+            getDownloadURL(ref(storage, `images/${values.image}`))
+              .then((url) => {
+                console.log("src", url);
+              })
+              .catch((error) => {
+                console.log(error);
+              });
+            console.log("Uploaded a blob or file!", snapshot);
+          });
           setSubmitting(false);
         }}
         validateOnBlur={false}
@@ -53,7 +66,7 @@ const AddItem = () => {
                 />
                 {selectedImage ? (
                   <img
-                    src={selectedImage}
+                    src={URL.createObjectURL(selectedImage)}
                     className="object-fill w-full h-auto mt-8"
                     alt="noimage"
                   />
