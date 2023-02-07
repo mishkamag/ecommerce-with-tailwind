@@ -9,7 +9,7 @@ import { AuthContextProvider } from "./store/AuthContext";
 import AdminAuth from "./pages/AdminAuth";
 import ProtectedRoute from "./components/ProtectedRoute";
 import AdminHomePage from "./pages/AdminHomePage";
-import Invoice from "./components/Invoice";
+import Invoice from "./pages/Invoice";
 
 const AppLayout = ({ children }) => (
   <div className="overflow-hidden">
