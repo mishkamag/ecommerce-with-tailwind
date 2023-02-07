@@ -5,6 +5,8 @@ import autoTable from "jspdf-autotable";
 
 const Invoice = () => {
   const { cart, totalPrice } = useContext(CartContext);
+  // const [emailInput, setEmailInput] = useState("");
+
   const [pdf, setPdf] = useState(null);
   const componentRef = useRef();
 
@@ -22,6 +24,40 @@ const Invoice = () => {
     setPdf(doc.output("datauristring"));
   };
   console.log(pdf);
+  // const base64 = btoa(pdf);
+  // console.log(base64);
+
+  // const data = {
+  //   to: emailInput,
+  //   from: "mishka.maglaperidze@yahoo.com",
+  //   subject: "Invoice",
+  //   text: "Invoice",
+  //   attachments: [
+  //     {
+  //       content: base64,
+  //       filename: "invoice.pdf",
+  //       type: "application/pdf",
+  //       disposition: "attachment",
+  //     },
+  //   ],
+  // };
+
+  // const options = {
+  //   method: "POST",
+  //   headers: {
+  //     "Content-Type": "application/json",
+  //     Authorization: `Bearer ${process.env.SENDGRID_API_KEY}`,
+  //   },
+  //   body: JSON.stringify(data),
+  // };
+
+  // fetch("http://localhost:3000", options)
+  //   .then((response) => {
+  //     console.log(response);
+  //   })
+  //   .catch((error) => {
+  //     console.error(error);
+  //   });
 
   return (
     <div className="">
@@ -87,6 +123,7 @@ const Invoice = () => {
       <div className="mt-4 flex justify-between">
         <div>
           <input
+            // onChange={(e) => setEmailInput(e.target.value)}
             type="email"
             placeholder="Email"
             className="appearance-none border rounded p-2 w-55 mr-2"
@@ -98,7 +135,7 @@ const Invoice = () => {
           >
             Send
           </button>
-          {pdf && <iframe title="generated pdf" src={pdf} />}
+          {/* {pdf && <iframe title="generated pdf" src={pdf} />} */}
         </div>
       </div>
     </div>
