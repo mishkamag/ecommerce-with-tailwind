@@ -3,9 +3,13 @@ import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import FieldComponent from "./FieldComponent";
 import { BsImages } from "react-icons/bs";
+import { MdDoneAll } from "react-icons/md";
 import ImageField from "./ImageField";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { storage } from "../../../../firebase.config";
+import uniqid from "uniqid";
+import { addItem } from "../../../../Helpers/functions";
+import Spinner from "../../../UI components/Spinner";
 
 const initialValues = {
   title: "",
@@ -24,29 +28,49 @@ const validationSchema = Yup.object().shape({
 //მაქვს ატვირთვის პრობლემა, სურათი იტვირთება ცუდად//
 const AddItem = () => {
   const [selectedImage, setSelectedImage] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isAdded, setIsAdded] = useState(true);
 
   return (
-    <div className="h-full w-full">
+    <div className="relative h-full w-full">
+      {isLoading ? (
+        <div className="absolute z-50 w-full h-full rounded xl bg-black/50 flex justify-center items-center">
+          {isAdded ? (
+            <div className="flex flex-col items-center justify-center bg-white/90 py-8 px-16">
+              <div className="text-8xl text-green-400 mx-auto mb-2">
+                <MdDoneAll />
+              </div>
+              <h1 className="text-2xl font-semibold italic font-mono mb-4">
+                Product Added Successfully
+              </h1>
+              <button className="bg-blue-300 text-xl text-white py-2 px-6 rounded-xl hover:bg-blue-400">
+                Done
+              </button>
+            </div>
+          ) : (
+            <Spinner />
+          )}
+        </div>
+      ) : null}
+
       <div className="h-[10%] flex justify-center items-center w-full bg-green-200 rounded-t-lg">
         <h1 className="text-lg">Add new Product</h1>
       </div>
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
-        onSubmit={(values, { setSubmitting }) => {
-          console.log(selectedImage);
+        onSubmit={(values, { setSubmitting, resetForm }) => {
           const storageRef = ref(storage, `images/${values.image}`);
           uploadBytes(storageRef, selectedImage).then((snapshot) => {
             getDownloadURL(ref(storage, `images/${values.image}`))
               .then((url) => {
-                console.log("src", url);
+                const updatedItem = { ...values, image: url, id: uniqid() };
+                addItem(updatedItem, setSubmitting, resetForm);
               })
               .catch((error) => {
                 console.log(error);
               });
-            console.log("Uploaded a blob or file!", snapshot);
           });
-          setSubmitting(false);
         }}
         validateOnBlur={false}
         validateOnChange={false}

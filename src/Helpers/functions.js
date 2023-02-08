@@ -33,6 +33,9 @@ const uploadHandler = async (data) => {
       data: objToUpload.women_clothing,
     }); */
 
+import { arrayUnion, doc, updateDoc, setDoc } from "firebase/firestore";
+import { db } from "../firebase.config";
+
 // Atomically add a new region to the "regions" array field.
 /* await updateDoc(washingtonRef, {
       data: arrayUnion({ title: "tshirt", status: "updated" }),
@@ -81,5 +84,27 @@ export const modifyString = (string, limit = 18) => {
 export const pagination = (currentPage) => {
   let firstElement;
   if (currentPage === 1) {
+  }
+};
+
+export const addItem = async (newItem, setSubmitting, resetForm) => {
+  const newItemRef = doc(db, "ecommerce", newItem.category);
+  try {
+    await updateDoc(newItemRef, {
+      data: arrayUnion(newItem),
+    });
+    console.log(newItem);
+    setSubmitting(false);
+    resetForm();
+  } catch (error) {
+    if (error.message.toLowerCase().includes("no document to update")) {
+      console.log("There is No category document");
+      await setDoc(doc(db, "ecommerce", newItem.category), {
+        data: [{ ...newItem }],
+      });
+      setSubmitting(false);
+      resetForm();
+    }
+    console.log(error.message);
   }
 };
