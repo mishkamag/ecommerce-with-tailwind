@@ -7,6 +7,7 @@ import Settings from "../components/AdminDashboard/MainBody/Settings";
 import Products from "../components/AdminDashboard/MainBody/Products";
 
 import AddItem from "../components/AdminDashboard/MainBody/AddNewItem/AddItem";
+import { getCategorysFromProducts } from "../Helpers/functions";
 
 const AdminHomePage = () => {
   const [allProducts, setAllProducts] = useState([]);
@@ -21,7 +22,7 @@ const AdminHomePage = () => {
     } else if (mainBoxSrc.toLowerCase() === "settings") {
       return <Settings />;
     } else if (mainBoxSrc.toLowerCase() === "newitem") {
-      return <AddItem />;
+      return <AddItem categorys={getCategorysFromProducts(allProducts)} />;
     }
   };
 

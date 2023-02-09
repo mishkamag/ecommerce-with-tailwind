@@ -10,6 +10,7 @@ import { storage } from "../../../../firebase.config";
 import uniqid from "uniqid";
 import { addItem } from "../../../../Helpers/functions";
 import Spinner from "../../../UI components/Spinner";
+import SelectField from "./SelectField";
 
 const initialValues = {
   title: "",
@@ -19,14 +20,14 @@ const initialValues = {
   image: "",
 };
 const validationSchema = Yup.object().shape({
-  title: Yup.string().required("Title is required"),
-  price: Yup.number().required("Price is required"),
-  category: Yup.string().required("Category is required"),
-  description: Yup.string().required("Description is required"),
+  title: Yup.string().required("Enter Title"),
+  price: Yup.number().required("Enter Price"),
+  category: Yup.string().required("Select Category"),
+  description: Yup.string().required("Enter Description"),
   image: Yup.mixed().required("Image is required"),
 });
 //მაქვს ატვირთვის პრობლემა, სურათი იტვირთება ცუდად//
-const AddItem = () => {
+const AddItem = ({ categorys }) => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isAdded, setIsAdded] = useState(false);
@@ -66,18 +67,14 @@ const AddItem = () => {
         initialValues={initialValues}
         validationSchema={validationSchema}
         onSubmit={(values, { setSubmitting, resetForm }) => {
+          setIsLoading(true);
+          console.log(values);
           const storageRef = ref(storage, `images/${values.image}`);
           uploadBytes(storageRef, selectedImage).then((snapshot) => {
             getDownloadURL(ref(storage, `images/${values.image}`))
               .then((url) => {
                 const updatedItem = { ...values, image: url, id: uniqid() };
-                addItem(
-                  updatedItem,
-                  setSubmitting,
-                  resetForm,
-                  setIsLoading,
-                  setIsAdded
-                );
+                addItem(updatedItem, setSubmitting, resetForm, setIsAdded);
               })
               .catch((error) => {
                 console.log(error);
@@ -125,11 +122,11 @@ const AddItem = () => {
                   name="price"
                   placeholder="Enter product price"
                 />
-                <FieldComponent
+                <SelectField
+                  categorys={categorys}
                   label="Category"
-                  type="text"
                   name="category"
-                  placeholder="Enter product category"
+                  placeholder="Select Category"
                 />
                 <FieldComponent
                   label="Description"

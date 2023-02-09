@@ -33,7 +33,13 @@ const uploadHandler = async (data) => {
       data: objToUpload.women_clothing,
     }); */
 
-import { arrayUnion, doc, updateDoc, setDoc } from "firebase/firestore";
+import {
+  arrayUnion,
+  doc,
+  updateDoc,
+  setDoc,
+  arrayRemove,
+} from "firebase/firestore";
 import { db } from "../firebase.config";
 
 // Atomically add a new region to the "regions" array field.
@@ -67,6 +73,16 @@ export const filterPdoructsBySearchValue = (searchValue, products) => {
   return updatedProducts;
 };
 
+export const getCategorysFromProducts = (products) => {
+  const uniqueArray = products.filter((product, index, self) => {
+    return (
+      self.map((product) => product.category).indexOf(product.category) ===
+      index
+    );
+  });
+  return uniqueArray.map((obj) => obj.category);
+};
+
 export const modifyString = (string, limit = 18) => {
   const temp = [];
   if (string.length > limit) {
@@ -86,10 +102,8 @@ export const addItem = async (
   newItem,
   setSubmitting,
   resetForm,
-  setIsLoading,
   setIsAdded
 ) => {
-  setIsLoading(true);
   const newItemRef = doc(db, "ecommerce", newItem.category);
   try {
     await updateDoc(newItemRef, {
@@ -110,5 +124,17 @@ export const addItem = async (
       resetForm();
     }
     console.log(error.message);
+  }
+};
+
+export const deleteItem = async (item) => {
+  console.log("Delete function");
+  const itemRef = doc(db, "ecommerce", item.category);
+  try {
+    await updateDoc(itemRef, {
+      data: arrayRemove(item),
+    });
+  } catch (error) {
+    console.log(error);
   }
 };
