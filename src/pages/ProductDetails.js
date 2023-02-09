@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { CartContext } from "../store/CartContext";
 import { ProductContext } from "../store/ProductContext";
@@ -7,6 +7,11 @@ const ProductDetails = () => {
   const { id } = useParams();
   const { products } = useContext(ProductContext);
   const { addToCart } = useContext(CartContext);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    console.log("here");
+  }, []);
 
   const product = products.find((item) => {
     return item.id === parseInt(id);

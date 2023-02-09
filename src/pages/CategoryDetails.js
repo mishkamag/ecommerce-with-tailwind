@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import Product from "../components/Product";
 import { ProductContext } from "../store/ProductContext";
 import { useParams } from "react-router-dom";
@@ -6,6 +6,11 @@ import { useParams } from "react-router-dom";
 const CategoryDetails = () => {
   const { products } = useContext(ProductContext);
   const { category } = useParams();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    console.log("here");
+  }, []);
 
   return (
     <div className="container mx-auto my-24">

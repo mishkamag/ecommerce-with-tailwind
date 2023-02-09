@@ -25,27 +25,29 @@ const Invoice = () => {
     setPdf(doc.output("datauristring"));
   };
 
+  const base64 = btoa(pdf);
+  // console.log(base64);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     handleGenerate();
+    console.log(pdf);
+
     const result = await emailjs.send(
-      "gBc71-RpPzO0bJXH4",
       "service_vw8fu2d",
       "template_tfe9hys",
 
-      {
-        to_email: email,
-        attachments: [
-          {
-            type: "application/pdf",
-            name: "products.pdf",
-            content: pdf,
-          },
-        ],
-      }
+      base64,
+      //   attachments: [
+      //     {
+      //       type: "application/pdf",
+      //       name: "products.pdf",
+      //       content: pdf,
+      //     },
+      //   ],
+      // },
+      "gBc71-RpPzO0bJXH4"
     );
-
-    console.log(result);
   };
 
   return (
@@ -69,7 +71,7 @@ const Invoice = () => {
         </div>
       </header>
 
-      <div
+      <form
         ref={componentRef}
         className="bg-white  rounded-lg shadow-md max-h-[300px] lg:max-h-[330px] overflow-y-auto overflow-x-hidden  "
       >
@@ -103,7 +105,7 @@ const Invoice = () => {
             ))}
           </tbody>
         </table>
-      </div>
+      </form>
       <div className="flex w-full ">
         <div className="  bg-[#008ECC] text-white font-bold py-2 px-12 rounded   mt-4">
           TOTAL: {totalPrice.toFixed(2)}
@@ -135,12 +137,12 @@ const Invoice = () => {
 export default Invoice;
 
 // {pdf && <iframe title="generated pdf" src={pdf} />}
-// const base64 = btoa(pdf);
-// console.log(base64);
+
+//   console.log(componentRef);
 
 // const data = {
-//   to: emailInput,
-//   from: "mishka.maglaperidze@yahoo.com",
+//   to: email,
+//   from: "m93.maglaperidze@gmail.com",
 //   subject: "Invoice",
 //   text: "Invoice",
 //   attachments: [
@@ -157,15 +159,36 @@ export default Invoice;
 //   method: "POST",
 //   headers: {
 //     "Content-Type": "application/json",
-//     Authorization: `Bearer ${process.env.SENDGRID_API_KEY}`,
+//     Authorization:
+//       "Bearer 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",
 //   },
 //   body: JSON.stringify(data),
 // };
 
-// fetch("http://localhost:3000", options)
-//   .then((response) => {
-//     console.log(response);
-//   })
-//   .catch((error) => {
-//     console.error(error);
+// console.log(options);
+
+// fetch("https://api.sendgrid.com/v3/mail/send", options)
+// .then((response) => {
+//   console.log(response);
+// })
+// .catch((error) => {
+//   console.error(error);
+// });
+
+// const functions = require('firebase-functions');
+// const nodemailer = require('nodemailer');
+// const gmailEmail = encodeURIComponent(functions.config().gmail.email);
+// const gmailPassword = encodeURIComponent(functions.config().gmail.password);
+// const mailTransport = nodemailer.createTransport(
+//     smtps://${gmailEmail}:${gmailPassword}@smtp.gmail.com);
+
+// exports.sendEmail = functions.https.onCall((data, context) => {
+//   const mailOptions = {
+//     to: data.to,
+//     subject: data.subject,
+//     html: data.body
+//   };
+//   return mailTransport.sendMail(mailOptions).then(() => {
+//     return { success: true };
 //   });
+// });
