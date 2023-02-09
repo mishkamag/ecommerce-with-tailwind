@@ -160,7 +160,7 @@ export default Invoice;
 //   headers: {
 //     "Content-Type": "application/json",
 //     Authorization:
-//       "Bearer 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",
+//       "Bearer key of sendgrid",
 //   },
 //   body: JSON.stringify(data),
 // };
