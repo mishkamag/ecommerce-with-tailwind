@@ -1,8 +1,63 @@
-import React, { useContext } from "react";
+import React, { useContext, useRef, useState } from "react";
 import { CartContext } from "../store/CartContext";
+import { jsPDF } from "jspdf";
+import autoTable from "jspdf-autotable";
 
 const Invoice = () => {
   const { cart, totalPrice } = useContext(CartContext);
+  // const [emailInput, setEmailInput] = useState("");
+
+  const [pdf, setPdf] = useState(null);
+  const componentRef = useRef();
+
+  const handleGenerate = () => {
+    const doc = new jsPDF();
+    doc.text("Products", 10, 10);
+    doc.autoTable({
+      head: [["Title", "Amount", "Price,"]],
+      body: cart.map((product) => [
+        product.title,
+        product.amount,
+        product.price,
+      ]),
+    });
+    setPdf(doc.output("datauristring"));
+  };
+  console.log(pdf);
+  // const base64 = btoa(pdf);
+  // console.log(base64);
+
+  // const data = {
+  //   to: emailInput,
+  //   from: "mishka.maglaperidze@yahoo.com",
+  //   subject: "Invoice",
+  //   text: "Invoice",
+  //   attachments: [
+  //     {
+  //       content: base64,
+  //       filename: "invoice.pdf",
+  //       type: "application/pdf",
+  //       disposition: "attachment",
+  //     },
+  //   ],
+  // };
+
+  // const options = {
+  //   method: "POST",
+  //   headers: {
+  //     "Content-Type": "application/json",
+  //     Authorization: `Bearer ${process.env.SENDGRID_API_KEY}`,
+  //   },
+  //   body: JSON.stringify(data),
+  // };
+
+  // fetch("http://localhost:3000", options)
+  //   .then((response) => {
+  //     console.log(response);
+  //   })
+  //   .catch((error) => {
+  //     console.error(error);
+  //   });
 
   return (
     <div className="">
@@ -25,7 +80,10 @@ const Invoice = () => {
         </div>
       </header>
 
-      <div className="bg-white  rounded-lg shadow-md max-h-[300px] lg:max-h-[330px] overflow-y-auto overflow-x-hidden  ">
+      <div
+        ref={componentRef}
+        className="bg-white  rounded-lg shadow-md max-h-[300px] lg:max-h-[330px] overflow-y-auto overflow-x-hidden  "
+      >
         <table className="w-full text-left">
           <thead>
             <tr className="text-sm font-medium text-white uppercase border bg-[#008ECC]  ">
@@ -65,14 +123,19 @@ const Invoice = () => {
       <div className="mt-4 flex justify-between">
         <div>
           <input
+            // onChange={(e) => setEmailInput(e.target.value)}
             type="email"
             placeholder="Email"
             className="appearance-none border rounded p-2 w-55 mr-2"
           />
 
-          <button className="bg-[#008ECC] hover:bg-[#008EAC] text-white font-medium py-2 px-4 rounded ml-2">
+          <button
+            onClick={handleGenerate}
+            className="bg-[#008ECC] hover:bg-[#008EAC] text-white font-medium py-2 px-4 rounded ml-2"
+          >
             Send
           </button>
+          {/* {pdf && <iframe title="generated pdf" src={pdf} />} */}
         </div>
       </div>
     </div>

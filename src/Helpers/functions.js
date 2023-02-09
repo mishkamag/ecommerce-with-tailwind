@@ -81,19 +81,22 @@ export const modifyString = (string, limit = 18) => {
     return string;
   }
 };
-export const pagination = (currentPage) => {
-  let firstElement;
-  if (currentPage === 1) {
-  }
-};
 
-export const addItem = async (newItem, setSubmitting, resetForm) => {
+export const addItem = async (
+  newItem,
+  setSubmitting,
+  resetForm,
+  setIsLoading,
+  setIsAdded
+) => {
+  setIsLoading(true);
   const newItemRef = doc(db, "ecommerce", newItem.category);
   try {
     await updateDoc(newItemRef, {
       data: arrayUnion(newItem),
     });
     console.log(newItem);
+    setIsAdded(true);
     setSubmitting(false);
     resetForm();
   } catch (error) {
@@ -102,6 +105,7 @@ export const addItem = async (newItem, setSubmitting, resetForm) => {
       await setDoc(doc(db, "ecommerce", newItem.category), {
         data: [{ ...newItem }],
       });
+      setIsAdded(true);
       setSubmitting(false);
       resetForm();
     }

@@ -28,8 +28,8 @@ const validationSchema = Yup.object().shape({
 //მაქვს ატვირთვის პრობლემა, სურათი იტვირთება ცუდად//
 const AddItem = () => {
   const [selectedImage, setSelectedImage] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [isAdded, setIsAdded] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isAdded, setIsAdded] = useState(false);
 
   return (
     <div className="relative h-full w-full">
@@ -43,7 +43,13 @@ const AddItem = () => {
               <h1 className="text-2xl font-semibold italic font-mono mb-4">
                 Product Added Successfully
               </h1>
-              <button className="bg-blue-300 text-xl text-white py-2 px-6 rounded-xl hover:bg-blue-400">
+              <button
+                className="bg-blue-300 text-xl text-white py-2 px-6 rounded-xl hover:bg-blue-400"
+                onClick={() => {
+                  setIsAdded(false);
+                  setIsLoading(false);
+                }}
+              >
                 Done
               </button>
             </div>
@@ -53,7 +59,7 @@ const AddItem = () => {
         </div>
       ) : null}
 
-      <div className="h-[10%] flex justify-center items-center w-full bg-green-200 rounded-t-lg">
+      <div className="h-[10%] flex justify-center items-center w-full bg-gray-100 rounded-t-lg">
         <h1 className="text-lg">Add new Product</h1>
       </div>
       <Formik
@@ -65,7 +71,13 @@ const AddItem = () => {
             getDownloadURL(ref(storage, `images/${values.image}`))
               .then((url) => {
                 const updatedItem = { ...values, image: url, id: uniqid() };
-                addItem(updatedItem, setSubmitting, resetForm);
+                addItem(
+                  updatedItem,
+                  setSubmitting,
+                  resetForm,
+                  setIsLoading,
+                  setIsAdded
+                );
               })
               .catch((error) => {
                 console.log(error);
