@@ -123,7 +123,7 @@ const Invoice = () => {
             />
             <button
               type="submit"
-              className="flex-shrink-0 bg-teal-500 hover:bg-teal-700 border-teal-500 hover:border-teal-700 text-sm border-4 text-white py-1 px-2 rounded"
+              className="flex-shrink-0 bg-[#008ECC] hover:bg-blue-700 border-[#008ECC] hover:border-[#008ECC] text-sm border-4 text-white py-1 px-2 rounded"
             >
               Send
             </button>
