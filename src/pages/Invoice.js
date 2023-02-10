@@ -113,7 +113,7 @@ const Invoice = () => {
       </div>
       <div className="mt-4 flex justify-between">
         <form onSubmit={handleSubmit} className="w-full max-w-sm mx-auto">
-          <div className="flex items-center border-b border-teal-500 py-2">
+          <div className="flex items-center border-b border-[#008ECC] py-2">
             <input
               type="email"
               placeholder="Enter email"
