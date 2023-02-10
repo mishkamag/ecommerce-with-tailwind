@@ -10,20 +10,13 @@ const ProductDetails = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    console.log("here");
   }, []);
 
   const product = products.find((item) => {
     return item.id === parseInt(id);
   });
 
-  if (!product) {
-    <section className="h-creen flex justify-center items-center">
-      Loading...
-    </section>;
-  }
-
-  const { title, price, description, image } = product;
+  const { title, price, description, image } = product || {};
 
   return (
     <section className="pt-32 pb-12 lg:py-32 h-screen flex items-center">
