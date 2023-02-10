@@ -49,6 +49,7 @@ const AddItem = ({ categorys }) => {
                 onClick={() => {
                   setIsAdded(false);
                   setIsLoading(false);
+                  setSelectedImage(null);
                 }}
               >
                 Done

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, onSnapshot, query } from "firebase/firestore";
 import { db } from "../firebase.config";
 import SideBar from "../components/AdminDashboard/SideBar/SideBar";
 import Promotions from "../components/AdminDashboard/MainBody/Promotions";
@@ -13,6 +13,8 @@ const AdminHomePage = () => {
   const [allProducts, setAllProducts] = useState([]);
   const [mainBoxSrc, setmainBoxSrc] = useState("products");
   const [isLoading, setIsLoading] = useState(false);
+
+  console.log(allProducts);
 
   const body = () => {
     if (mainBoxSrc.toLowerCase() === "products") {
@@ -28,7 +30,7 @@ const AdminHomePage = () => {
 
   const getAllProducts = async () => {
     setIsLoading(true);
-    try {
+    /* try {
       const querySnapshot = await getDocs(collection(db, "ecommerce"));
       const products = [];
       querySnapshot.forEach((doc) => {
@@ -36,6 +38,19 @@ const AdminHomePage = () => {
       });
       setAllProducts(products);
       setIsLoading(false);
+    } catch (error) {
+      console.log(error);
+    } */
+    try {
+      const q = query(collection(db, "ecommerce"));
+      const unsubscribe = onSnapshot(q, (querySnapshot) => {
+        const products = [];
+        querySnapshot.forEach((doc) => {
+          products.push(...doc.data().data);
+        });
+        setAllProducts(products);
+        setIsLoading(false);
+      });
     } catch (error) {
       console.log(error);
     }
