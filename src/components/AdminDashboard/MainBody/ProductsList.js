@@ -5,7 +5,6 @@ import ListPagination from "./ListPagination";
 
 const ProductsList = ({ list }) => {
   const [currentPage, setCurrentPage] = useState(1);
-  console.log(list);
 
   return (
     <div className="h-[90%] rounded-b-xl">
