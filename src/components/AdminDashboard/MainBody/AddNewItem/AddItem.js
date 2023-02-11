@@ -75,7 +75,13 @@ const AddItem = ({ categorys }) => {
             getDownloadURL(ref(storage, `images/${values.image}`))
               .then((url) => {
                 const updatedItem = { ...values, image: url, id: uniqid() };
-                addItem(updatedItem, setSubmitting, resetForm, setIsAdded);
+                addItem(
+                  "ecommerce",
+                  updatedItem,
+                  setSubmitting,
+                  resetForm,
+                  setIsAdded
+                );
               })
               .catch((error) => {
                 console.log(error);

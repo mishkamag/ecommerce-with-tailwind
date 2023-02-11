@@ -1,41 +1,120 @@
-import React from "react";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import { Field, Form, Formik } from "formik";
+import React, { useState } from "react";
+import * as Yup from "yup";
+import { storage } from "../../../../firebase.config";
+import { addItem } from "../../../../Helpers/functions";
+import uniqid from "uniqid";
+import { BsImages } from "react-icons/bs";
+
+const initialValues = {
+  title: "",
+  image: "",
+};
+const validationSchema = Yup.object().shape({
+  title: Yup.string().required("Enter Title"),
+  image: Yup.mixed().required("Image is required"),
+});
 
 const Add = () => {
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isAdded, setIsAdded] = useState(false);
+  const AddPromotionHandler = (e) => {
+    e.preventDefault();
+  };
   return (
     <div className="absolute h-full w-full bg-black/70 rounded-xl flex items-center justify-center">
       <div className="w-3/4 h-3/4 bg-white rounded-xl">
         <div className="flex justify-center items-center w-full h-[10%] text-xl bg-slate-50 rounded-t-xl">
           <span>New Promotion</span>
         </div>
-        <form className="h-[90%] py-4 px-8 rounded-b-xl">
-          <div className="h-[20%] flex justify-between items-center">
-            <div className="flex flex-col ">
-              <label htmlFor="title">Add Promotion Title</label>
-              <input
-                className="italic font-mono outline-none py-2"
-                type="text"
-                name="title"
-                id="title"
-                placeholder="Enter Promotion Title"
-              />
-            </div>
-            <div className="flex flex-col">
-              <label htmlFor="promotion">Add Promotion Image</label>
-              <input
-                className="italic font-mono outline-none py-2"
-                type="file"
-                name="promotion"
-                id="promotion"
-              />
-            </div>
-            <button className="px-4 py-2 bg-green-200 rounded-2xl hover:bg-green-300">
-              + Add
-            </button>
-          </div>
-          <div className="w-full h-[80%] border-2 border-dashed flex justify-center items-center ">
-            <span className="border-dashed border-2 p-4">No Image Choosed</span>
-          </div>
-        </form>
+        <Formik
+          initialValues={initialValues}
+          validationSchema={validationSchema}
+          onSubmit={(values, { setSubmitting, resetForm }) => {
+            setIsLoading(true);
+            console.log(values);
+            const storageRef = ref(storage, `offers/${values.image}`);
+            uploadBytes(storageRef, selectedImage).then((snapshot) => {
+              getDownloadURL(ref(storage, `offers/${values.image}`))
+                .then((url) => {
+                  const updatedItem = {
+                    ...values,
+                    image: url,
+                    status: "active",
+                    id: uniqid(),
+                  };
+                  addItem(
+                    "offers",
+                    updatedItem,
+                    setSubmitting,
+                    resetForm,
+                    setIsAdded
+                  );
+                })
+                .catch((error) => {
+                  console.log(error);
+                });
+            });
+          }}
+          validateOnBlur={false}
+          validateOnChange={false}
+        >
+          {({ isSubmitting, handleChange, values }) => (
+            <Form className="h-[90%] py-4 px-8 rounded-b-xl">
+              <div className="h-[20%] flex justify-between items-center">
+                <div className="flex flex-col ">
+                  <label htmlFor="title">Add Promotion Title</label>
+                  <Field
+                    className="italic font-mono outline-none py-2"
+                    type="text"
+                    name="title"
+                    id="title"
+                    placeholder="Enter Promotion Title"
+                  />
+                </div>
+                <div className="flex flex-col">
+                  <label htmlFor="image">Add Promotion Image</label>
+                  <Field
+                    className="italic font-mono outline-none py-2"
+                    type="file"
+                    name="image"
+                    id="image"
+                    value={values.image}
+                    onChange={(e) => {
+                      setSelectedImage(e.currentTarget.files[0]);
+                      handleChange(e);
+                    }}
+                  />
+                </div>
+                <button
+                  type="submit"
+                  className="px-4 py-2 bg-green-200 rounded-2xl hover:bg-green-300"
+                  disabled={isSubmitting}
+                >
+                  + Add
+                </button>
+              </div>
+              <div className="w-full h-[80%] border-2 border-dashed flex justify-center items-center ">
+                {/* <span className="border-dashed border-2 p-4">
+                  No Image Choosed
+                </span> */}
+                {selectedImage ? (
+                  <img
+                    src={URL.createObjectURL(selectedImage)}
+                    className="object-fill w-full h-full"
+                    alt="noimage"
+                  />
+                ) : (
+                  <span className="text-6xl text-blue-500">
+                    <BsImages />
+                  </span>
+                )}
+              </div>
+            </Form>
+          )}
+        </Formik>
       </div>
     </div>
   );

@@ -99,12 +99,16 @@ export const modifyString = (string, limit = 18) => {
 };
 
 export const addItem = async (
+  collection,
   newItem,
   setSubmitting,
   resetForm,
   setIsAdded
 ) => {
-  const newItemRef = doc(db, "ecommerce", newItem.category);
+  const newItemRef =
+    collection === "ecommerce"
+      ? doc(db, "ecommerce", newItem.category)
+      : doc(db, "offers", newItem.status);
   try {
     await updateDoc(newItemRef, {
       data: arrayUnion(newItem),
