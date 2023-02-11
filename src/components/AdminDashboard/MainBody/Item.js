@@ -1,5 +1,5 @@
 import React from "react";
-import { modifyString } from "../../../Helpers/functions";
+import { deleteItem, modifyString } from "../../../Helpers/functions";
 import { AiFillEdit } from "react-icons/ai";
 import { AiOutlineDelete } from "react-icons/ai";
 
@@ -25,7 +25,11 @@ const Item = ({ product }) => {
         <button className="text-lg hover:text-xl hover:text-yellow-500 mr-2">
           <AiFillEdit />
         </button>
-        <button className="text-lg hover:text-xl hover:text-red-700 ">
+        <button
+          type="button"
+          className="text-lg hover:text-xl hover:text-red-700"
+          onClick={() => deleteItem("ecommerce", product)}
+        >
           <AiOutlineDelete />
         </button>
       </div>

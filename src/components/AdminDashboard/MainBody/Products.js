@@ -6,6 +6,7 @@ import Spinner from "../../UI components/Spinner";
 const Products = ({ products, isLoading }) => {
   const [searchInputValue, setSearchInputValue] = useState("");
   const [list, setList] = useState([]);
+  const [categorys, setCategorys] = useState([]);
 
   const inputChangeHandler = (e) => {
     setSearchInputValue(e.target.value);
@@ -34,7 +35,7 @@ const Products = ({ products, isLoading }) => {
           <Spinner />
         </div>
       ) : (
-        <ProductsList list={list.length > 0 ? list : products} />
+        <ProductsList list={searchInputValue ? list : products} />
       )}
     </>
   );

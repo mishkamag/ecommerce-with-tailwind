@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { collection, getDocs } from "firebase/firestore";
-import { db } from "../firebase.config";
 import SideBar from "../components/AdminDashboard/SideBar/SideBar";
-import Promotions from "../components/AdminDashboard/MainBody/Promotions";
 import Settings from "../components/AdminDashboard/MainBody/Settings";
 import Products from "../components/AdminDashboard/MainBody/Products";
-
 import AddItem from "../components/AdminDashboard/MainBody/AddNewItem/AddItem";
+import { fetchData, getCategorysFromProducts } from "../Helpers/functions";
+import Promotions from "../components/AdminDashboard/MainBody/Promotions/Promotions";
 
 const AdminHomePage = () => {
   const [allProducts, setAllProducts] = useState([]);
@@ -21,27 +19,12 @@ const AdminHomePage = () => {
     } else if (mainBoxSrc.toLowerCase() === "settings") {
       return <Settings />;
     } else if (mainBoxSrc.toLowerCase() === "newitem") {
-      return <AddItem />;
-    }
-  };
-
-  const getAllProducts = async () => {
-    setIsLoading(true);
-    try {
-      const querySnapshot = await getDocs(collection(db, "ecommerce"));
-      const products = [];
-      querySnapshot.forEach((doc) => {
-        products.push(...doc.data().data);
-      });
-      setAllProducts(products);
-      setIsLoading(false);
-    } catch (error) {
-      console.log(error);
+      return <AddItem categorys={getCategorysFromProducts(allProducts)} />;
     }
   };
 
   useEffect(() => {
-    getAllProducts();
+    fetchData("ecommerce", setIsLoading, setAllProducts);
   }, []);
   return (
     <div className="flex h-screen w-screen bg-[#e2e5e9]">

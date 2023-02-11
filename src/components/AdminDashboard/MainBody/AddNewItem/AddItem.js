@@ -10,6 +10,8 @@ import { storage } from "../../../../firebase.config";
 import uniqid from "uniqid";
 import { addItem } from "../../../../Helpers/functions";
 import Spinner from "../../../UI components/Spinner";
+import SelectField from "./SelectField";
+import IsLoading from "../../../UI components/IsLoading";
 
 const initialValues = {
   title: "",
@@ -19,46 +21,27 @@ const initialValues = {
   image: "",
 };
 const validationSchema = Yup.object().shape({
-  title: Yup.string().required("Title is required"),
-  price: Yup.number().required("Price is required"),
-  category: Yup.string().required("Category is required"),
-  description: Yup.string().required("Description is required"),
+  title: Yup.string().required("Enter Title"),
+  price: Yup.number().required("Enter Price"),
+  category: Yup.string().required("Select Category"),
+  description: Yup.string().required("Enter Description"),
   image: Yup.mixed().required("Image is required"),
 });
 //მაქვს ატვირთვის პრობლემა, სურათი იტვირთება ცუდად//
-const AddItem = () => {
+const AddItem = ({ categorys }) => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isAdded, setIsAdded] = useState(false);
 
   return (
     <div className="relative h-full w-full">
-      {isLoading ? (
-        <div className="absolute z-50 w-full h-full rounded xl bg-black/50 flex justify-center items-center">
-          {isAdded ? (
-            <div className="flex flex-col items-center justify-center bg-white/90 py-8 px-16">
-              <div className="text-8xl text-green-400 mx-auto mb-2">
-                <MdDoneAll />
-              </div>
-              <h1 className="text-2xl font-semibold italic font-mono mb-4">
-                Product Added Successfully
-              </h1>
-              <button
-                className="bg-blue-300 text-xl text-white py-2 px-6 rounded-xl hover:bg-blue-400"
-                onClick={() => {
-                  setIsAdded(false);
-                  setIsLoading(false);
-                }}
-              >
-                Done
-              </button>
-            </div>
-          ) : (
-            <Spinner />
-          )}
-        </div>
-      ) : null}
-
+      <IsLoading
+        isLoading={isLoading}
+        isAdded={isAdded}
+        setIsAdded={setIsAdded}
+        setIsLoading={setIsLoading}
+        setSelectedImage={setSelectedImage}
+      />
       <div className="h-[10%] flex justify-center items-center w-full bg-gray-100 rounded-t-lg">
         <h1 className="text-lg">Add new Product</h1>
       </div>
@@ -66,16 +49,18 @@ const AddItem = () => {
         initialValues={initialValues}
         validationSchema={validationSchema}
         onSubmit={(values, { setSubmitting, resetForm }) => {
+          setIsLoading(true);
+          console.log(values);
           const storageRef = ref(storage, `images/${values.image}`);
           uploadBytes(storageRef, selectedImage).then((snapshot) => {
             getDownloadURL(ref(storage, `images/${values.image}`))
               .then((url) => {
                 const updatedItem = { ...values, image: url, id: uniqid() };
                 addItem(
+                  "ecommerce",
                   updatedItem,
                   setSubmitting,
                   resetForm,
-                  setIsLoading,
                   setIsAdded
                 );
               })
@@ -125,11 +110,11 @@ const AddItem = () => {
                   name="price"
                   placeholder="Enter product price"
                 />
-                <FieldComponent
+                <SelectField
+                  categorys={categorys}
                   label="Category"
-                  type="text"
                   name="category"
-                  placeholder="Enter product category"
+                  placeholder="Select Category"
                 />
                 <FieldComponent
                   label="Description"
