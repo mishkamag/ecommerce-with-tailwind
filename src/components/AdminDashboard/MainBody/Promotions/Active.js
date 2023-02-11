@@ -1,14 +1,13 @@
 import React from "react";
 import ListItem from "./ListItem";
+import uniqid from "uniqid";
 
-const Active = () => {
+const Active = ({ activePromotions }) => {
   return (
     <>
-      <ListItem imgUrl="https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg" />
-      <ListItem imgUrl="https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg" />
-      <ListItem imgUrl="https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg" />
-      <ListItem imgUrl="https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg" />
-      <ListItem imgUrl="https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg" />
+      {activePromotions.map((promotion) => (
+        <ListItem key={uniqid()} promotion={promotion} />
+      ))}
     </>
   );
 };

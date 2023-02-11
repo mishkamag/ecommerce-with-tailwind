@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { collection, getDocs, onSnapshot, query } from "firebase/firestore";
-import { db } from "../firebase.config";
 import SideBar from "../components/AdminDashboard/SideBar/SideBar";
 import Settings from "../components/AdminDashboard/MainBody/Settings";
 import Products from "../components/AdminDashboard/MainBody/Products";
 import AddItem from "../components/AdminDashboard/MainBody/AddNewItem/AddItem";
-import { getCategorysFromProducts } from "../Helpers/functions";
+import { fetchData, getCategorysFromProducts } from "../Helpers/functions";
 import Promotions from "../components/AdminDashboard/MainBody/Promotions/Promotions";
 
 const AdminHomePage = () => {
@@ -25,26 +23,8 @@ const AdminHomePage = () => {
     }
   };
 
-  const getAllProducts = async () => {
-    setIsLoading(true);
-
-    try {
-      const q = query(collection(db, "ecommerce"));
-      const unsubscribe = onSnapshot(q, (querySnapshot) => {
-        const products = [];
-        querySnapshot.forEach((doc) => {
-          products.push(...doc.data().data);
-        });
-        setAllProducts(products);
-        setIsLoading(false);
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   useEffect(() => {
-    getAllProducts();
+    fetchData("ecommerce", setIsLoading, setAllProducts);
   }, []);
   return (
     <div className="flex h-screen w-screen bg-[#e2e5e9]">

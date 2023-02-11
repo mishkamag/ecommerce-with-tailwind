@@ -11,6 +11,7 @@ import uniqid from "uniqid";
 import { addItem } from "../../../../Helpers/functions";
 import Spinner from "../../../UI components/Spinner";
 import SelectField from "./SelectField";
+import IsLoading from "../../../UI components/IsLoading";
 
 const initialValues = {
   title: "",
@@ -34,33 +35,13 @@ const AddItem = ({ categorys }) => {
 
   return (
     <div className="relative h-full w-full">
-      {isLoading ? (
-        <div className="absolute z-50 w-full h-full rounded xl bg-black/50 flex justify-center items-center">
-          {isAdded ? (
-            <div className="flex flex-col items-center justify-center bg-white/90 py-8 px-16">
-              <div className="text-8xl text-green-400 mx-auto mb-2">
-                <MdDoneAll />
-              </div>
-              <h1 className="text-2xl font-semibold italic font-mono mb-4">
-                Product Added Successfully
-              </h1>
-              <button
-                className="bg-blue-300 text-xl text-white py-2 px-6 rounded-xl hover:bg-blue-400"
-                onClick={() => {
-                  setIsAdded(false);
-                  setIsLoading(false);
-                  setSelectedImage(null);
-                }}
-              >
-                Done
-              </button>
-            </div>
-          ) : (
-            <Spinner />
-          )}
-        </div>
-      ) : null}
-
+      <IsLoading
+        isLoading={isLoading}
+        isAdded={isAdded}
+        setIsAdded={setIsAdded}
+        setIsLoading={setIsLoading}
+        setSelectedImage={setSelectedImage}
+      />
       <div className="h-[10%] flex justify-center items-center w-full bg-gray-100 rounded-t-lg">
         <h1 className="text-lg">Add new Product</h1>
       </div>

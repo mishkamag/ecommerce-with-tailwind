@@ -6,6 +6,7 @@ import { storage } from "../../../../firebase.config";
 import { addItem } from "../../../../Helpers/functions";
 import uniqid from "uniqid";
 import { BsImages } from "react-icons/bs";
+import IsLoading from "../../../UI components/IsLoading";
 
 const initialValues = {
   title: "",
@@ -16,18 +17,32 @@ const validationSchema = Yup.object().shape({
   image: Yup.mixed().required("Image is required"),
 });
 
-const Add = () => {
+const Add = ({ setAddItem }) => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isAdded, setIsAdded] = useState(false);
-  const AddPromotionHandler = (e) => {
-    e.preventDefault();
+  const cancelAddHandler = () => {
+    setAddItem(false);
   };
   return (
     <div className="absolute h-full w-full bg-black/70 rounded-xl flex items-center justify-center">
-      <div className="w-3/4 h-3/4 bg-white rounded-xl">
-        <div className="flex justify-center items-center w-full h-[10%] text-xl bg-slate-50 rounded-t-xl">
+      <IsLoading
+        isLoading={isLoading}
+        isAdded={isAdded}
+        setIsAdded={setIsAdded}
+        setIsLoading={setIsLoading}
+        setSelectedImage={setSelectedImage}
+      />
+      <div className=" w-3/4 h-3/4 bg-white rounded-xl">
+        <div className="relative flex justify-center items-center w-full h-[10%] text-xl bg-slate-50 rounded-t-xl">
           <span>New Promotion</span>
+          <button
+            className="absolute right-4 top-1/2 -translate-y-1/2 hover:font-semibold cursor-pointer"
+            onClick={cancelAddHandler}
+            type="button"
+          >
+            x
+          </button>
         </div>
         <Formik
           initialValues={initialValues}
@@ -97,9 +112,6 @@ const Add = () => {
                 </button>
               </div>
               <div className="w-full h-[80%] border-2 border-dashed flex justify-center items-center ">
-                {/* <span className="border-dashed border-2 p-4">
-                  No Image Choosed
-                </span> */}
                 {selectedImage ? (
                   <img
                     src={URL.createObjectURL(selectedImage)}

@@ -28,7 +28,7 @@ const Item = ({ product }) => {
         <button
           type="button"
           className="text-lg hover:text-xl hover:text-red-700"
-          onClick={() => deleteItem(product)}
+          onClick={() => deleteItem("ecommerce", product)}
         >
           <AiOutlineDelete />
         </button>
