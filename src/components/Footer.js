@@ -60,11 +60,11 @@ const Footer = () => {
           <h6 className="font-bold py-4 text-xl">კონტაქტი</h6>
           <div className="flex items-center gap-3">
             <FaMailBulk />
-            <p>+995 595 22 56 92</p>
+            <p>developers@gmail.com </p>
           </div>
           <div className="flex items-center gap-3">
             <FaPhoneSquareAlt />
-            <p>developers@gmail.com</p>
+            <p>+995 595 22 56 92</p>
           </div>
         </div>
         <div>
