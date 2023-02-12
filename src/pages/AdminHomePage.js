@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import SideBar from "../components/AdminDashboard/SideBar/SideBar";
-import Settings from "../components/AdminDashboard/MainBody/Settings";
+import Settings from "../components/AdminDashboard/MainBody/Settings/Settings";
 import Products from "../components/AdminDashboard/MainBody/Products";
 import AddItem from "../components/AdminDashboard/MainBody/AddNewItem/AddItem";
 import { fetchData, getCategorysFromProducts } from "../Helpers/functions";

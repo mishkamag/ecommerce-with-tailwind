@@ -20,7 +20,7 @@ export const AuthContextProvider = (props) => {
     try {
       await signInWithEmailAndPassword(auth, email, password);
 
-      if (email === "admin@test.com") {
+      if (email === "admin@test.com" || email === "slomtadze90@gmail.com") {
         setError(false);
         navigate("../admin/home");
       } else {
