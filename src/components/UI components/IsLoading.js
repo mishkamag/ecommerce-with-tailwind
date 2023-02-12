@@ -3,6 +3,7 @@ import { MdDoneAll } from "react-icons/md";
 import Spinner from "./Spinner";
 
 const IsLoading = ({
+  message,
   isLoading,
   isAdded,
   setIsAdded,
@@ -19,7 +20,7 @@ const IsLoading = ({
                 <MdDoneAll />
               </div>
               <h1 className="text-2xl font-semibold italic font-mono mb-4">
-                Product Added Successfully
+                {message}
               </h1>
               <button
                 className="bg-blue-300 text-xl text-white py-2 px-6 rounded-xl hover:bg-blue-400"

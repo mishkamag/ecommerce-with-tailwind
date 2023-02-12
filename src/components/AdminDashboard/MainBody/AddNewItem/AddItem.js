@@ -36,6 +36,7 @@ const AddItem = ({ categorys }) => {
   return (
     <div className="relative h-full w-full">
       <IsLoading
+        message="Product Added Successfully"
         isLoading={isLoading}
         isAdded={isAdded}
         setIsAdded={setIsAdded}

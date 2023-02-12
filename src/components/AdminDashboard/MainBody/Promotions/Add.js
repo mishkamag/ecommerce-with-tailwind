@@ -27,6 +27,7 @@ const Add = ({ setAddItem }) => {
   return (
     <div className="absolute h-full w-full bg-black/70 rounded-xl flex items-center justify-center">
       <IsLoading
+        message="Promotion Added Successfully"
         isLoading={isLoading}
         isAdded={isAdded}
         setIsAdded={setIsAdded}

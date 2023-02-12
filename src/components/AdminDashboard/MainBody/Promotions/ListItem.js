@@ -9,11 +9,11 @@ const ListItem = ({ promotion }) => {
   };
 
   return (
-    <li className="h-3/5 w-[45%] mr-4 mb-8  rounded bg-white hover:bg-slate-200 duration-150 cursor-pointer">
+    <li className="h-3/5 w-[45%] mr-4 mb-8  rounded bg-slate-200">
       <div className="h-[10%] flex justify-between items-center text-lg font-semibold italic py-4 px-2">
         <span>{promotion.title}</span>
         <button
-          className="hover:text-red-500"
+          className="text-sm font-normal hover:text-red-500"
           onClick={() => deleteItem("offers", promotion)}
         >
           Delete
