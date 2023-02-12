@@ -26,7 +26,7 @@ const validationSchema = Yup.object().shape({
 const ChangePassword = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isAdded, setIsAdded] = useState(false);
-  const [requiresRecentLogin, setRequiresRecentLogin] = useState(true);
+  const [requiresRecentLogin, setRequiresRecentLogin] = useState(false);
   const { user } = useContext(AuthContext);
   return (
     <>
@@ -40,19 +40,23 @@ const ChangePassword = () => {
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
-        onSubmit={(values, { setSubmitting }) => {
-          console.log(values);
+        onSubmit={(values, { setSubmitting, resetForm }) => {
+          setIsLoading(true);
           setSubmitting(true);
           updatePassword(user, values.newPassword)
             .then(() => {
               console.log(values.newPassword, " - is Setted");
+              setIsAdded(true);
               setSubmitting(false);
+              resetForm();
             })
             .catch((error) => {
+              setIsLoading(false);
               setRequiresRecentLogin(true);
               setSubmitting(false);
             });
         }}
+        validateOnBlur={false}
       >
         {({ isSubmitting, values }) => (
           <Form className="max-w-fit">

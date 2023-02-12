@@ -1,25 +1,13 @@
-import {
-  doc,
-  getDoc,
-  setDoc,
-  collection,
-  updateDoc,
-  arrayUnion,
-  arrayRemove,
-  getDocs,
-} from "firebase/firestore";
-import React, { useContext, useState } from "react";
-import { CiSearch } from "react-icons/ci";
+import React, { useContext } from "react";
 import { CiSettings } from "react-icons/ci";
 import { MdContentPaste } from "react-icons/md";
 import { MdOutlineLocalOffer } from "react-icons/md";
-import { db } from "../../../firebase.config";
-import { ProductContext } from "../../../store/ProductContext";
 import BarItem from "./BarItem";
-import { getAllProducts } from "../../../Helpers/functions";
 import AddNewItem from "./AddNewItem";
+import AuthContext from "../../../store/AuthContext";
 
 const SideBar = ({ setmainBoxSrc }) => {
+  const { logout } = useContext(AuthContext);
   const submitHandler = (value) => {
     setmainBoxSrc(value);
   };
@@ -34,7 +22,7 @@ const SideBar = ({ setmainBoxSrc }) => {
           <span className="text-black font-semibold italic">Admin</span>
         </h3>
       </div>
-      <div className="w-[80%] mx-auto flex flex-col justify-center py-8">
+      <div className="w-[80%] mx-auto flex flex-col justify-center items-start py-8">
         <AddNewItem setmainBoxSrc={setmainBoxSrc} />
         <BarItem
           icon={<MdContentPaste />}
@@ -51,6 +39,12 @@ const SideBar = ({ setmainBoxSrc }) => {
           title="Settings"
           onSubmit={submitHandler}
         />
+        <button
+          className="w-1/2 mt-4 border-2 border-cyan-700-800 bg-cyan-300 hover:bg-cyan-400 duration-150 py-1 rounded-lg"
+          onClick={logout}
+        >
+          Log Out
+        </button>
       </div>
     </div>
   );

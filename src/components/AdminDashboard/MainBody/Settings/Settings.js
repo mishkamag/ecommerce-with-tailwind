@@ -7,7 +7,7 @@ const Settings = () => {
       <div className="h-[10%] rounded-t-xl bg-slate-200 px-4 flex items-center text-2xl">
         <span>Settings</span>
       </div>
-      <div className="relative h-[90%] p-4 rounded-b-xl bg-red-50">
+      <div className="relative h-[90%] p-4 rounded-b-xl ">
         <ChangePassword />
       </div>
     </div>

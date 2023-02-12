@@ -27,7 +27,7 @@ const IsLoading = ({
                 onClick={() => {
                   setIsAdded(false);
                   setIsLoading(false);
-                  setSelectedImage(null);
+                  setSelectedImage && setSelectedImage(null);
                 }}
               >
                 Done
