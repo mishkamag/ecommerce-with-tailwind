@@ -3,6 +3,21 @@ import { useParams } from "react-router-dom";
 import { CartContext } from "../store/CartContext";
 import { ProductContext } from "../store/ProductContext";
 
+// import ReactImageMagnify from 'react-image-magnify';
+// ...
+// <ReactImageMagnify {...{
+//     smallImage: {
+//         alt: 'Wristwatch by Ted Baker London',
+//         isFluidWidth: true,
+//         src: watchImg300
+//     },
+//     largeImage: {
+//         src: watchImg1200,
+//         width: 1200,
+//         height: 1800
+//     }
+// }} />
+
 const ProductDetails = () => {
   const { id } = useParams();
   const { products } = useContext(ProductContext);
