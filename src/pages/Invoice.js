@@ -1,7 +1,6 @@
 import React, { useContext, useRef, useState } from "react";
 import { CartContext } from "../store/CartContext";
 import { jsPDF } from "jspdf";
-import autoTable from "jspdf-autotable";
 import emailjs from "emailjs-com";
 
 const Invoice = () => {
