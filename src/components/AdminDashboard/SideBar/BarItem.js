@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
+import AdminPageContext from "../../../store/AdminPageContext";
 
-const BarItem = ({ icon, title, onSubmit }) => {
+const BarItem = ({ icon, title }) => {
+  const { changeBoxSrc } = useContext(AdminPageContext);
   const onClickHandler = (e) => {
-    onSubmit(e.target.innerText);
+    changeBoxSrc(e.target.innerText);
   };
 
   return (

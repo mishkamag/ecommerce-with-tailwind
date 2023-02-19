@@ -1,6 +1,5 @@
-import React, { useContext } from "react";
+import React from "react";
 import Item from "./Item";
-import { ProductContext } from "../../../store/ProductContext";
 import uniqid from "uniqid";
 
 const ListItems = ({ list, currentPage }) => {

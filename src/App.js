@@ -10,6 +10,7 @@ import AdminAuth from "./pages/AdminAuth";
 import ProtectedRoute from "./components/ProtectedRoute";
 import AdminHomePage from "./pages/AdminHomePage";
 import Invoice from "./pages/Invoice";
+import { AdminPageContextProvider } from "./store/AdminPageContext";
 
 const AppLayout = ({ children }) => (
   <div className="overflow-hidden">
@@ -71,7 +72,9 @@ function App() {
               element={
                 <ProtectedRoute>
                   <AdminLayout>
-                    <AdminHomePage />
+                    <AdminPageContextProvider>
+                      <AdminHomePage />
+                    </AdminPageContextProvider>
                   </AdminLayout>
                 </ProtectedRoute>
               }

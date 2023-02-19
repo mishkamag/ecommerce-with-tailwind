@@ -12,6 +12,7 @@ import { addItem } from "../../../../Helpers/functions";
 import Spinner from "../../../UI components/Spinner";
 import SelectField from "./SelectField";
 import IsLoading from "../../../UI components/IsLoading";
+import AdminBoxHeader from "../../../UI components/AdminBoxHeader";
 
 const initialValues = {
   title: "",
@@ -43,9 +44,9 @@ const AddItem = ({ categorys }) => {
         setIsLoading={setIsLoading}
         setSelectedImage={setSelectedImage}
       />
-      <div className="h-[10%] flex justify-center items-center w-full bg-gray-100 rounded-t-lg">
+      <AdminBoxHeader>
         <h1 className="text-lg">Add new Product</h1>
-      </div>
+      </AdminBoxHeader>
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}

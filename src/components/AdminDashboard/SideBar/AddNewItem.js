@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
+import AdminPageContext from "../../../store/AdminPageContext";
 
-const AddNewItem = ({ setmainBoxSrc }) => {
+const AddNewItem = () => {
+  const { changeBoxSrc } = useContext(AdminPageContext);
   const onClickHandler = () => {
-    setmainBoxSrc("newitem");
+    changeBoxSrc("newitem");
   };
   return (
     <button
