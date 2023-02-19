@@ -78,7 +78,8 @@ function ContactForm({ pdf }) {
         />
       </div>
       <div>
-        <input type="file" accept=".pdf" />
+        <embed src={pdf} type="pdf" />
+        <input type="file" disabled />
       </div>
       <div className="flex items-center justify-center">
         <button
