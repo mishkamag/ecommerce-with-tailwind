@@ -1,20 +1,24 @@
 import React, { useContext, useRef, useState } from "react";
 import { CartContext } from "../store/CartContext";
 import { jsPDF } from "jspdf";
-import emailjs from "emailjs-com";
+import autoTable from "jspdf-autotable";
+
+import ContactForm from "../components/ContactForm";
 
 const Invoice = () => {
   const { cart, totalPrice } = useContext(CartContext);
   const [email, setEmail] = useState("");
+  const [form, setForm] = useState(false);
 
   const [pdf, setPdf] = useState(null);
   const componentRef = useRef();
 
-  const handleGenerate = () => {
+  const handleGenerate = (e) => {
+    e.preventDefault();
     const doc = new jsPDF();
     doc.text("Products", 10, 10);
     doc.autoTable({
-      head: [["Title", "Amount", "Price,"]],
+      head: [["Title", "Amount", "Price"]],
       body: cart.map((product) => [
         product.title,
         product.amount,
@@ -22,32 +26,9 @@ const Invoice = () => {
       ]),
     });
     setPdf(doc.output("datauristring"));
+    setForm((prev) => !prev);
   };
-
-  const base64 = btoa(pdf);
-  // console.log(base64);
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    handleGenerate();
-    console.log(pdf);
-
-    const result = await emailjs.send(
-      "service_vw8fu2d",
-      "template_tfe9hys",
-
-      base64,
-      //   attachments: [
-      //     {
-      //       type: "application/pdf",
-      //       name: "products.pdf",
-      //       content: pdf,
-      //     },
-      //   ],
-      // },
-      "gBc71-RpPzO0bJXH4"
-    );
-  };
+  // console.log(pdf);
 
   return (
     <div className="">
@@ -70,7 +51,7 @@ const Invoice = () => {
         </div>
       </header>
 
-      <form
+      <div
         ref={componentRef}
         className="bg-white  rounded-lg shadow-md max-h-[300px] lg:max-h-[330px] overflow-y-auto overflow-x-hidden  "
       >
@@ -104,15 +85,25 @@ const Invoice = () => {
             ))}
           </tbody>
         </table>
-      </form>
-      <div className="flex w-full ">
+      </div>
+      <div className="flex w-full justify-between">
         <div className="  bg-[#008ECC] text-white font-bold py-2 px-12 rounded   mt-4">
           TOTAL: {totalPrice.toFixed(2)}
         </div>
+        <div>
+          <button
+            className="  bg-[#008ECC] text-white font-bold py-2 px-12 rounded   mt-4"
+            onClick={handleGenerate}
+          >
+            შესყიდვა
+          </button>
+        </div>
       </div>
-      <div className="mt-4 flex justify-between">
-        <form onSubmit={handleSubmit} className="w-full max-w-sm mx-auto">
-          <div className="flex items-center border-b border-[#008ECC] py-2">
+      {form && <ContactForm pdf={pdf} handleGenerate={handleGenerate} />}
+
+      {/* <div className="mt-4 flex justify-between">
+        <form onSubmit={handleGenerate} className="w-full max-w-sm mx-auto">
+          <div className="flex items-center border-b border-teal-500 py-2">
             <input
               type="email"
               placeholder="Enter email"
@@ -122,13 +113,13 @@ const Invoice = () => {
             />
             <button
               type="submit"
-              className="flex-shrink-0 bg-[#008ECC] hover:bg-blue-700 border-[#008ECC] hover:border-[#008ECC] text-sm border-4 text-white py-1 px-2 rounded"
+              className="flex-shrink-0 bg-teal-500 hover:bg-teal-700 border-teal-500 hover:border-teal-700 text-sm border-4 text-white py-1 px-2 rounded"
             >
               Send
             </button>
           </div>
         </form>
-      </div>
+      </div> */}
     </div>
   );
 };
