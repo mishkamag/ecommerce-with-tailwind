@@ -10,14 +10,20 @@ const ProductsList = ({ list }) => {
     <div className="h-[90%] rounded-b-xl">
       <div className="h-full w-full px-4 ">
         <ListHeader />
-        <div className="h-[93%] w-full rounded-b-xl grid grid-rows-11">
-          <ListItems list={list} currentPage={currentPage} />
-          <ListPagination
-            numberOfItems={list.length}
-            currentPage={currentPage}
-            setCurrentPage={setCurrentPage}
-          />
-        </div>
+        {list.length > 0 ? (
+          <div className="h-[93%] w-full rounded-b-xl grid grid-rows-11">
+            <ListItems list={list} currentPage={currentPage} />
+            <ListPagination
+              numberOfItems={list.length}
+              currentPage={currentPage}
+              setCurrentPage={setCurrentPage}
+            />
+          </div>
+        ) : (
+          <div className="h-full w-full flex justify-center items-start py-8">
+            <h1 className="text-2xl font-semibold">No Items Found</h1>
+          </div>
+        )}
       </div>
     </div>
   );

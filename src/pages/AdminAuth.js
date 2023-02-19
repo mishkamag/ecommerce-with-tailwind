@@ -16,10 +16,6 @@ const AdminAuth = () => {
   const { login } = useContext(AuthContext);
   const navigate = useNavigate();
 
-  const userLoginHandler = (values) => {
-    login(values.email, values.password, navigate, setError);
-  };
-
   return (
     <div className="h-screen w-screen flex justify-center items-center py-28 bg-slate-600">
       <div className="bg-neutral-100 py-6 px-8 w-96 relative">
@@ -31,8 +27,14 @@ const AdminAuth = () => {
             Email/Password is incorrect
           </div>
         ) : null}
-        <Formik initialValues={initialValues} onSubmit={userLoginHandler}>
-          {({ values }) => (
+        <Formik
+          initialValues={initialValues}
+          onSubmit={(values, { resetForm }) => {
+            login(values.email, values.password, navigate, setError);
+            resetForm();
+          }}
+        >
+          {({ values, handleBlur, resetForm }) => (
             <Form className="relative py-2 flex flex-col">
               <Field
                 className="py-2 px-4 mb-4 border-2 outline-none"
@@ -40,6 +42,11 @@ const AdminAuth = () => {
                 id="email"
                 name="email"
                 placeholder="Email"
+                value={values.email}
+                onBlur={(e) => {
+                  setError(false);
+                  handleBlur(e);
+                }}
               />
               <Field
                 className=" py-2 px-4 mb-8 border-2 outline-none"
