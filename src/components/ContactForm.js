@@ -8,6 +8,13 @@ function ContactForm({ pdf }) {
   const [email, setEmail] = useState("");
   console.log(pdf);
 
+  const attachment = {
+    name: "invoice.pdf",
+    data: pdf.toString("base64"),
+    type: "invoice/pdf",
+  };
+  console.log(attachment);
+
   const sendEmail = (e) => {
     e.preventDefault();
 
@@ -16,6 +23,7 @@ function ContactForm({ pdf }) {
         "service_vw8fu2d",
         "template_tfe9hys",
         form.current,
+
         "gBc71-RpPzO0bJXH4"
       )
       .then(
@@ -78,7 +86,7 @@ function ContactForm({ pdf }) {
         />
       </div>
       <div>
-        <embed src={pdf} type="pdf" />
+        <embed src="invoice.pdf" type="invoice/pdf" />
         <input type="file" disabled />
       </div>
       <div className="flex items-center justify-center">
@@ -115,4 +123,11 @@ export default ContactForm;
 //     );
 
 //     console.log(result);
+//   };
+
+//   const templateParams = {
+//     // set up email template parameters
+//     to_email: "m93.maglaperidze@gmail.com",
+//     from_name: "Your Name",
+//     message: "Please find attached the PDF document.",
 //   };
