@@ -3,18 +3,21 @@ import { CartContext } from "../store/CartContext";
 import { jsPDF } from "jspdf";
 import autoTable from "jspdf-autotable";
 
+import ContactForm from "../components/ContactForm";
+
 const Invoice = () => {
   const { cart, totalPrice } = useContext(CartContext);
-  // const [emailInput, setEmailInput] = useState("");
+  const [form, setForm] = useState(false);
 
   const [pdf, setPdf] = useState(null);
   const componentRef = useRef();
 
-  const handleGenerate = () => {
+  const handleGenerate = (e) => {
+    e.preventDefault();
     const doc = new jsPDF();
     doc.text("Products", 10, 10);
     doc.autoTable({
-      head: [["Title", "Amount", "Price,"]],
+      head: [["Title", "Amount", "Price"]],
       body: cart.map((product) => [
         product.title,
         product.amount,
@@ -22,42 +25,9 @@ const Invoice = () => {
       ]),
     });
     setPdf(doc.output("datauristring"));
+    setForm((prev) => !prev);
   };
-  console.log(pdf);
-  // const base64 = btoa(pdf);
-  // console.log(base64);
-
-  // const data = {
-  //   to: emailInput,
-  //   from: "mishka.maglaperidze@yahoo.com",
-  //   subject: "Invoice",
-  //   text: "Invoice",
-  //   attachments: [
-  //     {
-  //       content: base64,
-  //       filename: "invoice.pdf",
-  //       type: "application/pdf",
-  //       disposition: "attachment",
-  //     },
-  //   ],
-  // };
-
-  // const options = {
-  //   method: "POST",
-  //   headers: {
-  //     "Content-Type": "application/json",
-  //     Authorization: `Bearer ${process.env.SENDGRID_API_KEY}`,
-  //   },
-  //   body: JSON.stringify(data),
-  // };
-
-  // fetch("http://localhost:3000", options)
-  //   .then((response) => {
-  //     console.log(response);
-  //   })
-  //   .catch((error) => {
-  //     console.error(error);
-  //   });
+  // console.log(pdf);
 
   return (
     <div className="">
@@ -115,31 +85,101 @@ const Invoice = () => {
           </tbody>
         </table>
       </div>
-      <div className="flex w-full ">
+      <div className="flex w-full justify-between">
         <div className="  bg-[#008ECC] text-white font-bold py-2 px-12 rounded   mt-4">
           TOTAL: {totalPrice.toFixed(2)}
         </div>
-      </div>
-      <div className="mt-4 flex justify-between">
         <div>
-          <input
-            // onChange={(e) => setEmailInput(e.target.value)}
-            type="email"
-            placeholder="Email"
-            className="appearance-none border rounded p-2 w-55 mr-2"
-          />
-
           <button
+            className="  bg-[#008ECC] text-white font-bold py-2 px-12 rounded   mt-4"
             onClick={handleGenerate}
-            className="bg-[#008ECC] hover:bg-[#008EAC] text-white font-medium py-2 px-4 rounded ml-2"
           >
-            Send
+            შესყიდვა
           </button>
-          {/* {pdf && <iframe title="generated pdf" src={pdf} />} */}
         </div>
       </div>
+      {form && <ContactForm pdf={pdf} handleGenerate={handleGenerate} />}
     </div>
   );
 };
 
 export default Invoice;
+
+// {pdf && <iframe title="generated pdf" src={pdf} />}
+
+//   console.log(componentRef);
+
+// const data = {
+//   to: email,
+//   from: "m93.maglaperidze@gmail.com",
+//   subject: "Invoice",
+//   text: "Invoice",
+//   attachments: [
+//     {
+//       content: base64,
+//       filename: "invoice.pdf",
+//       type: "application/pdf",
+//       disposition: "attachment",
+//     },
+//   ],
+// };
+
+// const options = {
+//   method: "POST",
+//   headers: {
+//     "Content-Type": "application/json",
+//     Authorization:
+//       "Bearer key of sendgrid",
+//   },
+//   body: JSON.stringify(data),
+// };
+
+// console.log(options);
+
+// fetch("https://api.sendgrid.com/v3/mail/send", options)
+// .then((response) => {
+//   console.log(response);
+// })
+// .catch((error) => {
+//   console.error(error);
+// });
+
+// const functions = require('firebase-functions');
+// const nodemailer = require('nodemailer');
+// const gmailEmail = encodeURIComponent(functions.config().gmail.email);
+// const gmailPassword = encodeURIComponent(functions.config().gmail.password);
+// const mailTransport = nodemailer.createTransport(
+//     smtps://${gmailEmail}:${gmailPassword}@smtp.gmail.com);
+
+// exports.sendEmail = functions.https.onCall((data, context) => {
+//   const mailOptions = {
+//     to: data.to,
+//     subject: data.subject,
+//     html: data.body
+//   };
+//   return mailTransport.sendMail(mailOptions).then(() => {
+//     return { success: true };
+//   });
+// });
+
+// {
+//   /* <div className="mt-4 flex justify-between">
+//         <form onSubmit={handleGenerate} className="w-full max-w-sm mx-auto">
+//           <div className="flex items-center border-b border-teal-500 py-2">
+//             <input
+//               type="email"
+//               placeholder="Enter email"
+//               value={email}
+//               onChange={(e) => setEmail(e.target.value)}
+//               className="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none"
+//             />
+//             <button
+//               type="submit"
+//               className="flex-shrink-0 bg-teal-500 hover:bg-teal-700 border-teal-500 hover:border-teal-700 text-sm border-4 text-white py-1 px-2 rounded"
+//             >
+//               Send
+//             </button>
+//           </div>
+//         </form>
+//       </div> */
+// }

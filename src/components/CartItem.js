@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
-import { IoMdClose } from "react-icons/io";
+import { MdDeleteForever } from "react-icons/md";
 import { IoMdRemove } from "react-icons/io";
 import { IoMdAdd } from "react-icons/io";
 import { CartContext } from "../store/CartContext";
@@ -29,7 +29,7 @@ const CartItem = ({ item }) => {
                 removeFromCart(id);
               }}
             >
-              <IoMdClose className="text-gray-500 text-xl hover:text-red-500 hover:scale-110 transition cursor-pointer " />
+              <MdDeleteForever className="text-gray-900 text-xl hover:text-red-500 hover:scale-110 transition cursor-pointer " />
             </div>
           </div>
 

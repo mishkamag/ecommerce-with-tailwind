@@ -11,6 +11,8 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import AdminHomePage from "./pages/AdminHomePage";
 import Invoice from "./pages/Invoice";
 import { AdminPageContextProvider } from "./store/AdminPageContext";
+import NotFoundPage from "./pages/NotFoundPage";
+
 
 const AppLayout = ({ children }) => (
   <div className="overflow-hidden">
@@ -79,6 +81,8 @@ function App() {
                 </ProtectedRoute>
               }
             />
+
+            <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </AuthContextProvider>
       </Router>

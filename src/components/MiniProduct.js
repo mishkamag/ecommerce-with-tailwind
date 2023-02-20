@@ -14,8 +14,8 @@ const MiniProduct = ({ product, setSearchTerm }) => {
         }}
       >
         <Link to={`/product/${id}`}>
-          <div className="flex justify-between items-center py-2 hover:underline">
-            <div className="w-[80%]">{title}</div>
+          <div className="flex justify-between items-center py-2 hover:underline ">
+            <div className="w-[85%]">{title}</div>
             <div>
               <img className="w-[50px] h-auto" src={image} alt="" />
             </div>

@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { CartContext } from "../store/CartContext";
 import { ProductContext } from "../store/ProductContext";
@@ -8,17 +8,15 @@ const ProductDetails = () => {
   const { products } = useContext(ProductContext);
   const { addToCart } = useContext(CartContext);
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const product = products.find((item) => {
     return item.id === parseInt(id);
   });
 
-  if (!product) {
-    <section className="h-creen flex justify-center items-center">
-      Loading...
-    </section>;
-  }
-
-  const { title, price, description, image } = product;
+  const { title, price, description, image } = product || {};
 
   return (
     <section className="pt-32 pb-12 lg:py-32 h-screen flex items-center">

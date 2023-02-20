@@ -21,7 +21,7 @@ const SideBar = () => {
           onClick={handleClose}
           className="cursor-pointer w-8 h-8 flex justify-center items-center"
         >
-          <IoMdArrowForward className="text-2xl" />
+          <IoMdArrowForward className="text-2xl hover:scale-110" />
         </div>
       </div>
       <div className="flex flex-col py-2  h-[450px] lg:h-[480px] overflow-y-auto overflow-x-hidden border-b ">
