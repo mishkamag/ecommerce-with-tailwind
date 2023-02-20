@@ -29,6 +29,19 @@ const ProductDetails = () => {
               alt={title}
             />
           </div>
+
+          <div className="flex justify-between lg:flex lg:flex-col">
+            <div className="flex flex-1 justify-center items-center border">
+              <img className="w-[80px] lg:max-w-sm" src={image} alt={title} />
+            </div>
+            <div className="flex flex-1 justify-center items-center border">
+              <img className="w-[80px] lg:max-w-sm" src={image} alt={title} />
+            </div>
+            <div className="flex flex-1 justify-center items-center border">
+              <img className="w-[80px] lg:max-w-sm" src={image} alt={title} />
+            </div>
+          </div>
+
           <div className="flex-1 text-center lg:text-left">
             <h1 className="text-[26px] font-medium mb-2 max-w-[450px] mx-auto lg:mx-0">
               {title}
