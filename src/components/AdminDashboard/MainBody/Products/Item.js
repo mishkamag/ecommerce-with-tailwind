@@ -1,9 +1,12 @@
-import React from "react";
-import { deleteItem, modifyString } from "../../../Helpers/functions";
+import React, { useContext } from "react";
+import { deleteItem, modifyString } from "../../../../Helpers/functions";
 import { AiFillEdit } from "react-icons/ai";
 import { AiOutlineDelete } from "react-icons/ai";
+import AdminPageContext from "../../../../store/AdminPageContext";
 
 const Item = ({ product }) => {
+  const { selectItem, changeBoxSrc } = useContext(AdminPageContext);
+
   const img_url = product.image;
   const backgroundIMG = {
     backgroundImage: `url("${product.image}")`,
@@ -11,8 +14,16 @@ const Item = ({ product }) => {
     backgroundPositioc: "center",
   };
 
+  const itemClickHandler = () => {
+    selectItem(product);
+    changeBoxSrc("details");
+  };
+
   return (
-    <div className="relative w-full h-full grid grid-cols-5 text-sm text-[#111827] border-2 cursor-pointer rounded-sm bg-slate-50 hover:bg-green-200 border-slate-200 mt-2 duration-150">
+    <div
+      className="relative w-full h-full grid grid-cols-5 text-sm text-[#111827] border-2 cursor-pointer rounded-sm bg-slate-50 hover:bg-green-200 border-slate-200 mt-2 duration-150"
+      onClick={itemClickHandler}
+    >
       <div className="flex items-center">
         <div style={backgroundIMG} className="w-7 h-7 mr-4" />
         <span>{modifyString(product.title)}</span>

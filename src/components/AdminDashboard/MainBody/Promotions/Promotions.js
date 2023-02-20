@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { fetchData } from "../../../../Helpers/functions";
+import AdminBoxHeader from "../../../UI components/AdminBoxHeader";
 import Spinner from "../../../UI components/Spinner";
 import Add from "./Add";
 import List from "./List";
@@ -19,11 +20,10 @@ const Promotions = () => {
   return (
     <div className="relative h-full w-full bg-gray-100 rounded-xl ">
       {addItem ? <Add setAddItem={setAddItem} /> : null}
-      <div className="w-full h-[10%] flex justify-between items-center  rounded-t-xl px-4">
+      <AdminBoxHeader>
         <h1 className="text-2xl ">Active Promotions</h1>
         <button onClick={addHandler}>Add Promotion</button>
-        <button>Ended Promotions</button>
-      </div>
+      </AdminBoxHeader>
       {isLoading ? (
         <div className="w-full h-[90%] flex justify-between items-center">
           <Spinner />
