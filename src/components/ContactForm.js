@@ -6,6 +6,7 @@ function ContactForm({ pdf }) {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
+
   console.log(pdf);
 
   const attachment = {
@@ -102,32 +103,3 @@ function ContactForm({ pdf }) {
 }
 
 export default ContactForm;
-
-// const handleSubmit = async (e) => {
-//     e.preventDefault();
-//     const result = await emailjs.send(
-//       "service_vw8fu2d",
-//       "template_tfe9hys",
-
-//       {
-//         to_email: email,
-//         attachments: [
-//           {
-//             type: "application/pdf",
-//             name: "products.pdf",
-//             content: pdf,
-//           },
-//         ],
-//       },
-//       "gBc71-RpPzO0bJXH4"
-//     );
-
-//     console.log(result);
-//   };
-
-//   const templateParams = {
-//     // set up email template parameters
-//     to_email: "m93.maglaperidze@gmail.com",
-//     from_name: "Your Name",
-//     message: "Please find attached the PDF document.",
-//   };
