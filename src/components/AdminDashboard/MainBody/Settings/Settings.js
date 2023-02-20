@@ -1,12 +1,13 @@
 import React from "react";
+import AdminBoxHeader from "../../../UI components/AdminBoxHeader";
 import ChangePassword from "./ChangePass/ChangePassword";
 
 const Settings = () => {
   return (
     <div className="h-full w-full">
-      <div className="h-[10%] rounded-t-xl bg-slate-200 px-4 flex items-center text-2xl">
+      <AdminBoxHeader>
         <span>Settings</span>
-      </div>
+      </AdminBoxHeader>
       <div className="relative h-[90%] p-4 rounded-b-xl ">
         <ChangePassword />
       </div>
