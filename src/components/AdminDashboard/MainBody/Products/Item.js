@@ -19,6 +19,11 @@ const Item = ({ product }) => {
     changeBoxSrc("details");
   };
 
+  const handleDeleteClick = (event) => {
+    event.stopPropagation();
+    deleteItem("ecommerce", product);
+  };
+
   return (
     <div
       className="relative w-full h-full grid grid-cols-5 text-sm text-[#111827] border-2 cursor-pointer rounded-sm bg-slate-50 hover:bg-green-200 border-slate-200 mt-2 duration-150"
@@ -39,7 +44,7 @@ const Item = ({ product }) => {
         <button
           type="button"
           className="text-lg hover:text-xl hover:text-red-700"
-          onClick={() => deleteItem("ecommerce", product)}
+          onClick={handleDeleteClick}
         >
           <AiOutlineDelete />
         </button>
