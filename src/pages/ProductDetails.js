@@ -17,8 +17,6 @@ const ProductDetails = () => {
 
   const { title, price, description, image } = product || {};
 
-  let defaultImg = image;
-
   const [currentBigImage, setCurrentBigImage] = useState(
     product?.image || image
   );
@@ -40,7 +38,6 @@ const ProductDetails = () => {
               className="max-w-[200px] lg:max-w-sm"
               src={currentBigImage}
               alt={title}
-              onError={() => setCurrentBigImage(defaultImg)}
             />
           </div>
 
@@ -55,6 +52,7 @@ const ProductDetails = () => {
                 alt={title}
               />
             </div>
+
             <div
               onClick={() => changeImgHandler(miniImg2)}
               className="flex flex-1 justify-center items-center border-none mr-4 cursor-pointer hover:scale-110 duration-300 "
