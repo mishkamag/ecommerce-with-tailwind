@@ -44,10 +44,10 @@ const ProductDetails = () => {
             />
           </div>
 
-          <div className="flex justify-between lg:flex lg:flex-col">
+          <div className="flex justify-between lg:flex lg:flex-col my-3 gap-4 ">
             <div
               onClick={() => changeImgHandler(miniImg1)}
-              className="flex flex-1 justify-center items-center border mr-4 cursor-pointer "
+              className="flex flex-1 justify-center items-center border-none mr-4 cursor-pointer hover:scale-110 duration-300 "
             >
               <img
                 className="w-[80px] lg:max-w-sm"
@@ -57,7 +57,7 @@ const ProductDetails = () => {
             </div>
             <div
               onClick={() => changeImgHandler(miniImg2)}
-              className="flex flex-1 justify-center items-center border mr-4 cursor-pointer "
+              className="flex flex-1 justify-center items-center border-none mr-4 cursor-pointer hover:scale-110 duration-300 "
             >
               <img
                 className="w-[80px] lg:max-w-sm"
@@ -67,7 +67,7 @@ const ProductDetails = () => {
             </div>
             <div
               onClick={() => changeImgHandler(miniImg3)}
-              className="flex flex-1 justify-center items-center border mr-4 cursor-pointer"
+              className="flex flex-1 justify-center items-center border-none mr-4 cursor-pointer hover:scale-110 duration-300"
             >
               <img
                 className="w-[80px] lg:max-w-sm"
