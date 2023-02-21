@@ -1,22 +1,35 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { CartContext } from "../store/CartContext";
 import { ProductContext } from "../store/ProductContext";
+import miniImg1 from "../assets/categoryImg/electronics.png";
+import miniImg2 from "../assets/categoryImg/furniture.png";
+import miniImg3 from "../assets/categoryImg/watches.png";
 
 const ProductDetails = () => {
   const { id } = useParams();
   const { products } = useContext(ProductContext);
   const { addToCart } = useContext(CartContext);
 
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
-
-  const product = products.find((item) => {
+  const product = products?.find((item) => {
     return item.id === parseInt(id);
   });
 
   const { title, price, description, image } = product || {};
+
+  let defaultImg = image;
+
+  const [currentBigImage, setCurrentBigImage] = useState(
+    product?.image || image
+  );
+
+  const changeImgHandler = (imgSrc) => {
+    setCurrentBigImage(imgSrc);
+  };
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <section className="pt-32 pb-12 lg:py-32 h-screen flex items-center">
@@ -25,20 +38,42 @@ const ProductDetails = () => {
           <div className="flex flex-1 justify-center items-center">
             <img
               className="max-w-[200px] lg:max-w-sm"
-              src={image}
+              src={currentBigImage}
               alt={title}
+              onError={() => setCurrentBigImage(defaultImg)}
             />
           </div>
 
           <div className="flex justify-between lg:flex lg:flex-col">
-            <div className="flex flex-1 justify-center items-center border">
-              <img className="w-[80px] lg:max-w-sm" src={image} alt={title} />
+            <div
+              onClick={() => changeImgHandler(miniImg1)}
+              className="flex flex-1 justify-center items-center border mr-4 cursor-pointer "
+            >
+              <img
+                className="w-[80px] lg:max-w-sm"
+                src={miniImg1}
+                alt={title}
+              />
             </div>
-            <div className="flex flex-1 justify-center items-center border">
-              <img className="w-[80px] lg:max-w-sm" src={image} alt={title} />
+            <div
+              onClick={() => changeImgHandler(miniImg2)}
+              className="flex flex-1 justify-center items-center border mr-4 cursor-pointer "
+            >
+              <img
+                className="w-[80px] lg:max-w-sm"
+                src={miniImg2}
+                alt={title}
+              />
             </div>
-            <div className="flex flex-1 justify-center items-center border">
-              <img className="w-[80px] lg:max-w-sm" src={image} alt={title} />
+            <div
+              onClick={() => changeImgHandler(miniImg3)}
+              className="flex flex-1 justify-center items-center border mr-4 cursor-pointer"
+            >
+              <img
+                className="w-[80px] lg:max-w-sm"
+                src={miniImg3}
+                alt={title}
+              />
             </div>
           </div>
 
@@ -64,3 +99,39 @@ const ProductDetails = () => {
 };
 
 export default ProductDetails;
+
+// import React, { useState, useContext } from "react";
+// import { useParams } from "react-router-dom";
+// import { ProductContext } from "../store/ProductContext";
+
+// const ProductDetails = () => {
+//   const { id } = useParams();
+//   const { products } = useContext(ProductContext);
+//   const product = products.find((item) => item.id === parseInt(id));
+
+//   const [currentImage, setCurrentImage] = useState(product.image);
+
+//   const handleImageChange = (newImage) => {
+//     setCurrentImage(newImage);
+//   };
+
+//   return (
+//     <div>
+//       <h1>{product.title}</h1>
+//       <img src={currentImage} alt={product.title} />
+
+//       <div>
+//         {product.images.map((image, index) => (
+//           <img
+//             key={index}
+//             src={image}
+//             alt={product.title}
+//             onClick={() => handleImageChange(image)}
+//           />
+//         ))}
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default ProductDetails;
