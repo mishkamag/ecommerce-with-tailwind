@@ -1,11 +1,15 @@
 import { useRef, useState } from "react";
 import emailjs from "@emailjs/browser";
+import { Link } from "react-router-dom";
+import Spinner from "./UI components/Spinner";
 
 function ContactForm({ pdf }) {
   const form = useRef();
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
+  const [isSent, setIsSent] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   console.log(pdf);
 
@@ -18,22 +22,23 @@ function ContactForm({ pdf }) {
 
   const sendEmail = (e) => {
     e.preventDefault();
+    setIsLoading(true);
 
     emailjs
       .sendForm(
-        "service_vw8fu2d",
-        "template_tfe9hys",
+        process.env.REACT_APP_SERVICE_ID,
+        process.env.REACT_APP_TEMPLATE,
         form.current,
-
-        "gBc71-RpPzO0bJXH4"
+        process.env.REACT_APP_USER_ID
       )
       .then(
         (result) => {
-          console.log(result.text);
-          console.log("Message sent");
+          setIsSent(true);
+          setIsLoading(false);
         },
         (error) => {
           console.log(error.text);
+          setIsLoading(false);
         }
       );
   };
@@ -44,6 +49,35 @@ function ContactForm({ pdf }) {
       onSubmit={sendEmail}
       className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
     >
+      <div className="w-full h-full flex justify-center items-center">
+        {" "}
+        {isLoading && <Spinner />}
+      </div>
+      <div>
+        {/* code for email form goes here */}
+        {isSent && (
+          <div className="fixed inset-0 bg-gray-500 bg-opacity-75 flex justify-center items-center">
+            <div className="flex justify-center items-center bg-white rounded-md px-4 py-2">
+              <p className="text-lg font-bold mb-2">
+                თქვენი შეკვეთა გაგზავნილია
+                <br />
+                რამოდენიმე წუთში თქვენ დაგიკვაშირდებათ ჩვენი წარმომადგენელი{" "}
+                <br />
+                მადლობთ რომ ხართ ჩვენი მომხმარებელი
+              </p>
+              <Link to="/">
+                <button
+                  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                  onClick={() => setIsSent(false)}
+                >
+                  დახურვა
+                </button>
+              </Link>
+            </div>
+          </div>
+        )}
+      </div>
+
       <div className="mb-4">
         <label className="block text-gray-700 font-bold mb-2" htmlFor="name">
           Name
@@ -58,6 +92,7 @@ function ContactForm({ pdf }) {
           placeholder="Enter your name"
         />
       </div>
+
       <div className="mb-4">
         <label className="block text-gray-700 font-bold mb-2" htmlFor="phone">
           Phone Number
@@ -72,6 +107,7 @@ function ContactForm({ pdf }) {
           placeholder="Enter your phone number"
         />
       </div>
+
       <div className="mb-6">
         <label className="block text-gray-700 font-bold mb-2" htmlFor="email">
           Email Address
@@ -87,7 +123,7 @@ function ContactForm({ pdf }) {
         />
       </div>
       <div>
-        <embed src="invoice.pdf" type="invoice/pdf" />
+        <input src="invoice.pdf" type="invoice/pdf" />
         <input type="file" disabled />
       </div>
       <div className="flex items-center justify-center">
