@@ -10,6 +10,7 @@ const IsLoading = ({
   error,
   setError,
   setIsLoading,
+  setSelectedImage,
 }) => {
   return (
     <>
@@ -34,6 +35,7 @@ const IsLoading = ({
                 onClick={() => {
                   setIsAdded(false);
                   setIsLoading(false);
+                  setSelectedImage && setSelectedImage(null);
                   error && setError(null);
                 }}
               >

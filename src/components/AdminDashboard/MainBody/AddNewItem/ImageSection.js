@@ -10,7 +10,6 @@ const ImageSection = ({ index, values, handleChange, setImagesForDb }) => {
     <div className=" flex">
       <div className="w-1/2 px-4 h-full">
         <ImageField
-          key={uniqid()}
           index={index}
           values={values}
           handleChange={handleChange}

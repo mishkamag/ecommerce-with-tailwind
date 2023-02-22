@@ -2,13 +2,13 @@ import {
   arrayUnion,
   doc,
   updateDoc,
-  setDoc,
   arrayRemove,
   query,
   collection,
   onSnapshot,
 } from "firebase/firestore";
-import { db } from "../firebase.config";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import { db, storage } from "../firebase.config";
 
 export const filterPdoructsBySearchValue = (searchValue, products) => {
   const updatedProducts = products.filter((product) => {
@@ -66,32 +66,59 @@ export const fetchData = async (database, setIsLoading, setAllProducts) => {
   }
 };
 
-export const addItem = async (
-  collection,
-  newItem,
+export const AddNewItemToDb = async (
+  imagesArray,
+  values,
   setSubmitting,
   resetForm,
   setIsAdded,
-  setError,
-  getUrls,
-  images
+  setError
 ) => {
-  try {
-    const imageUrls = await getUrls(images, newItem.images);
-    const updatedNewItem = { ...newItem, images: imageUrls };
-    const newItemRef =
-      collection === "ecommerce"
-        ? doc(db, "ecommerce", updatedNewItem.category)
-        : doc(db, "offers", updatedNewItem.status);
+  return Promise.all(
+    imagesArray.map((image, index) => {
+      if (image) {
+        const storageRef = ref(storage, `images/${values.image[index]}`);
+        return uploadBytes(storageRef, image).then((snapshot) => {
+          return getDownloadURL(storageRef).catch((error) => {
+            console.log(error);
+          });
+        });
+      }
+      return null;
+    })
+  ).then(async (urls) => {
+    const updatedNewItem = { ...values, image: urls };
+    const newItemRef = doc(db, "ecommerce", updatedNewItem.category);
+
     await updateDoc(newItemRef, {
       data: arrayUnion(updatedNewItem),
-    });
-    setIsAdded(true);
-    setSubmitting(false);
-    resetForm();
-  } catch (error) {
-    setError(error);
-  }
+    })
+      .then(() => {
+        setIsAdded(true);
+        setSubmitting(false);
+        resetForm();
+      })
+      .catch((error) => setError(error));
+  });
+};
+
+export const AddNewPromotionToDb = async (
+  updatedItem,
+  setSubmitting,
+  resetForm,
+  setIsAdded,
+  setError
+) => {
+  const newItemRef = doc(db, "offers", updatedItem.status);
+  await updateDoc(newItemRef, {
+    data: arrayUnion(updatedItem),
+  })
+    .then(() => {
+      setIsAdded(true);
+      setSubmitting(false);
+      resetForm();
+    })
+    .catch((error) => setError(error));
 };
 
 export const deleteItem = async (database, item) => {
