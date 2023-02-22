@@ -17,12 +17,12 @@ const ProductDetails = () => {
 
   const { title, price, description, image } = product || {};
 
-  const [currentBigImage, setCurrentBigImage] = useState(
-    product?.image || image
-  );
+  const [selectedImageIndex, setSelectedImageIndex] = useState(0);
 
-  const changeImgHandler = (imgSrc) => {
-    setCurrentBigImage(imgSrc);
+  const images = [image, miniImg1, miniImg2, miniImg3];
+
+  const handleSmallImageClick = (index) => {
+    setSelectedImageIndex(index);
   };
 
   useEffect(() => {
@@ -35,44 +35,22 @@ const ProductDetails = () => {
         <div className="flex flex-col lg:flex-row items-center">
           <div className="flex flex-1 justify-center items-center">
             <img
-              className="max-w-[200px] lg:max-w-sm"
-              src={currentBigImage}
+              className={"max-w-[200px] lg:max-w-sm"}
+              src={images[selectedImageIndex]}
               alt={title}
             />
           </div>
 
-          <div className="flex justify-between lg:flex lg:flex-col my-3 gap-4 ">
-            <div
-              onClick={() => changeImgHandler(miniImg1)}
-              className="flex flex-1 justify-center items-center border-none mr-4 cursor-pointer hover:scale-110 duration-300 "
-            >
+          <div className="flex justify-beetween mt-4 lg:flex lg:flex-col ">
+            {images.slice(1).map((image, index) => (
               <img
-                className="w-[80px] lg:max-w-sm"
-                src={miniImg1}
-                alt={title}
+                key={index}
+                src={image}
+                className="h-16 md:h-20 cursor-pointer mx-2"
+                alt="images"
+                onClick={() => handleSmallImageClick(index + 1)}
               />
-            </div>
-
-            <div
-              onClick={() => changeImgHandler(miniImg2)}
-              className="flex flex-1 justify-center items-center border-none mr-4 cursor-pointer hover:scale-110 duration-300 "
-            >
-              <img
-                className="w-[80px] lg:max-w-sm"
-                src={miniImg2}
-                alt={title}
-              />
-            </div>
-            <div
-              onClick={() => changeImgHandler(miniImg3)}
-              className="flex flex-1 justify-center items-center border-none mr-4 cursor-pointer hover:scale-110 duration-300"
-            >
-              <img
-                className="w-[80px] lg:max-w-sm"
-                src={miniImg3}
-                alt={title}
-              />
-            </div>
+            ))}{" "}
           </div>
 
           <div className="flex-1 text-center lg:text-left">
