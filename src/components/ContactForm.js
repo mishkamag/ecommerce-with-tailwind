@@ -123,8 +123,7 @@ function ContactForm({ pdf }) {
         />
       </div>
       <div>
-        <input src="invoice.pdf" type="invoice/pdf" />
-        <input type="file" disabled />
+        <input type="hidden" name="pdf" value={pdf.toString("base64")} />
       </div>
       <div className="flex items-center justify-center">
         <button
