@@ -35,18 +35,18 @@ const ProductDetails = () => {
         <div className="flex flex-col lg:flex-row items-center">
           <div className="flex flex-1 justify-center items-center">
             <img
-              className={"max-w-[200px] lg:max-w-sm"}
+              className="max-w-[200px] lg:max-w-sm"
               src={images[selectedImageIndex]}
               alt={title}
             />
           </div>
 
-          <div className="flex justify-beetween mt-4 lg:flex lg:flex-col ">
+          <div className="flex justify-beetween my-2 mr-8 gap-3  lg:flex lg:flex-col ">
             {images.slice(1).map((image, index) => (
               <img
                 key={index}
                 src={image}
-                className="h-16 md:h-20 cursor-pointer mx-2"
+                className="h-16 md:h-20 cursor-pointer mx-2 hover:scale-105 duration-300"
                 alt="images"
                 onClick={() => handleSmallImageClick(index + 1)}
               />
@@ -75,39 +75,3 @@ const ProductDetails = () => {
 };
 
 export default ProductDetails;
-
-// import React, { useState, useContext } from "react";
-// import { useParams } from "react-router-dom";
-// import { ProductContext } from "../store/ProductContext";
-
-// const ProductDetails = () => {
-//   const { id } = useParams();
-//   const { products } = useContext(ProductContext);
-//   const product = products.find((item) => item.id === parseInt(id));
-
-//   const [currentImage, setCurrentImage] = useState(product.image);
-
-//   const handleImageChange = (newImage) => {
-//     setCurrentImage(newImage);
-//   };
-
-//   return (
-//     <div>
-//       <h1>{product.title}</h1>
-//       <img src={currentImage} alt={product.title} />
-
-//       <div>
-//         {product.images.map((image, index) => (
-//           <img
-//             key={index}
-//             src={image}
-//             alt={product.title}
-//             onClick={() => handleImageChange(image)}
-//           />
-//         ))}
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default ProductDetails;
