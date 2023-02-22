@@ -44,7 +44,7 @@ const SideBar = () => {
           to="/invoice"
           className="bg-[#008ECC] flex p-4 justify-center items-center w-full font-medium mt-4 text-white"
         >
-          Checkout
+          <button onClick={() => handleClose(false)}>Checkout</button>
         </Link>
       )}
     </div>
