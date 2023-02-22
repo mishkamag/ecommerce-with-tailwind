@@ -2,9 +2,7 @@ import React, { useState } from "react";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import FieldComponent from "./FieldComponent";
-import { BsImages } from "react-icons/bs";
-import { MdDoneAll } from "react-icons/md";
-import ImageField from "./ImageField";
+
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { storage } from "../../../../firebase.config";
 import uniqid from "uniqid";
@@ -13,37 +11,58 @@ import Spinner from "../../../UI components/Spinner";
 import SelectField from "./SelectField";
 import IsLoading from "../../../UI components/IsLoading";
 import AdminBoxHeader from "../../../UI components/AdminBoxHeader";
+import ImageSection from "./ImageSection";
 
 const initialValues = {
   title: "",
   price: "",
   category: "",
   description: "",
-  image: "",
+  image: ["", "", "", ""],
 };
 const validationSchema = Yup.object().shape({
   title: Yup.string().required("Enter Title"),
   price: Yup.number().required("Enter Price"),
   category: Yup.string().required("Select Category"),
   description: Yup.string().required("Enter Description"),
-  image: Yup.mixed().required("Image is required"),
 });
-//მაქვს ატვირთვის პრობლემა, სურათი იტვირთება ცუდად//
+
 const AddItem = ({ categorys }) => {
-  const [selectedImage, setSelectedImage] = useState(null);
+  const [imagesForDb, setImagesForDb] = useState([null, null, null, null]);
   const [isLoading, setIsLoading] = useState(false);
   const [isAdded, setIsAdded] = useState(false);
+  const [err, setErr] = useState(null);
+
+  const getUrls = async (imagesArray, values) => {
+    return Promise.all(
+      imagesArray.map((image, index) => {
+        if (image) {
+          const storageRef = ref(storage, `images/${values.image[index]}`);
+          return uploadBytes(storageRef, image).then((snapshot) => {
+            return getDownloadURL(storageRef).catch((error) => {
+              console.log(error);
+            });
+          });
+        }
+        return null;
+      })
+    ).then((urls) => {
+      return urls.filter((url) => url !== null);
+    });
+  };
 
   return (
     <div className="relative h-full w-full">
-      <IsLoading
+      {/* <IsLoading
         message="Product Added Successfully"
         isLoading={isLoading}
         isAdded={isAdded}
         setIsAdded={setIsAdded}
+        error={err}
+        setError={setErr}
         setIsLoading={setIsLoading}
-        setSelectedImage={setSelectedImage}
-      />
+        
+      /> */}
       <AdminBoxHeader>
         <h1 className="text-lg">Add new Product</h1>
       </AdminBoxHeader>
@@ -51,7 +70,18 @@ const AddItem = ({ categorys }) => {
         initialValues={initialValues}
         validationSchema={validationSchema}
         onSubmit={(values, { setSubmitting, resetForm }) => {
-          setIsLoading(true);
+          console.log("Form is submitted", values);
+          addItem(
+            "ecommerce",
+            values,
+            setSubmitting,
+            resetForm,
+            setIsAdded,
+            setErr,
+            getUrls,
+            imagesForDb
+          );
+          /* setIsLoading(true);
           console.log(values);
           const storageRef = ref(storage, `images/${values.image}`);
           uploadBytes(storageRef, selectedImage).then((snapshot) => {
@@ -63,43 +93,57 @@ const AddItem = ({ categorys }) => {
                   updatedItem,
                   setSubmitting,
                   resetForm,
-                  setIsAdded
+                  setIsAdded,
+                  setErr
                 );
               })
               .catch((error) => {
-                console.log(error);
+                setErr(error);
               });
-          });
+          }); */
         }}
         validateOnBlur={false}
         validateOnChange={false}
       >
         {({ isSubmitting, handleChange, values }) => (
           <Form className="h-[90%] w-full flex flex-col justify-between items-center py-4 bg-gray-50">
-            <div className="h-[70%] w-full flex justify-around">
-              <div className="w-1/3 h-full">
-                <ImageField
-                  label="Image"
-                  type="file"
-                  name="image"
-                  placeholder="Upload an image"
+            <div className="h-[90%] w-full flex justify-around ">
+              <div className="w-2/5 h-full  grid grid-rows-4 gap-2">
+                {/* {initialValues.image.map((item, index) => (
+                  <ImageSection
+                    key={uniqid()}
+                    index={index}
+                    values={values}
+                    handleChange={handleChange}
+                    setImagesForDb={setImagesForDb}
+                  />
+                ))} */}
+                <ImageSection
+                  index={0}
                   values={values}
                   handleChange={handleChange}
-                  setSelectedImage={setSelectedImage}
+                  setImagesForDb={setImagesForDb}
                 />
-                {selectedImage ? (
-                  <img
-                    src={URL.createObjectURL(selectedImage)}
-                    className="object-fill w-full h-auto mt-8"
-                    alt="noimage"
-                  />
-                ) : (
-                  <div className="h-4/5 w-full mt-8 flex justify-center items-center border-2 border-dashed text-6xl text-blue-500">
-                    <BsImages />
-                  </div>
-                )}
+                <ImageSection
+                  index={1}
+                  values={values}
+                  handleChange={handleChange}
+                  setImagesForDb={setImagesForDb}
+                />
+                <ImageSection
+                  index={2}
+                  values={values}
+                  handleChange={handleChange}
+                  setImagesForDb={setImagesForDb}
+                />
+                <ImageSection
+                  index={3}
+                  values={values}
+                  handleChange={handleChange}
+                  setImagesForDb={setImagesForDb}
+                />
               </div>
-              <div className="w-1/3 h-full">
+              <div className="w-1/3 h-full border-2 border-red-500">
                 <FieldComponent
                   label="Title"
                   type="text"
@@ -128,7 +172,7 @@ const AddItem = ({ categorys }) => {
               </div>
             </div>
             <button
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg max-w-min"
+              className="bg-blue-500 hover:bg-blue-700 text-white px-4 rounded-lg max-w-min "
               type="submit"
               disabled={isSubmitting}
             >

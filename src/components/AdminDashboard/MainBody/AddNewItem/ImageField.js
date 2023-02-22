@@ -2,39 +2,46 @@ import { ErrorMessage, Field } from "formik";
 import React from "react";
 
 const ImageField = ({
-  label,
-  type,
-  name,
-  placeholder,
+  index,
   handleChange,
   values,
   setSelectedImage,
+  setImagesForDb,
 }) => {
   return (
     <div className="relative mb-5">
-      <label className="block font-bold mb-2 text-gray-700" htmlFor={name}>
-        {label}
+      <label
+        className="block font-bold mb-2 text-gray-700"
+        htmlFor={`image[${index}]`}
+      >
+        {`Image ${index + 1}`}
       </label>
       <Field
-        className="w-full p-2 bg-gray-200 rounded-lg outline-none"
-        type={type}
-        id={name}
-        name={name}
-        placeholder={placeholder}
-        value={values.image}
+        className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-100 focus:outline-none"
+        type="file"
+        id={`image[${index}]`}
+        name={`image[${index}]`}
+        placeholder="Upload an image"
+        value={values.image[index]}
         onChange={(e) => {
-          /* setSelectedImage(URL.createObjectURL(e.currentTarget.files[0])); */
-          setSelectedImage(e.currentTarget.files[0]);
-          handleChange(e);
+          console.log(e.currentTarget.files[0]);
+          /* setSelectedImage(e.currentTarget.files[0]);
+          handleChange(e); */
         }}
       />
-      <ErrorMessage
+      {/* <ErrorMessage
         component="div"
         className="absolute -bottom-6 left-0 text-red-700 text-sm font-mono lowercase italic"
         name={name}
-      />
+      /> */}
     </div>
   );
 };
 
 export default ImageField;
+
+/* setImagesForDb((prev) => {
+            const updatedArray = [...prev];
+            updatedArray[index] = e.currentTarget.files[0];
+            return updatedArray;
+          }); */
