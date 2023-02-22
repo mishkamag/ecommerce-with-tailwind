@@ -2,16 +2,11 @@ import React, { useState } from "react";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import FieldComponent from "./FieldComponent";
-
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import { storage } from "../../../../firebase.config";
-import uniqid from "uniqid";
-import { addItem } from "../../../../Helpers/functions";
-import Spinner from "../../../UI components/Spinner";
 import SelectField from "./SelectField";
 import IsLoading from "../../../UI components/IsLoading";
 import AdminBoxHeader from "../../../UI components/AdminBoxHeader";
 import ImageSection from "./ImageSection";
+import { AddNewItemToDb } from "../../../../Helpers/functions";
 
 const initialValues = {
   title: "",
@@ -33,27 +28,9 @@ const AddItem = ({ categorys }) => {
   const [isAdded, setIsAdded] = useState(false);
   const [err, setErr] = useState(null);
 
-  const getUrls = async (imagesArray, values) => {
-    return Promise.all(
-      imagesArray.map((image, index) => {
-        if (image) {
-          const storageRef = ref(storage, `images/${values.image[index]}`);
-          return uploadBytes(storageRef, image).then((snapshot) => {
-            return getDownloadURL(storageRef).catch((error) => {
-              console.log(error);
-            });
-          });
-        }
-        return null;
-      })
-    ).then((urls) => {
-      return urls.filter((url) => url !== null);
-    });
-  };
-
   return (
     <div className="relative h-full w-full">
-      {/* <IsLoading
+      <IsLoading
         message="Product Added Successfully"
         isLoading={isLoading}
         isAdded={isAdded}
@@ -61,8 +38,7 @@ const AddItem = ({ categorys }) => {
         error={err}
         setError={setErr}
         setIsLoading={setIsLoading}
-        
-      /> */}
+      />
       <AdminBoxHeader>
         <h1 className="text-lg">Add new Product</h1>
       </AdminBoxHeader>
@@ -70,37 +46,14 @@ const AddItem = ({ categorys }) => {
         initialValues={initialValues}
         validationSchema={validationSchema}
         onSubmit={(values, { setSubmitting, resetForm }) => {
-          console.log("Form is submitted", values);
-          addItem(
-            "ecommerce",
+          AddNewItemToDb(
+            imagesForDb,
             values,
             setSubmitting,
             resetForm,
             setIsAdded,
-            setErr,
-            getUrls,
-            imagesForDb
+            setErr
           );
-          /* setIsLoading(true);
-          console.log(values);
-          const storageRef = ref(storage, `images/${values.image}`);
-          uploadBytes(storageRef, selectedImage).then((snapshot) => {
-            getDownloadURL(ref(storage, `images/${values.image}`))
-              .then((url) => {
-                const updatedItem = { ...values, image: url, id: uniqid() };
-                addItem(
-                  "ecommerce",
-                  updatedItem,
-                  setSubmitting,
-                  resetForm,
-                  setIsAdded,
-                  setErr
-                );
-              })
-              .catch((error) => {
-                setErr(error);
-              });
-          }); */
         }}
         validateOnBlur={false}
         validateOnChange={false}

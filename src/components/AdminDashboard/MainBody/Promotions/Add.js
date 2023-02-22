@@ -3,10 +3,10 @@ import { Field, Form, Formik } from "formik";
 import React, { useState } from "react";
 import * as Yup from "yup";
 import { storage } from "../../../../firebase.config";
-import { addItem } from "../../../../Helpers/functions";
 import uniqid from "uniqid";
 import { BsImages } from "react-icons/bs";
 import IsLoading from "../../../UI components/IsLoading";
+import { AddNewPromotionToDb } from "../../../../Helpers/functions";
 
 const initialValues = {
   title: "",
@@ -21,6 +21,7 @@ const Add = ({ setAddItem }) => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isAdded, setIsAdded] = useState(false);
+  const [err, setErr] = useState(null);
   const cancelAddHandler = () => {
     setAddItem(false);
   };
@@ -31,6 +32,8 @@ const Add = ({ setAddItem }) => {
         isLoading={isLoading}
         isAdded={isAdded}
         setIsAdded={setIsAdded}
+        error={err}
+        setError={setErr}
         setIsLoading={setIsLoading}
         setSelectedImage={setSelectedImage}
       />
@@ -61,12 +64,12 @@ const Add = ({ setAddItem }) => {
                     status: "active",
                     id: uniqid(),
                   };
-                  addItem(
-                    "offers",
+                  AddNewPromotionToDb(
                     updatedItem,
                     setSubmitting,
                     resetForm,
-                    setIsAdded
+                    setIsAdded,
+                    setErr
                   );
                 })
                 .catch((error) => {
