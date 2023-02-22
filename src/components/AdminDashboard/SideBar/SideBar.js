@@ -7,7 +7,7 @@ import AddNewItem from "./AddNewItem";
 import AuthContext from "../../../store/AuthContext";
 
 const SideBar = ({ setmainBoxSrc }) => {
-  const { logout } = useContext(AuthContext);
+  const { user, logout } = useContext(AuthContext);
   const submitHandler = (value) => {
     setmainBoxSrc(value);
   };
@@ -15,7 +15,7 @@ const SideBar = ({ setmainBoxSrc }) => {
     <div className="flex flex-col items-start py-4 w-[15%] bg-slate-50 min-w-[256px] border-r-2 border-gray-200">
       <div className="w-[80%] mx-auto font-mono text-gray-600 py-8 border-b-[1px] border-gray-300 border-dashed">
         <h1 className="mb-2">
-          Store: <span className="font-bold">Ecommerce Web</span>
+          Store: <span className="font-bold">{user.email}</span>
         </h1>
         <h3>
           User status:{" "}

@@ -71,36 +71,30 @@ export const addItem = async (
   newItem,
   setSubmitting,
   resetForm,
-  setIsAdded
+  setIsAdded,
+  setError,
+  getUrls,
+  images
 ) => {
-  const newItemRef =
-    collection === "ecommerce"
-      ? doc(db, "ecommerce", newItem.category)
-      : doc(db, "offers", newItem.status);
   try {
+    const imageUrls = await getUrls(images, newItem.images);
+    const updatedNewItem = { ...newItem, images: imageUrls };
+    const newItemRef =
+      collection === "ecommerce"
+        ? doc(db, "ecommerce", updatedNewItem.category)
+        : doc(db, "offers", updatedNewItem.status);
     await updateDoc(newItemRef, {
-      data: arrayUnion(newItem),
+      data: arrayUnion(updatedNewItem),
     });
-    console.log(newItem);
     setIsAdded(true);
     setSubmitting(false);
     resetForm();
   } catch (error) {
-    if (error.message.toLowerCase().includes("no document to update")) {
-      console.log("There is No category document");
-      await setDoc(doc(db, "ecommerce", newItem.category), {
-        data: [{ ...newItem }],
-      });
-      setIsAdded(true);
-      setSubmitting(false);
-      resetForm();
-    }
-    console.log(error.message);
+    setError(error);
   }
 };
 
 export const deleteItem = async (database, item) => {
-  console.log("Delete function");
   const itemRef =
     database === "ecommerce"
       ? doc(db, "ecommerce", item.category)

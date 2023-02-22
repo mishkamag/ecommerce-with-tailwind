@@ -38,12 +38,9 @@ const Item = ({ product }) => {
       <span className="my-auto">{product.price}</span>
       <span className="my-auto">{product.description.slice(0, 10)}</span>
       <div className="absolute right-4 top-[50%] -translate-y-1/2 flex">
-        <button className="text-lg hover:text-xl hover:text-yellow-500 mr-2">
-          <AiFillEdit />
-        </button>
         <button
           type="button"
-          className="text-lg hover:text-xl hover:text-red-700"
+          className="text-lg hover:text-red-700"
           onClick={handleDeleteClick}
         >
           <AiOutlineDelete />
