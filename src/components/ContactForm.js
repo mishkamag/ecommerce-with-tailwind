@@ -3,7 +3,7 @@ import emailjs from "@emailjs/browser";
 import { Link } from "react-router-dom";
 import Spinner from "./UI components/Spinner";
 
-function ContactForm({ pdf }) {
+function ContactForm({ pdf, cart }) {
   const form = useRef();
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
@@ -123,7 +123,19 @@ function ContactForm({ pdf }) {
         />
       </div>
       <div>
-        <input type="hidden" name="pdf" value={pdf.toString("base64")} />
+        {/* <input type="hidden" name="pdf" value={pdf} /> */}
+        <textarea
+          name="pdf"
+          className="p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          rows={cart.length + 1}
+          value={cart
+            .map(
+              (product) =>
+                `${product.title} - ${product.amount} x ${product.price}`
+            )
+            .join("\n")}
+          readOnly
+        />
       </div>
       <div className="flex items-center justify-center">
         <button

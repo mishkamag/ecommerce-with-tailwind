@@ -95,7 +95,9 @@ const Invoice = () => {
           </button>
         </div>
       </div>
-      {form && <ContactForm pdf={pdf} handleGenerate={handleGenerate} />}
+      {form && (
+        <ContactForm pdf={pdf} handleGenerate={handleGenerate} cart={cart} />
+      )}
     </div>
   );
 };
