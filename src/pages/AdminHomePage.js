@@ -30,7 +30,7 @@ const AdminHomePage = () => {
   };
 
   useEffect(() => {
-    fetchData("ecommerce", setIsLoading, setAllProducts);
+    fetchData("ecommerce", setAllProducts, setIsLoading);
   }, []);
   return (
     <div className="flex h-screen w-screen bg-[#e2e5e9]">

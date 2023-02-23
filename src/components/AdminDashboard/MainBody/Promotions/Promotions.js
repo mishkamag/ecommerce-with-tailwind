@@ -11,7 +11,7 @@ const Promotions = () => {
   const [addItem, setAddItem] = useState(false);
 
   useEffect(() => {
-    fetchData("offers", setIsLoading, setAllPromotions);
+    fetchData("offers", setAllPromotions, setIsLoading);
   }, [addItem]);
 
   const addHandler = () => {
