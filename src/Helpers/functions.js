@@ -49,8 +49,8 @@ export const modifyString = (string, limit = 18) => {
   }
 };
 
-export const fetchData = async (database, setIsLoading, setAllProducts) => {
-  setIsLoading(true);
+export const fetchData = async (database, setAllProducts, setIsLoading) => {
+  setIsLoading && setIsLoading(true);
   try {
     const q = query(collection(db, database));
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
@@ -59,7 +59,7 @@ export const fetchData = async (database, setIsLoading, setAllProducts) => {
         products.push(...doc.data().data);
       });
       setAllProducts(products);
-      setIsLoading(false);
+      setIsLoading && setIsLoading(false);
     });
   } catch (error) {
     console.log(error);
