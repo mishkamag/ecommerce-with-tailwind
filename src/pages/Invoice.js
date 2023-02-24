@@ -1,33 +1,17 @@
 import React, { useContext, useRef, useState } from "react";
 import { CartContext } from "../store/CartContext";
-import { jsPDF } from "jspdf";
-import autoTable from "jspdf-autotable";
-
 import ContactForm from "../components/ContactForm";
 
 const Invoice = () => {
   const { cart, totalPrice } = useContext(CartContext);
   const [form, setForm] = useState(false);
 
-  const [pdf, setPdf] = useState(null);
   const componentRef = useRef();
 
   const handleGenerate = (e) => {
     e.preventDefault();
-    const doc = new jsPDF();
-    doc.text("Products", 10, 10);
-    doc.autoTable({
-      head: [["Title", "Amount", "Price"]],
-      body: cart.map((product) => [
-        product.title,
-        product.amount,
-        product.price,
-      ]),
-    });
-    setPdf(doc.output("datauristring"));
     setForm((prev) => !prev);
   };
-  console.log(pdf);
 
   return (
     <div className="">
@@ -95,9 +79,7 @@ const Invoice = () => {
           </button>
         </div>
       </div>
-      {form && (
-        <ContactForm pdf={pdf} handleGenerate={handleGenerate} cart={cart} />
-      )}
+      {form && <ContactForm cart={cart} />}
     </div>
   );
 };

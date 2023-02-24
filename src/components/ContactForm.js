@@ -3,22 +3,13 @@ import emailjs from "@emailjs/browser";
 import { Link } from "react-router-dom";
 import Spinner from "./UI components/Spinner";
 
-function ContactForm({ pdf, cart }) {
+function ContactForm({ cart }) {
   const form = useRef();
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const [isSent, setIsSent] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-
-  console.log(pdf);
-
-  const attachment = {
-    name: "invoice.pdf",
-    data: pdf.toString("base64"),
-    type: "invoice/pdf",
-  };
-  console.log(attachment);
 
   const sendEmail = (e) => {
     e.preventDefault();
