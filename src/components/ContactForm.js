@@ -45,7 +45,6 @@ function ContactForm({ cart }) {
         {isLoading && <Spinner />}
       </div>
       <div>
-        {/* code for email form goes here */}
         {isSent && (
           <div className="fixed inset-0 bg-gray-500 bg-opacity-75 flex justify-center items-center">
             <div className="flex justify-center items-center bg-white rounded-md px-4 py-2">
@@ -114,7 +113,6 @@ function ContactForm({ cart }) {
         />
       </div>
       <div>
-        {/* <input type="hidden" name="pdf" value={pdf} /> */}
         <textarea
           name="pdf"
           className="p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
@@ -122,8 +120,9 @@ function ContactForm({ cart }) {
           value={cart
             .map(
               (product) =>
-                `${product.title} - ${product.amount} x ${product.price}`
+                `პროდუქტის დასახელება :${product.title} რაოდენობა: ${product.amount} ფასი: ${product.price} `
             )
+
             .join("\n")}
           readOnly
         />
