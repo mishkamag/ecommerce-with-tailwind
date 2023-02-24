@@ -34,37 +34,38 @@ const Invoice = () => {
         </div>
       </header>
 
-      <table
-        ref={componentRef}
-        className="w-full text-left bg-white  rounded-lg shadow-md max-h-[300px] lg:max-h-[330px] overflow-y-auto overflow-x-hidden"
-      >
-        <thead>
-          <tr className="text-sm font-medium text-white uppercase border bg-[#008ECC]  ">
-            <th className="py-3 px-4">Title</th>
-            <th className="py-3 px-4">Image</th>
-            <th className="py-3 px-4">Amount</th>
-            <th className="py-3 px-4">Price</th>
-          </tr>
-        </thead>
-        <tbody>
-          {cart.map((item, index) => (
-            <tr key={index} className="text-sm text-gray-700">
-              <td className="py-3 px-4 border font-semibold">{item.title}</td>
-              <td className="py-3 px-4 border">
-                <img
-                  src={item.image}
-                  alt={item.title}
-                  className="w-16 h-16 object-cover rounded-full"
-                />
-              </td>
-              <td className="py-3 px-4 border font-semibold">{item.amount}</td>
-              <td className="py-3 px-4 border font-bold">{`$ ${(
-                item.price * item.amount
-              ).toFixed(2)}`}</td>
+      <div className="text-left bg-white  rounded-lg shadow-md max-h-[300px] lg:max-h-[330px] overflow-y-scroll overflow-x-hidden">
+        <table ref={componentRef} className="w-full ">
+          <thead>
+            <tr className="text-sm font-medium text-white uppercase border bg-[#008ECC]  ">
+              <th className="py-3 px-4">Title</th>
+              <th className="py-3 px-4">Image</th>
+              <th className="py-3 px-4">Amount</th>
+              <th className="py-3 px-4">Price</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {cart.map((item, index) => (
+              <tr key={index} className="text-sm text-gray-700">
+                <td className="py-3 px-4 border font-semibold">{item.title}</td>
+                <td className="py-3 px-4 border">
+                  <img
+                    src={item.image}
+                    alt={item.title}
+                    className="w-16 h-16 object-cover rounded-full"
+                  />
+                </td>
+                <td className="py-3 px-4 border font-semibold">
+                  {item.amount}
+                </td>
+                <td className="py-3 px-4 border font-bold">{`$ ${(
+                  item.price * item.amount
+                ).toFixed(2)}`}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
 
       <div className="flex w-full justify-between">
         <div className="  bg-[#008ECC] text-white font-bold py-2 px-12 rounded   mt-4">

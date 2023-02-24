@@ -68,7 +68,7 @@ function ContactForm({ cart }) {
         )}
       </div>
 
-      <div className="mb-4">
+      <div className="mb-4 ">
         <label className="block text-gray-700 font-bold mb-2" htmlFor="name">
           Name
         </label>
@@ -115,7 +115,7 @@ function ContactForm({ cart }) {
       <div>
         <textarea
           name="pdf"
-          className="p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          className="hidden"
           rows={cart.length + 1}
           value={cart
             .map(
