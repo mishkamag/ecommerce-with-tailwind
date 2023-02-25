@@ -10,6 +10,10 @@ module.exports = {
       gridRow: {
         "span-10": "span 10 / span 10",
       },
+      colors: {
+        "btn-bg": "rgb(125 211 252)",
+        "btn-hover": "rgb(56 189 248)",
+      },
     },
     screens: {
       sm: "640px",
