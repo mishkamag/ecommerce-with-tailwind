@@ -59,7 +59,7 @@ const ChangePassword = () => {
         validateOnBlur={false}
       >
         {({ isSubmitting, values }) => (
-          <Form className="max-w-fit">
+          <Form className="max-w-fit px-6">
             <h1 className="text-xl mb-4">Change Password</h1>
             {requiresRecentLogin ? (
               <RequiresRecentLogin
@@ -68,12 +68,6 @@ const ChangePassword = () => {
                 setRequiresRecentLogin={setRequiresRecentLogin}
               />
             ) : null}
-            {/* <FieldComponent
-          label="Current Password"
-          type="password"
-          name="currentPassword"
-          placeholder="Enter Current Password"
-        /> */}
             <FieldComponent
               label="New Password"
               type="password"
@@ -86,7 +80,11 @@ const ChangePassword = () => {
               name="confirmNewPassword"
               placeholder="Enter Current Password"
             />
-            <button type="submit" disabled={isSubmitting}>
+            <button
+              className="bg-btn-bg hover:bg-btn-hover py-1 px-3 rounded-lg duration-100"
+              type="submit"
+              disabled={isSubmitting}
+            >
               Submit
             </button>
           </Form>

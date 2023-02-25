@@ -11,10 +11,10 @@ const ItemDetails = () => {
       <div className="h-[90%] w-full flex flex-col justify-center items-around bg-gray-50 rounded-b-xl ">
         <div className="h-[90%] w-full flex justify-around ">
           <div className="w-1/3 h-[100%] flex flex-col justify-between">
-            <div className="w-full h-[78%] pb-2 border-2 border-gray-300 border-dashed">
+            <div className="w-full h-[78%] pb-2">
               <img
                 src={selectedItem.image}
-                className="w-full h-auto max-h-fit "
+                className="w-full h-auto max-h-full"
                 alt={selectedItem.title}
               />
             </div>

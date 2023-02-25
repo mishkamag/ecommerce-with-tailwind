@@ -72,8 +72,11 @@ export const AddNewItemToDb = async (
   setSubmitting,
   resetForm,
   setIsAdded,
-  setError
+  setError,
+  setIsLoading
 ) => {
+  setSubmitting(true);
+  setIsLoading(true);
   return Promise.all(
     imagesArray.map((image, index) => {
       if (image) {
@@ -87,7 +90,7 @@ export const AddNewItemToDb = async (
       return null;
     })
   ).then(async (urls) => {
-    const updatedNewItem = { ...values, image: urls };
+    const updatedNewItem = { ...values, image: urls, id: values.title };
     const newItemRef = doc(db, "ecommerce", updatedNewItem.category);
 
     await updateDoc(newItemRef, {

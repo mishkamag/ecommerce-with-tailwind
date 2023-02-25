@@ -1,9 +1,14 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 const ListPagination = ({ numberOfItems, currentPage, setCurrentPage }) => {
+  const [prevBtnStyle, setPrevBtnStyle] = useState("");
+  const [nextBtnStyle, setNextBtnStyle] = useState("");
   const totalPages = Math.ceil(numberOfItems / 10);
 
-  const renderButton = () => {
+  const activeStyle =
+    "cursor-pointer text-gray-900 duration-100 hover:scale-105";
+
+  /* const renderButton = () => {
     if (currentPage === 1 && totalPages > 1) {
       return (
         <div className="w-1/2 flex justify-start">
@@ -24,7 +29,19 @@ const ListPagination = ({ numberOfItems, currentPage, setCurrentPage }) => {
         </div>
       );
     }
-  };
+  }; */
+  useEffect(() => {
+    if (currentPage === 1 && totalPages > 1) {
+      setNextBtnStyle(activeStyle);
+      setPrevBtnStyle("");
+    } else if (currentPage < totalPages) {
+      setPrevBtnStyle(activeStyle);
+      setNextBtnStyle(activeStyle);
+    } else if (currentPage === totalPages && currentPage > 1) {
+      setPrevBtnStyle(activeStyle);
+      setNextBtnStyle("");
+    }
+  }, [currentPage]);
 
   const nextHandler = () => {
     setCurrentPage((prev) => prev + 1);
@@ -48,7 +65,22 @@ const ListPagination = ({ numberOfItems, currentPage, setCurrentPage }) => {
           <div className="w-1/2">
             <p>{`${currentPage} of ${totalPages} pages`}</p>
           </div>
-          {renderButton()}
+          <div className="w-1/2 flex justify-between">
+            <button
+              className={prevBtnStyle}
+              onClick={prevHandler}
+              disabled={prevBtnStyle ? false : true}
+            >
+              {"<"} Prev
+            </button>
+            <button
+              className={nextBtnStyle}
+              onClick={nextHandler}
+              disabled={nextBtnStyle ? false : true}
+            >
+              Next {">"}
+            </button>
+          </div>
         </div>
       </div>
     </div>

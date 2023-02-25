@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import FieldComponent from "./FieldComponent";
@@ -7,6 +7,7 @@ import IsLoading from "../../../UI components/IsLoading";
 import AdminBoxHeader from "../../../UI components/AdminBoxHeader";
 import ImageSection from "./ImageSection";
 import { AddNewItemToDb } from "../../../../Helpers/functions";
+import AdminPageContext from "../../../../store/AdminPageContext";
 
 const initialValues = {
   title: "",
@@ -23,10 +24,12 @@ const validationSchema = Yup.object().shape({
 });
 
 const AddItem = ({ categorys }) => {
-  const [imagesForDb, setImagesForDb] = useState([null, null, null, null]);
   const [isLoading, setIsLoading] = useState(false);
   const [isAdded, setIsAdded] = useState(false);
   const [err, setErr] = useState(null);
+
+  const { imagesForDb, setImagesForDb, resetSelectedImages } =
+    useContext(AdminPageContext);
 
   return (
     <div className="relative h-full w-full">
@@ -52,51 +55,48 @@ const AddItem = ({ categorys }) => {
             setSubmitting,
             resetForm,
             setIsAdded,
-            setErr
+            setErr,
+            setIsLoading
           );
+          resetSelectedImages();
         }}
         validateOnBlur={false}
         validateOnChange={false}
       >
-        {({ isSubmitting, handleChange, values }) => (
+        {({ isSubmitting, handleChange, values, handleSubmit }) => (
           <Form className="h-[90%] w-full flex flex-col justify-between items-center py-4 bg-gray-50">
             <div className="h-[90%] w-full flex justify-around ">
               <div className="w-2/5 h-full  grid grid-rows-4 gap-2">
-                {/* {initialValues.image.map((item, index) => (
-                  <ImageSection
-                    key={uniqid()}
-                    index={index}
-                    values={values}
-                    handleChange={handleChange}
-                    setImagesForDb={setImagesForDb}
-                  />
-                ))} */}
                 <ImageSection
                   index={0}
                   values={values}
                   handleChange={handleChange}
                   setImagesForDb={setImagesForDb}
+                  handleSubmit={handleSubmit}
                 />
                 <ImageSection
                   index={1}
                   values={values}
                   handleChange={handleChange}
                   setImagesForDb={setImagesForDb}
+                  handleSubmit={handleSubmit}
                 />
                 <ImageSection
                   index={2}
                   values={values}
                   handleChange={handleChange}
                   setImagesForDb={setImagesForDb}
+                  handleSubmit={handleSubmit}
                 />
                 <ImageSection
                   index={3}
                   values={values}
                   handleChange={handleChange}
                   setImagesForDb={setImagesForDb}
+                  handleSubmit={handleSubmit}
                 />
               </div>
-              <div className="w-1/3 h-full border-2 border-red-500">
+              <div className="w-1/3 h-full">
                 <FieldComponent
                   label="Title"
                   type="text"
@@ -127,7 +127,7 @@ const AddItem = ({ categorys }) => {
             <button
               className="bg-blue-500 hover:bg-blue-700 text-white px-4 rounded-lg max-w-min "
               type="submit"
-              disabled={isSubmitting}
+              /* disabled={isSubmitting} */
             >
               Submit
             </button>

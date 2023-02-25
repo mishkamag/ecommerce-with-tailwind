@@ -1,26 +1,21 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { BsImages } from "react-icons/bs";
 import ImageField from "./ImageField";
 import uniqid from "uniqid";
+import AdminPageContext from "../../../../store/AdminPageContext";
 
-const ImageSection = ({ index, values, handleChange, setImagesForDb }) => {
-  const [selectedImage, setSelectedImage] = useState(null);
+const ImageSection = ({ index, values, handleChange }) => {
+  const { imagesForDb } = useContext(AdminPageContext);
 
   return (
     <div className=" flex">
       <div className="w-1/2 px-4 h-full">
-        <ImageField
-          index={index}
-          values={values}
-          handleChange={handleChange}
-          setSelectedImage={setSelectedImage}
-          setImagesForDb={setImagesForDb}
-        />
+        <ImageField index={index} values={values} handleChange={handleChange} />
       </div>
       <div className="w-1/2 px-4 h-full">
-        {selectedImage ? (
+        {imagesForDb[index] ? (
           <img
-            src={URL.createObjectURL(selectedImage)}
+            src={URL.createObjectURL(imagesForDb[index])}
             className="object-fill w-auto h-full py-4"
             alt="noimage"
           />
