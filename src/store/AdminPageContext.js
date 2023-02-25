@@ -3,13 +3,17 @@ import React, { useState } from "react";
 const AdminPageContext = React.createContext({
   mainBoxSrc: "",
   selectedItem: {},
+  imagesForDb: [],
   selectItem: () => {},
   changeBoxSrc: () => {},
+  hanldeImageInputChange: () => {},
+  resetSelectedImages: () => {},
 });
 
 export const AdminPageContextProvider = (props) => {
   const [mainBoxSrc, setmainBoxSrc] = useState("products");
   const [selectedItem, setSelectedItem] = useState({});
+  const [imagesForDb, setImagesForDb] = useState([null, null, null, null]);
 
   const changeBoxSrc = (src) => {
     setmainBoxSrc(src);
@@ -19,11 +23,26 @@ export const AdminPageContextProvider = (props) => {
     setSelectedItem(item);
   };
 
+  const hanldeImageInputChange = (item, index) => {
+    setImagesForDb((prev) => {
+      const updatedArray = [...prev];
+      updatedArray[index] = item;
+      return updatedArray;
+    });
+  };
+
+  const resetSelectedImages = () => {
+    setImagesForDb([null, null, null, null]);
+  };
+
   const contextValue = {
-    mainBoxSrc: mainBoxSrc,
-    selectedItem: selectedItem,
+    mainBoxSrc,
+    selectedItem,
     selectItem: seletcItem,
-    changeBoxSrc: changeBoxSrc,
+    changeBoxSrc,
+    imagesForDb,
+    hanldeImageInputChange,
+    resetSelectedImages,
   };
 
   return (
