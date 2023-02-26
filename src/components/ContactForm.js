@@ -3,7 +3,7 @@ import emailjs from "@emailjs/browser";
 import { Link } from "react-router-dom";
 import Spinner from "./UI components/Spinner";
 
-function ContactForm({ cart }) {
+function ContactForm({ cart, setForm }) {
   const form = useRef();
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
@@ -145,6 +145,15 @@ function ContactForm({ cart }) {
               type="submit"
             >
               Submit
+            </button>
+            <button
+              onClick={() => {
+                setForm(false);
+              }}
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              type="submit"
+            >
+              Cancel
             </button>
           </div>
         </form>

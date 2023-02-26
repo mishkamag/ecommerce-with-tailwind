@@ -80,7 +80,7 @@ const Invoice = () => {
           </button>
         </div>
       </div>
-      {form && <ContactForm cart={cart} />}
+      {form && <ContactForm cart={cart} setForm={setForm} />}
     </div>
   );
 };
