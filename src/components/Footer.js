@@ -34,10 +34,13 @@ const Footer = () => {
         </div>
         <div>
           <h6 className="font-bold py-4 text-xl">გამოგვყევი</h6>
-          <div className="flex items-center gap-3 cursor-pointer">
-            <FaFacebook />
-            <p>facebook</p>
-          </div>
+          <a
+            href="https://www.facebook.com/mishka.maglaperidze.5/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <FaFacebook className="text-blue-500 hover:text-blue-700" />
+          </a>
           <div className="flex items-center gap-3 cursor-pointer">
             <FaInstagram />
             <p>instagram</p>
