@@ -1,5 +1,4 @@
 import React, { createContext, useEffect, useState } from "react";
-import axios from "axios";
 import { fetchData } from "../Helpers/functions";
 
 export const ProductContext = createContext();
@@ -8,23 +7,25 @@ const ProductProvider = (props) => {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    /* async function fetchData() {
-      try {
-        const response = await axios.get("https://fakestoreapi.com/products");
-        const data = response.data;
-        setProducts(data);
-      } catch (error) {
-        console.error(error);
-      }
-    }
-    fetchData(); */
-
     fetchData("ecommerce", setProducts);
   }, []);
 
   console.log(products);
 
-  /*
+  const categoryFilter = (category) => {
+    return products.filter((item) => item.category === category);
+  };
+
+  return (
+    <ProductContext.Provider value={{ products, categoryFilter }}>
+      {props.children}
+    </ProductContext.Provider>
+  );
+};
+
+export default ProductProvider;
+
+/*
   export const fetchData = async (database, setIsLoading, setAllProducts) => {
   setIsLoading(true);
   try {
@@ -43,15 +44,13 @@ const ProductProvider = (props) => {
 };
  */
 
-  const categoryFilter = (category) => {
-    return products.filter((item) => item.category === category);
-  };
-
-  return (
-    <ProductContext.Provider value={{ products, categoryFilter }}>
-      {props.children}
-    </ProductContext.Provider>
-  );
-};
-
-export default ProductProvider;
+/* async function fetchData() {
+      try {
+        const response = await axios.get("https://fakestoreapi.com/products");
+        const data = response.data;
+        setProducts(data);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    fetchData(); */
