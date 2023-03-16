@@ -1,5 +1,6 @@
 import React, { createContext, useEffect, useState } from "react";
-import { fetchData } from "../Helpers/functions";
+import axios from "axios";
+// import { fetchData } from "../Helpers/functions";
 
 export const ProductContext = createContext();
 
@@ -7,7 +8,16 @@ const ProductProvider = (props) => {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    fetchData("ecommerce", setProducts);
+    async function fetchData() {
+      try {
+        const response = await axios.get("https://fakestoreapi.com/products");
+        const data = response.data;
+        setProducts(data);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    fetchData();
   }, []);
 
   console.log(products);

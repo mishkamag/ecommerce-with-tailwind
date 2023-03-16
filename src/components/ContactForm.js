@@ -139,7 +139,7 @@ function ContactForm({ cart, setForm }) {
             />
           </div>
 
-          <div className="flex items-center justify-center">
+          <div className="flex items-center justify-center gap-2">
             <button
               className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
               type="submit"
@@ -150,7 +150,7 @@ function ContactForm({ cart, setForm }) {
               onClick={() => {
                 setForm(false);
               }}
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              className="bg-blue-500 hover:bg-red-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
               type="submit"
             >
               Cancel
