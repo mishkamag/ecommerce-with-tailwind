@@ -3,12 +3,7 @@ import React from "react";
 import uniqid from "uniqid";
 
 const SelectField = ({ label, name, placeholder }) => {
-  const categorys = [
-    "electronics",
-    "jewelery",
-    "men's clothing",
-    "women's clothing",
-  ];
+  const categorys = ["lights", "watches"];
   const renderSelectOptions = (categorys) => {
     return categorys.map((category) => (
       <option key={uniqid()} value={category}>

@@ -9,6 +9,7 @@ import {
 } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { db, storage } from "../firebase.config";
+import uniqid from "uniqid";
 
 export const filterPdoructsBySearchValue = (searchValue, products) => {
   const updatedProducts = products.filter((product) => {
@@ -90,7 +91,7 @@ export const AddNewItemToDb = async (
       return null;
     })
   ).then(async (urls) => {
-    const updatedNewItem = { ...values, image: urls, id: values.title };
+    const updatedNewItem = { ...values, image: urls, id: uniqid() };
     const newItemRef = doc(db, "ecommerce", updatedNewItem.category);
 
     await updateDoc(newItemRef, {
@@ -114,7 +115,7 @@ export const AddNewPromotionToDb = async (
 ) => {
   const newItemRef = doc(db, "offers", updatedItem.status);
   await updateDoc(newItemRef, {
-    data: arrayUnion(updatedItem),
+    data: arrayUnion({ ...updatedItem, id: uniqid() }),
   })
     .then(() => {
       setIsAdded(true);

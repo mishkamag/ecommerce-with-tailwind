@@ -2,9 +2,10 @@ import React, { useContext } from "react";
 import AdminPageContext from "../../../../store/AdminPageContext";
 import AdminBoxHeader from "../../../UI components/AdminBoxHeader";
 import Detal from "./Detal";
-
+import uniqid from "uniqid";
 const ItemDetails = () => {
   const { selectedItem } = useContext(AdminPageContext);
+
   return (
     <>
       <AdminBoxHeader>{selectedItem.title}</AdminBoxHeader>
@@ -13,27 +14,26 @@ const ItemDetails = () => {
           <div className="w-1/3 h-[100%] flex flex-col justify-between">
             <div className="w-full h-[78%] pb-2">
               <img
-                src={selectedItem.image}
+                src={selectedItem.image[0]}
                 className="w-full h-auto max-h-full"
                 alt={selectedItem.title}
               />
             </div>
             <div className="h-1/5 w-full flex grig grid-cols-3 gap-4 overflow-x-scroll ">
-              <img
-                src={selectedItem.image}
-                className="object-fill w-auto h-full"
-                alt={selectedItem.title}
-              />
-              <img
-                src={selectedItem.image}
-                className="object-fill w-auto h-full"
-                alt={selectedItem.title}
-              />
-              <img
-                src={selectedItem.image}
-                className="object-fill w-auto h-full"
-                alt={selectedItem.title}
-              />
+              {selectedItem.image.map((image, index) => {
+                if (index !== 0 && image) {
+                  return (
+                    <img
+                      key={uniqid()}
+                      src={image}
+                      className="object-fill w-auto h-full"
+                      alt={selectedItem.title}
+                    />
+                  );
+                } else if ((index !== 0) & !image) {
+                  return <p>No Image</p>;
+                }
+              })}
             </div>
           </div>
           <div className="w-1/3 h-full  ">
