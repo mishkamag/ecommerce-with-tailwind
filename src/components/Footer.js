@@ -9,7 +9,6 @@ import {
   FaMailBulk,
   FaPhoneSquareAlt,
 } from "react-icons/fa";
-// import GoogleMap from "./GoogleMap";
 
 const Footer = () => {
   return (
@@ -35,14 +34,26 @@ const Footer = () => {
         </div>
         <div>
           <h6 className="font-bold py-4 text-xl">გამოგვყევი</h6>
-          <div className="flex items-center gap-3 cursor-pointer">
-            <FaFacebook />
-            <p>facebook</p>
-          </div>
-          <div className="flex items-center gap-3 cursor-pointer">
-            <FaInstagram />
-            <p>instagram</p>
-          </div>
+          <a
+            className="flex items-center gap-2"
+            href="https://www.facebook.com/mishka.maglaperidze.5/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <FaFacebook className="text-blue-500 hover:text-blue-700" />
+            Facebook
+          </a>
+
+          <a
+            className="flex items-center gap-2"
+            href="https://www.instagram.com/mishkamaglaperidze/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <FaInstagram className="text-orange-500 hover:text-orange-700" />
+            Instagram
+          </a>
+
           <div className="flex items-center gap-3 cursor-pointer">
             <FaTwitter />
             <p>twitter</p>
@@ -69,15 +80,7 @@ const Footer = () => {
         </div>
         <div>
           <h6 className="font-bold py-4 text-xl">მისამართი</h6>
-          {/* <div>
-            <GoogleMap />
-          </div> */}
-          {/* IT HAS BUG */}
         </div>
-      </div>
-
-      <div className="container flex justify-center items-center  text-xl">
-        <p className="py-4">2023 created by: S.Lomtadze and M.Maglaperidze</p>
       </div>
     </div>
   );

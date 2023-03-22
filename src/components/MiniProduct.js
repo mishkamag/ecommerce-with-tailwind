@@ -17,7 +17,7 @@ const MiniProduct = ({ product, setSearchTerm }) => {
           <div className="flex justify-between items-center py-2 hover:underline ">
             <div className="w-[85%]">{title}</div>
             <div>
-              <img className="w-[50px] h-auto" src={image} alt="" />
+              <img className="w-[50px] h-auto" src={image} alt={title} />
             </div>
           </div>
         </Link>
