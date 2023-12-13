@@ -5,7 +5,6 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import SideBar from "./components/Sidebar";
 import CategoryDetails from "./pages/CategoryDetails";
-import { AuthContextProvider } from "./store/AuthContext";
 import Invoice from "./pages/Invoice";
 import NotFoundPage from "./pages/NotFoundPage";
 
@@ -22,38 +21,36 @@ function App() {
   return (
     <div className="overflow-hidden">
       <Router>
-        <AuthContextProvider>
-          <Routes>
-            <Route
-              path="/"
-              element={
-                <AppLayout>
-                  <Home />
-                </AppLayout>
-              }
-            />
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <AppLayout>
+                <Home />
+              </AppLayout>
+            }
+          />
 
-            <Route path="/invoice" element={<Invoice />} />
-            <Route
-              path="/product/:id"
-              element={
-                <AppLayout>
-                  <ProductDetails />
-                </AppLayout>
-              }
-            />
-            <Route
-              path="/category/:category"
-              element={
-                <AppLayout>
-                  <CategoryDetails />
-                </AppLayout>
-              }
-            />
+          <Route path="/invoice" element={<Invoice />} />
+          <Route
+            path="/product/:id"
+            element={
+              <AppLayout>
+                <ProductDetails />
+              </AppLayout>
+            }
+          />
+          <Route
+            path="/category/:category"
+            element={
+              <AppLayout>
+                <CategoryDetails />
+              </AppLayout>
+            }
+          />
 
-            <Route path="*" element={<NotFoundPage />} />
-          </Routes>
-        </AuthContextProvider>
+          <Route path="*" element={<NotFoundPage />} />
+        </Routes>
       </Router>
     </div>
   );
