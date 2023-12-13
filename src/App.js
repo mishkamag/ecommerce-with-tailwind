@@ -6,13 +6,8 @@ import Footer from "./components/Footer";
 import SideBar from "./components/Sidebar";
 import CategoryDetails from "./pages/CategoryDetails";
 import { AuthContextProvider } from "./store/AuthContext";
-import AdminAuth from "./pages/AdminAuth";
-import ProtectedRoute from "./components/ProtectedRoute";
-import AdminHomePage from "./pages/AdminHomePage";
 import Invoice from "./pages/Invoice";
-import { AdminPageContextProvider } from "./store/AdminPageContext";
 import NotFoundPage from "./pages/NotFoundPage";
-
 
 const AppLayout = ({ children }) => (
   <div className="overflow-hidden">
@@ -21,10 +16,6 @@ const AppLayout = ({ children }) => (
     <SideBar />
     <Footer />
   </div>
-);
-
-const AdminLayout = ({ children }) => (
-  <div className="overflow-hidden">{children}</div>
 );
 
 function App() {
@@ -57,28 +48,6 @@ function App() {
                 <AppLayout>
                   <CategoryDetails />
                 </AppLayout>
-              }
-            />
-
-            <Route
-              path="/admin/authentication"
-              element={
-                <AdminLayout>
-                  <AdminAuth />
-                </AdminLayout>
-              }
-            />
-
-            <Route
-              path="/admin/home"
-              element={
-                <ProtectedRoute>
-                  <AdminLayout>
-                    <AdminPageContextProvider>
-                      <AdminHomePage />
-                    </AdminPageContextProvider>
-                  </AdminLayout>
-                </ProtectedRoute>
               }
             />
 
